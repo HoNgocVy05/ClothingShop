@@ -1,0 +1,25 @@
+.footer {
+    display: flex;
+    flex-wrap: wrap;   
+    align-items: center;
+    justify-content: space-between;
+    border-top: solid 20px #dedede; 
+    border-bottom: solid 20px #dedede; 
+}
+.footer-logo {
+    width: 200px;
+    height: 200px;
+    margin: 50px 0 50px 50px;
+}
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 50px;
+    border-left: solid 1px #000000;
+    padding-left: 50px;
+    text-align: justify;
+}
+.fa-map-location-dot, .fa-envelope, .fa-phone {
+    margin-right: 10px;
+}
