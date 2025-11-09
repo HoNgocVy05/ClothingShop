@@ -1,3 +1,4 @@
+//sticky navbar
 const navbar = document.querySelector('.navbar');
 const stickyOffset = navbar.offsetTop;
 
@@ -8,4 +9,3 @@ window.addEventListener('scroll', () => {
     navbar.classList.remove('fixed');
   }
 });
-  
