@@ -1,3 +1,4 @@
+/* header   */
 .header {
     display: flex;
     flex-wrap: wrap; 
@@ -25,7 +26,7 @@
     flex: 1;
 }
 .search-btn {
-  background-color: #9f9f9f;
+  background-color: var(--primary-color);
   border: none;
   padding: 8px 12px;
   cursor: pointer;
@@ -42,7 +43,7 @@
     position: relative;
 }
 .cart-btn:hover, .user-btn:hover {
-    color: #9f9f9f ;
+    color: var(--primary-color) ;
 }
 .user-btn {
     margin-right: 50px;
@@ -57,10 +58,7 @@
     border-radius: 25px;
     color: #ffffff;
     background-color: #ff0000;
-    padding: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 3px;   
 }
 /* user dropdown */
 .user-dropdown {
@@ -77,10 +75,10 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .user-dropdown-content a:hover {
-    background-color: #9f9f9f;
+    background-color: var(--primary-color);
 }
 .user-dropdown-content a {
-    text-decoration: none;
+    /* text-decoration: none; */
     display: block;
     padding: 8px 12px;
     color: #000000;
@@ -92,27 +90,27 @@
 /* navbar */
 
 .navbar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 200px;
-  background-color: #fff;
-  transition: top 0.3s;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 200px;
+    background-color: #fff;
+    transition: top 0.3s;
 }
 .navbar.fixed {
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 .navbar a {
-    text-decoration: none;
+    /* text-decoration: none; */
     color: #000000;
     font-weight: 500;   
 }
 .navbar a:hover {
-    color: #9f9f9f;
+    color: var(--primary-color);
 }
 .fa-chevron-down {
     color:#918f8f;
@@ -136,14 +134,14 @@
   z-index: 1000;
 }
 .catalog-dropdown-content a {
-    text-decoration: none;
+    /* text-decoration: none; */
     color: #000000;
     padding: 5px 0;
     display: block;
     white-space: nowrap;
 }
 .catalog-dropdown-content a:hover {
-    color: #9f9f9f;
+    color: var(--primary-color);
 }     
 .catalog-dropdown-col .parent {
     font-weight: bold;
@@ -173,7 +171,7 @@
     overflow: hidden;
 }
 .breadcrumb a {
-    text-decoration: none;  
+    /* text-decoration: none;   */
     color: #000000;
     display: inline-flex; 
     align-items: center;

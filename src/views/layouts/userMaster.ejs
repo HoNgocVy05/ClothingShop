@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
     <!-- css     -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" /> <!-- carousel -->
+    <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/userHeader.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <!-- js  -->
-    <script src="/js/navScroll.js" defer></script>
+    <link rel="stylesheet" href="/css/carousel.css">
 </head>
 
 <body>
@@ -19,13 +23,18 @@
 
     <%- include('../partials/breadcumb') %>
 
-    <main>
-        <%- body %>
-    </main>
+        <main>
+            <%- body %>
+        </main>
 
-    <footer>
-        <%- include('../partials/footer') %>
-    </footer>
+        <footer>
+            <%- include('../partials/footer') %>
+        </footer>
 </body>
+
+<!-- js  -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script> <!-- carousel -->
+<script src="/js/navScroll.js"></script>
+<script src="/js/carousel.js"></script>
 
 </html>
