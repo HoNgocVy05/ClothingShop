@@ -1,0 +1,101 @@
+.search-result-page {
+    background: #fff;
+}
+
+.search-result-title {
+    font: 400 36px/1.2 system-ui;
+    color: #000;
+    letter-spacing: -0.5px;
+}
+
+.search-result-count {
+    font-size: 20px;
+    color: #6F6F6F;
+}
+
+.product-list {
+    padding:  0 0 0 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 20px;
+    max-width: 1600px;
+}
+
+/* Không có kết quả */
+.empty-title {
+    font: 400 36px/1.2 system-ui;
+    color: #000;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+}
+
+.empty-title .search-keyword { 
+    font-weight: 600;
+}
+.empty-desc {
+    font-size: 20px;
+    color: #6F6F6F;
+}
+
+/*Nút sắp xếp*/
+.sort-form {
+    margin-bottom: -45px;  
+}
+
+.sort-select {
+  width: 212px;
+  height: 42px;
+  padding: 0 48px 0 12px;
+  font-size: 18px;
+  border: 1px solid #000;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* chervon-down */
+  background-image: url("data:image/svg+xml;utf8,<svg width='32' height='32' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='8 12 16 20 24 12'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  background-position: right 8px center;
+}
+
+.load-more-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.load-more-btn {
+  background: #fff;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #6F6F6F;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.load-more-btn:hover {
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .product-list { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .search-result-page { padding: 40px 20px 100px; }
+    .product-list { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    /* Đồng bộ */
+    .search-result-title,
+    .empty-title { font-size: 28px; }
+}

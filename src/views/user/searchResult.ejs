@@ -1,0 +1,44 @@
+<main class="search-result-page">
+
+  <% if (products && products.length > 0) { %>
+    <div class="search-header-bar">
+      <div class="search-result-header">
+        <h1 class="search-result-title">
+          Kết quả tìm kiếm cho "<span class="search-keyword"><%= searchQuery %></span>"
+        </h1>
+        <p class="search-result-count"><%= products.length %> sản phẩm</p>
+      </div>
+
+      <div class="sort-form">
+        <select class="sort-select">
+          <option value="">Sắp xếp theo</option>
+          <option value="newest">Mới nhất</option>
+          <option value="price-asc">Giá tăng dần</option>
+          <option value="price-desc">Giá giảm dần</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-list">
+      <% products.forEach(product => { %>
+        <div class="product-item">
+          <%- include('../partials/productCard', { product }) %>
+        </div>
+      <% }) %>
+    </div>
+    
+  <% } else { %>
+    <div class="search-empty-state">
+      <h1 class="empty-title">
+        Không tìm thấy sản phẩm nào cho "<span class="search-keyword"><%= searchQuery %></span>"
+      </h1>
+      <p class="empty-desc">Thử tìm với từ khóa khác nhé!</p>
+    </div>
+  <% } %>
+  <!--Nút xem thêm-->
+  <div class="load-more-container">
+  <button class="load-more-btn" onclick="showMoreProducts()">
+    Xem thêm
+  </button>
+</div>
+</main>
