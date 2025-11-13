@@ -13,28 +13,19 @@
     color: #6F6F6F;
 }
 
-.product-list {
-    padding:  0 0 0 300px;
+.search-product-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 20px;
-    max-width: 1600px;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px 20px;                        
+    justify-content: start;                 
+    max-width: 1200px;    
+    padding: 0 0 0 300px;                       
 }
 
-/* Không có kết quả */
-.empty-title {
-    font: 400 36px/1.2 system-ui;
-    color: #000;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-}
-
-.empty-title .search-keyword { 
-    font-weight: 600;
-}
-.empty-desc {
-    font-size: 20px;
-    color: #6F6F6F;
+.regular-price {
+    color: black;
+    text-decoration: underline;
+    text-align: center;
 }
 
 /*Nút sắp xếp*/
@@ -66,10 +57,10 @@
 
 .load-more-container{
     display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
+    justify-content: flex-end; 
+    margin-top: 20px; 
 }
-
+   
 .load-more-btn {
   background: #fff;
   border: none;
@@ -84,18 +75,4 @@
 
 .load-more-btn:hover {
   font-weight: 500;
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-    .product-list { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 768px) {
-    .search-result-page { padding: 40px 20px 100px; }
-    .product-list { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-
-    /* Đồng bộ */
-    .search-result-title,
-    .empty-title { font-size: 28px; }
 }
