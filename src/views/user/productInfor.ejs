@@ -1,0 +1,72 @@
+<main class="product-infor-page">
+  <div class="product-wrapper">
+    <!-- Hình ảnh sản phẩm -->
+    <div class="product-image">
+      <img src="/images/ao-lumi-main.png" alt="Áo Lumi" />
+        <button class="nav-arrow next" onclick="changeSlide(1)">&gt;</button>
+      <div class="thumbnails">
+        <img src="/images/ao-lumi-1.png" alt="Thumb 1" />
+        <img src="/images/ao-lumi-2.png" alt="Model 1" />
+        <img src="/images/ao-lumi-3.png" alt="Model 2" />
+      </div>
+    </div>
+
+    <!-- Thông tin sản phẩm -->
+    <div class="product-info">
+      <h1 class="product-title">Áo Lumi</h1>
+    <div class="product-infor-price">290.000đ</div>
+      <hr class="price-divider">
+
+      <!-- Chọn size -->
+      <div class="size-options">
+        <label>Size</label>
+        <div>
+          <button class="size-btn selected">S</button>
+          <button class="size-btn">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+        </div>
+      </div>
+
+    <!-- Số lượng -->
+      <div class="quantity">
+        <label>Số lượng</label>
+        <div class="quantity-controls">
+          <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+          <input type="text" class="quantity-input" value="1" id="quantity" readonly />
+          <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+          <span class="stock-info">(còn 25 sản phẩm)</span>
+        </div>
+      </div>
+
+      <!-- Nút hành động -->
+      <div class="actions">
+        <button class="btn btn-cart"> 
+          <i class="fa-solid fa-cart-shopping cart-icon"></i>Thêm vào giỏ hàng
+        </button>
+        <button class="btn btn-buy">MUA NGAY</button>
+      </div>
+
+      <!-- MÔ TẢ SẢN PHẨM -->
+      <div class="dropdown-box">
+        <div class="dropdown-description" onclick="toggleDropdown('desc')">
+          <div class="icon-text">
+          <i class="fa-solid fa-circle-exclamation"></i> Mô tả sản phẩm
+          </div>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- GIAO HÀNG -->
+      <div class="dropdown-box">
+        <div class="dropdown-shipping" onclick="toggleDropdown('shipping')">
+          <div class="icon-text">
+          <i class="fa-solid fa-truck-fast truck-icon"></i> Thời gian nhận hàng
+          </div>
+        <span class="arrow">▼</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
