@@ -1,0 +1,103 @@
+.tag-group {
+    display: flex;
+    align-items:last baseline;
+    margin-top: -15px;
+}
+.tag-child {
+    display: flex;
+    font-weight: bold;
+    font-size: 1rem;
+    gap: 30px;
+    margin-left: 10px;
+    color: #e8e8e8; 
+}
+.product-page {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin-left: 10px;
+    gap: 10px;
+}
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+/* bộ lọc  */
+#filter-tag {
+    display: flex;
+    align-items: last baseline;
+    gap: 10px;
+}
+#filter-tag h2 {
+    margin: 10px 0;
+}
+.filter {
+    background-color: #e7e7e7;
+    padding-left: 10px;  
+    padding-right: 10px;  
+    border-radius: 5px;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.filter .fa-chevron-down {
+    margin-left: auto;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+    color: black;
+}
+.filter-title {
+    position: relative;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    text-wrap: nowrap;
+}
+.filter-row hr {
+    background-color: #918f8f;
+    height: 0.8px;
+    flex: 1;
+    margin: 4px 5px 0 5px;
+}
+.product-category-filter, .price-range {
+    margin-left: 10px;
+    width: 100%;
+}
+.filter-list ul, .filter-list p{
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+.catalog-list-btn {
+    margin-left: 5px !important;
+    font-size: 0.8rem;
+    color: black;
+}
+.catalog-list {
+    margin-left: 20px;
+    color: #383838;
+    font-size: 0.8rem;
+}
+.price-range {  
+    display: flex;
+    flex-direction: column;
+    color: #383838;
+    font-size: 1rem;
+    align-items: flex-start;
+}
+.price-option {
+    display: flex;
+    align-items: center;
+}
+.price-option input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}

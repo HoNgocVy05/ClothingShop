@@ -15,65 +15,60 @@
 
 .search-product-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 30px 20px;                        
-    justify-content: start;                 
-    max-width: 1200px;    
-    padding: 0 0 0 300px;                       
-}
-
-.regular-price {
-    color: black;
-    text-decoration: underline;
-    text-align: center;
-    margin-top: 2px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px 20px;
+    justify-content: start;
+    max-width: 1200px;
+    padding: 0 0 0 300px;
 }
 
 /*Nút sắp xếp*/
 .sort-form {
-    margin-bottom: -45px;  
+    margin-bottom: -45px;
 }
 
 .sort-select {
-  width: 212px;
-  height: 42px;
-  padding: 0 48px 0 12px;
-  font-size: 18px;
-  border: 1px solid #000;
-  border-radius: 6px;
-  background: #fff;
-  cursor: pointer;
-  outline: none;
+    width: 220px;
+    height: 42px;
+    padding: 0 48px 0 12px;
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    outline: none;
+    appearance: none;   
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  /* chervon-down */
-  background-image: url("data:image/svg+xml;utf8,<svg width='32' height='32' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='8 12 16 20 24 12'/></svg>");
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  background-position: right 8px center;
+    /* chervon-down */
+    background-image: url("data:image/svg+xml;utf8,<svg width='32' height='32' xmlns='http://www.w3.org/2000/svg' fill='none' stroke='grey' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='8 12 16 20 24 12'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-position: right 8px center;
 }
 
-.load-more-container{
+.load-more-container {
     display: flex;
-    justify-content: flex-end; 
-    margin-top: 20px; 
+    margin-left: auto;
+    margin-top: 20px;
 }
-   
+
 .load-more-btn {
-  background: #fff;
-  border: none;
-  font-family: 'Roboto', sans-serif;
-  font-style: italic;
-  font-size: 16px;
-  color: #6F6F6F;
-  padding: 10px 20px;
-  cursor: pointer;
-  text-decoration: underline;
+    margin-left: auto;
+    margin-right: 50px;
+    background: #fff;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #2c2c2c;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .load-more-btn:hover {
-  font-weight: 500;
+    color: var(--primary-color)
 }

@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const index = require('../controllers/index');
 const searchController = require('../controllers/searchController');
+const productList = require('../controllers/productList');
 
 // các trang user
 router.get('/', index.getIndex);
 router.get('/search',searchController.getSearchResult)
+router.get('/product-list',productList.getProductList)
 
 module.exports = router;
