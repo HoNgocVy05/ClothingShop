@@ -10,5 +10,6 @@ router.get('/', index.getIndex);
 router.get('/search',searchController.getSearchResult)
 router.get('/product',productInforController.getProductInfor)
 router.get('/product-list',productList.getProductList)
+router.get('/product-infomation',productInforController.getProductInfor)
 
 module.exports = router;

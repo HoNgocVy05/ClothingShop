@@ -12,9 +12,9 @@
     </div>
 
     <!-- Thông tin sản phẩm -->
-    <div class="product-info">
+    <div class="product-info-page">
       <h1 class="product-title">Áo Lumi</h1>
-    <div class="product-infor-price">290.000đ</div>
+      <div class="product-price">290.000đ</div>
       <hr class="price-divider">
 
       <!-- Chọn size -->
@@ -55,6 +55,18 @@
           </div>
           <span class="arrow">▼</span>
         </div>
+        <div class="dropdown-content" id="desc">
+        Lumi Top là lựa chọn lý tưởng cho những ai yêu sự nhẹ nhàng và nữ tính. Thiết kế nhấn với tay áo phồng bồng bềnh, cổ chữ V viền ren dịu dàng tôn vẻ thanh thoát. 
+        <br><br><b>Chi tiết:</b><br>
+        • Dáng lửng, bo nhún linh hoạt ở eo<br>
+        • Cổ V nữ tính, phối viền và lót ren bên trong<br>
+        • Tay phồng nhẹ, bo chun ở cổ tay<br>
+        • Vải cotton thêu siêu nhẹ, mát mẻ<br>
+        • Màu sắc: Xanh nhạt<br>
+        • Chất liệu: Cotton thêu phối ren<br>
+        • Người mẫu mặc size S<br>
+        • Sản xuất tại Việt Nam
+        </div>
       </div>
 
       <!-- GIAO HÀNG -->
@@ -65,8 +77,33 @@
           </div>
         <span class="arrow">▼</span>
         </div>
+        <div class="dropdown-content" id="shipping">
+        <b>TIÊU CHUẨN:</b> 10-15 ngày<br>
+        Không bao gồm thời gian xử lý hải quan 7-10 ngày.<br><br>
+
+        Thời gian giao hàng được tính trong ngày làm việc chỉ dành cho khu vực thành phố lớn và chỉ là ước tính.
+        Thời gian vận chuyển do các hãng chuyển phát cung cấp và có thể thay đổi tùy thuộc vào địa điểm và điều kiện bên ngoài.<br><br>
+
+        Trong thời gian bán hàng, vui lòng cho phép thêm thời gian.  
+        Không giao hàng đến hộp thư Bưu điện hoặc Tủ đựng Bưu kiện.
+        </div>
       </div>
     </div>
   </div>
 </div>
 </main>
+
+<script>
+function toggleDropdown(type) {
+  const content = document.getElementById(type);
+  const arrow = content.previousElementSibling.querySelector('.arrow');
+
+  if (content.style.display === "block") {
+    content.style.display = "none";
+    arrow.classList.remove("open");
+  } else {
+    content.style.display = "block";
+    arrow.classList.add("open");
+  }
+}
+</script>
