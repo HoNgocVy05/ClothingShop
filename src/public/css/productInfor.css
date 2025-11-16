@@ -1,26 +1,51 @@
-.product-infor-page{
+.product-infor-page {
   background: #fff;
 }
 
 .product-wrapper {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   justify-content: center;
-  gap: 60px;
-  width: 100%;
+  gap: 50px;
   max-width: 1300px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 40px;
 }
 
 .product-image {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  position: relative;
+  align-items: center;
+  position: relative; 
+  padding-right: 50px;
+  border-right: solid 1px #000;
+  overflow: hidden;
 }
 
-.product-image img {
+.main-img {
+  display: flex;
+  width: 90%; 
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-img img {
   width: 100%;
-  max-width: 500px;
+  height: auto;
+}
+.main-img::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .thumbnails {
@@ -29,42 +54,40 @@
   margin-top: 15px;
 }
 
-.nav-arrow.next{
+.nav-arrow.next {
   position: absolute;
-  top: 200px; 
-  background-color: #fff; 
-  color: #000; 
+  top: 200px;
+  background-color: #fff;
+  color: #000;
   border: none;
   font-size: 60px;
   cursor: pointer;
   padding-left: 5px;
   border-radius: 0;
 }
-    
+
 .thumbnails img {
   width: 150px;
   height: 150px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .product-info-page {
-  flex: 1;           
+  flex: 1;
 }
 
 .product-info-page .product-price {
-  text-align: left !important;
-  font-size: 25px !important;
-  font-weight: normal !important;
-  display: block;
+  font-size: 25px;
+  gap: 10px;
 }
 
 .product-title {
   font-size: 50px;
-  font-weight: bold !important;
+  font-weight: bold;
   margin-top: 5px;
   margin-bottom: 8px;
 }
- 
+
 .size-options {
   text-align: left;
   font-weight: bold;
@@ -72,7 +95,7 @@
   font-size: 25px;
   margin-bottom: 15px;
 }
-    
+
 .size-btn {
   padding: 10px 16px;
   margin-right: 10px;
@@ -81,13 +104,13 @@
   background: #fff;
   cursor: pointer;
 }
-    
+
 .size-btn.selected {
   border-color: #000;
   background-color: #000;
-  color:#ccc;
+  color: #ccc;
 }
-    
+
 .quantity {
   text-align: left;
   font-weight: bold;
@@ -102,7 +125,7 @@
   gap: 10px;
   margin-top: 15px;
 }
-    
+
 .quantity-btn {
   width: 30px;
   height: 30px;
@@ -114,26 +137,26 @@
   align-items: center;
   justify-content: center;
 }
-    
+
 .quantity-input {
   width: 50px;
   height: 30px;
   text-align: center;
   border: 1px solid #ccc;
 }
-    
+
 .stock-info {
   font-size: 14px;
   color: #666;
   margin-left: 10px;
 }
-    
+
 .actions {
   display: flex;
   gap: 10px;
   margin: 20px 0;
 }
-    
+
 .btn {
   padding: 12px 20px;
   font-size: 16px;
@@ -141,7 +164,7 @@
   border: none;
   border-radius: 4px;
 }
-    
+
 .btn-cart {
   background-color: #fff;
   color: #000;
@@ -156,46 +179,48 @@
   color: #fff;
   flex: 1;
 }
-    
+
 .dropdown-box {
-  margin-top: 10px;
+  margin: 10px 40px;
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
-  margin-bottom: 10px;
-}
-
-.dropdown-description,
-.dropdown-shipping {
-  display: flex;
-  justify-content: space-between; 
-  cursor: pointer;
-  padding: 5px 0;
 }
 
 .dropdown-content {
-  display: none;
-  padding: 10px 0;
-  font-size: 1rem;
-  color: #000;
-  animation: fade 0.3s ease;
-  text-align: left;
+  max-height: 5px;
+  overflow: hidden;
+  padding: 0 20px;
+  opacity: 0;
+  transition: 
+    max-height 0.4s ease-in-out,
+    opacity 0.4s ease-in-out,
+    padding 0.3s ease-in-out; 
+}
+
+.dropdown-content.open {
+  max-height: 1000px;   
+  opacity: 1;
+  padding: 10px 20px;
 }
 
 .arrow {
+  margin-left: auto;
+  margin-right: 20px;
   transition: transform 0.3s ease;
 }
 
 .arrow.open {
   transform: rotate(180deg);
-}
+} 
 
 .icon-text {
   display: flex;
   align-items: center;
+  margin-left: 20px;  
 }
 
 .icon-text i {
-  margin-right: 8px; 
+  margin-right: 8px;
   font-size: 1rem;
 }
 
