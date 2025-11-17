@@ -1,0 +1,127 @@
+<div class="shopping-cart">
+
+    <div class="price-quantity-total header">
+        <div class="header-left"></div>
+        <div class="header-right">
+        <div class="cart-item">Giá</div>
+        <div class="cart-item">Số lượng</div>
+        <div class="cart-item">Thành tiền</div>
+        </div>
+    </div>
+
+
+    <div class="shopping-product">
+        <input type="checkbox" class="cart-checkbox">
+        <div class="product-card">
+            <div class="card-img">
+                <img src="/images/shirt.png" alt="Đầm cerys">
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Đầm cerys</a>
+                <p class="size">Size: S</p>
+                
+                <button class="remove-item">Xóa</button>
+            </div>
+        </div>
+    
+        <div class="product-price-quantity-total">
+        <!-- Giá -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div>
+        <!-- Số lượng -->
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                <input type="text" class="quantity-input" value="1" readonly>
+                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+            </div>
+        <!-- Thành tiền -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div> 
+        </div>
+     </div>
+
+     <div class="shopping-product">
+        <input type="checkbox" class="cart-checkbox">
+        <div class="product-card">
+            <div class="card-img">
+                <img src="/images/shirt.png" alt="Đầm cerys">
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Đầm cerys</a>
+                <p class="size">Size: S</p>
+                
+                <button class="remove-item">Xóa</button>
+            </div>
+        </div>
+    
+        <div class="product-price-quantity-total">
+        <!-- Giá -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div>
+        <!-- Số lượng -->
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                <input type="text" class="quantity-input" value="1" readonly>
+                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+            </div>
+        <!-- Thành tiền -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div> 
+        </div>
+     </div>
+
+     <div class="shopping-product">
+        <input type="checkbox" class="cart-checkbox">
+        <div class="product-card">
+            <div class="card-img">
+                <img src="/images/shirt.png" alt="Đầm cerys">
+            </div>
+            <div class="product-info">
+                <a href="#" class="product-name">Đầm cerys</a>
+                <p class="size">Size: S</p>
+                
+                <button class="remove-item">Xóa</button>
+            </div>
+        </div>
+    
+        <div class="product-price-quantity-total">
+        <!-- Giá -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div>
+        <!-- Số lượng -->
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
+                <input type="text" class="quantity-input" value="1" readonly>
+                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
+            </div>
+        <!-- Thành tiền -->
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">700.000đ</p>
+            </div> 
+        </div>
+     </div>
+     
+     <!--cart-footer-->
+     <div class="cart-footer">
+        <div class="cart-summary">
+            <span class="summary-text">
+                Số lượng (<span id="total-quantity">3</span>)
+            </span>
+            <span class="summary-text total-price">
+                Tổng tiền: <strong id="total-amount">800.000đ</strong>
+            </span>
+        </div>
+        <button class="btn btn-buy">MUA NGAY</button>
+    </div>  
+</div>
