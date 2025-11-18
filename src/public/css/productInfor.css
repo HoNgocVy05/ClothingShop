@@ -18,7 +18,7 @@
   flex-direction: column;
   flex: 1;
   align-items: center;
-  position: relative; 
+  position: relative;
   padding-right: 50px;
   border-right: solid 1px #000;
   overflow: hidden;
@@ -26,7 +26,7 @@
 
 .main-img {
   display: flex;
-  width: 90%; 
+  width: 90%;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -36,16 +36,17 @@
   width: 100%;
   height: auto;
 }
+
 .main-img::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
-    z-index: 2;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+  z-index: 2;
+  pointer-events: none;
 }
 
 .thumbnails {
@@ -191,14 +192,14 @@
   overflow: hidden;
   padding: 0 20px;
   opacity: 0;
-  transition: 
+  transition:
     max-height 0.4s ease-in-out,
     opacity 0.4s ease-in-out,
-    padding 0.3s ease-in-out; 
+    padding 0.3s ease-in-out;
 }
 
 .dropdown-content.open {
-  max-height: 1000px;   
+  max-height: 1000px;
   opacity: 1;
   padding: 10px 20px;
 }
@@ -211,12 +212,12 @@
 
 .arrow.open {
   transform: rotate(180deg);
-} 
+}
 
 .icon-text {
   display: flex;
   align-items: center;
-  margin-left: 20px;  
+  margin-left: 20px;
 }
 
 .icon-text i {

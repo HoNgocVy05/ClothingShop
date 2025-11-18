@@ -1,88 +1,59 @@
-.shopping-cart {
-    max-width: 1200px;    
+.cart-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0 auto;
 }
-
-/* Header */
-.shopping-cart .price-quantity-total.header {
-    font-weight: bold;
-    display: flex;              
-    justify-content: center;
-    padding: 10px 20px;
-
+.cart-table tr {
+    border-bottom: 1px solid #eee;
 }
-.shopping-cart .header-left {
-    width: 60px;                   
-    flex-shrink: 0;
+.cart-table td:nth-child(2) {
+    width: 40%;
+    text-align: left;
 }
-
-.shopping-cart .header-right {
-    flex: 1;                       
-    display: flex;
-    justify-content: space-between; 
-    max-width: 520px;               
-    margin-left: auto;             
-    padding-left: 20px;
+.cart-table td:nth-child(1) {
+    text-align: center;
 }
-.shopping-cart .product-price-quantity-total {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;   
-    max-width: 520px;                  
-    margin-left: auto;                 
-    padding-left: 20px;
-    gap: 100px;
-}
-
-.shopping-product {
+.cart-product-box {
     display: flex;
     align-items: center;
-    padding: 20px;
-    border-bottom: 2px solid #eee;
-    border-top: 2px solid #eee;
-    gap: 15px;
+    gap: 10px;
 }
-
-/* Checkbox */
 .shopping-cart input[type="checkbox"].cart-checkbox {
     width: 15px;
     height: 15px;
+    accent-color:#fff;
+    background-color: #000;
+    border: 1px solid #000;
 }
-
-/* Ảnh + tên + size + nút xóa */
-.shopping-cart .product-card {
-    flex-direction: row;
-    display: flex;
-    gap: 15px;
+/* ảnh */
+.cart-product-img {
+    position: relative;
+    margin: 5px;
 }
-.shopping-cart .card-img {
-    width: 90px;
-    height: 90px;
-    flex-shrink: 0;
-    border-radius: 4px;
-    margin-left: 0;
-}
-.shopping-cart .card-img img {
-    width: 100%;
-    height: 100%;
+.cart-product-img img {
+    width: 150px;
+    height: 150px;
     object-fit: cover;
+    border-radius: 5px;
 }
-.shopping-cart .product-info {
-    flex: 1;
-    min-width: 0;
+.cart-product-img::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+    z-index: 2;
+    pointer-events: none;
 }
-.shopping-cart .product-name {
-    margin: 0 0 4px 0;
-}
-.shopping-cart .product-name:hover {
-    text-decoration: underline;
-}
-.shopping-cart .size {
-    font-size: 13px;
-    color: #000;
+/* thogn tin  */
+.cart-product-info .size{
     margin: 0;
-    text-decoration: none;
 }
-
+.cart-product-info .product-name {
+    font-size: 1.2rem;
+}
 .shopping-cart .remove-item {
     margin-top: 8px;
     background: none;
@@ -96,27 +67,20 @@
 .shopping-cart .remove-item:hover {
     color: #c0392b;
 }
-
-/* Giá & Thành tiền */
-.shopping-cart .product-price {
+.shopping-product .quantity, .shopping-product .product-price, .shopping-product .cart-checkbox {
+    font-size: 1rem;
+    margin: 0 auto;
+    width: fit-content;
+}
+.shopping-product .product-price {
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    line-height: 0;
 }
-.shopping-cart .discount-price {
-    font-weight: bold;
-    color: #000;
-    font-size: 15px;
-}
-.shopping-cart .origin-price {
-    font-size: 13px;
+.shopping-product .product-price .origin-price, .shopping-product .product-price .discount-price {
+    margin: 0;
 }
 
-.shopping-cart .quantity-controls {
-    justify-content: center;
-    gap: 10px;
-}
-
+/* cart-footer */
 .shopping-cart .cart-footer {
     position: sticky;
     bottom: 0;
@@ -125,32 +89,25 @@
     background: #fff;
     border-top: 1px solid #eee;
     padding: 20px 24px;
-    z-index: 100;
+    z-index: 1000;
     text-align: right;
 }
-
 .shopping-cart .cart-summary {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
     text-align: right;
     gap: 10px;
     display: block;
     margin-bottom: 18px;
 }
-
 .shopping-cart .summary-text {
     font-size: 20px;
     color: #000;
 }
-
 .shopping-cart .summary-text.total-price {
     font-size: 20px;
     font-weight: bold;
     color: #000;
 }
-
-.cart-footer .btn-buy{
+.cart-footer .btn-buy {
     min-width: 300px;
     font-weight: bold;
 }

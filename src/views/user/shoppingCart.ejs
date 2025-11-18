@@ -1,119 +1,195 @@
 <div class="shopping-cart">
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" class="cart-checkbox">
+                </th>
+                <th></th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
 
-    <div class="price-quantity-total header">
-        <div class="header-left"></div>
-        <div class="header-right">
-        <div class="cart-item">Giá</div>
-        <div class="cart-item">Số lượng</div>
-        <div class="cart-item">Thành tiền</div>
-        </div>
-    </div>
+        <tbody>
+            <tr class="shopping-product">
+                <td>
+                    <input type="checkbox" class="cart-checkbox">
+                </td>
+                <!-- ảnh, thông tin -->
+                <td>
+                    <div class="cart-product-box">
+                        <div class="cart-product-img">
+                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+                        </div>
+
+                        <div class="cart-product-info">
+                            <a href="#" class="product-name">Đầm cerys</a>
+                            <p class="size">Size: S</p>
+                            <button class="remove-item">Xóa</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- giá  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+                <!-- số lượng  -->
+                <td>
+                    <div class="quantity">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
+                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- thành tiền  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="shopping-product">
+                <td>
+                    <input type="checkbox" class="cart-checkbox">
+                </td>
+                <!-- ảnh, thông tin -->
+                <td>
+                    <div class="cart-product-box">
+                        <div class="cart-product-img">
+                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+                        </div>
+
+                        <div class="cart-product-info">
+                            <a href="#" class="product-name">Đầm cerys</a>
+                            <p class="size">Size: S</p>
+                            <button class="remove-item">Xóa</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- giá  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+                <!-- số lượng  -->
+                <td>
+                    <div class="quantity">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
+                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- thành tiền  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="shopping-product">
+                <td>
+                    <input type="checkbox" class="cart-checkbox">
+                </td>
+                <!-- ảnh, thông tin -->
+                <td>
+                    <div class="cart-product-box">
+                        <div class="cart-product-img">
+                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+                        </div>
+
+                        <div class="cart-product-info">
+                            <a href="#" class="product-name">Đầm cerys</a>
+                            <p class="size">Size: S</p>
+                            <button class="remove-item">Xóa</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- giá  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+                <!-- số lượng  -->
+                <td>
+                    <div class="quantity">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
+                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- thành tiền  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+            </tr>
+            <tr class="shopping-product">
+                <td>
+                    <input type="checkbox" class="cart-checkbox">
+                </td>
+                <!-- ảnh, thông tin -->
+                <td>
+                    <div class="cart-product-box">
+                        <div class="cart-product-img">
+                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+                        </div>
+
+                        <div class="cart-product-info">
+                            <a href="#" class="product-name">Đầm cerys</a>
+                            <p class="size">Size: S</p>
+                            <button class="remove-item">Xóa</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- giá  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+                <!-- số lượng  -->
+                <td>
+                    <div class="quantity">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
+                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                </td>
+                <!-- thành tiền  -->
+                <td>
+                    <div class="product-price">
+                        <p class="origin-price">700.000đ</p>
+                        <p class="discount-price">500.000đ</p>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 
-    <div class="shopping-product">
-        <input type="checkbox" class="cart-checkbox">
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="Đầm cerys">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Đầm cerys</a>
-                <p class="size">Size: S</p>
-                
-                <button class="remove-item">Xóa</button>
-            </div>
-        </div>
-    
-        <div class="product-price-quantity-total">
-        <!-- Giá -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div>
-        <!-- Số lượng -->
-            <div class="quantity-controls">
-                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
-                <input type="text" class="quantity-input" value="1" readonly>
-                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
-            </div>
-        <!-- Thành tiền -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div> 
-        </div>
-     </div>
-
-     <div class="shopping-product">
-        <input type="checkbox" class="cart-checkbox">
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="Đầm cerys">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Đầm cerys</a>
-                <p class="size">Size: S</p>
-                
-                <button class="remove-item">Xóa</button>
-            </div>
-        </div>
-    
-        <div class="product-price-quantity-total">
-        <!-- Giá -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div>
-        <!-- Số lượng -->
-            <div class="quantity-controls">
-                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
-                <input type="text" class="quantity-input" value="1" readonly>
-                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
-            </div>
-        <!-- Thành tiền -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div> 
-        </div>
-     </div>
-
-     <div class="shopping-product">
-        <input type="checkbox" class="cart-checkbox">
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="Đầm cerys">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Đầm cerys</a>
-                <p class="size">Size: S</p>
-                
-                <button class="remove-item">Xóa</button>
-            </div>
-        </div>
-    
-        <div class="product-price-quantity-total">
-        <!-- Giá -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div>
-        <!-- Số lượng -->
-            <div class="quantity-controls">
-                <button class="quantity-btn" onclick="changeQuantity(this, -1)">-</button>
-                <input type="text" class="quantity-input" value="1" readonly>
-                <button class="quantity-btn" onclick="changeQuantity(this, 1)">+</button>
-            </div>
-        <!-- Thành tiền -->
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
-            </div> 
-        </div>
-     </div>
-     
-     <!--cart-footer-->
-     <div class="cart-footer">
+    <div class="cart-footer">
         <div class="cart-summary">
             <span class="summary-text">
                 Số lượng (<span id="total-quantity">3</span>)
@@ -123,5 +199,5 @@
             </span>
         </div>
         <button class="btn btn-buy">MUA NGAY</button>
-    </div>  
+    </div>
 </div>
