@@ -1,14 +1,5 @@
-<div class="tag-group">
-    <div class="tag">
-        <a href="#" class="catalog-tag">QUẦN ÁO NỮ</a>
-    </div>
-    <div class="tag-child">
-        <a href="#" class="tag-item">Áo thun</a>
-        <a href="#" class="tag-item">Quần jean</a>
-        <a href="#" class="tag-item">Chân váy</a>
-        <a href="#" class="tag-item">Đầm</a>
-        <a href="#" class="tag-item">Áo khoác</a>
-    </div>
+<div class="product-list-tag">
+    <a href="#">DANH MỤC SẢN PHẨM</a>
 </div>
 <div class="product-page">
     <div class="filter">
@@ -22,23 +13,33 @@
             <i class="fa fa-chevron-down"></i>
         </div>
         <div class="product-category-filter">
-            <p>Sản phẩm mới</p>
-            <p>Sản phẩm khuyến mãi</p>
-            <p class="filter-catalog">Quần áo nữ<i class="fa fa-chevron-down catalog-list-btn"></i></p> 
-            <div class="catalog-list">
-                <p>Quần short</p>
-                <p>Áo thun</p>
-                <p>Áo khoác</p>
-                <p>Chân váy</p>
-            </div>
-            <p class="filter-catalog">Quần áo nam<i class="fa fa-chevron-down catalog-list-btn"></i></p> 
-            <div class="catalog-list">
-                <p>Quần short</p>
-                <p>Áo thun</p>
-                <p>Áo khoác</p>
-                <p>Quần jean</p>
-            </div>
+            <ul class="category-list">
+                <li>Sản phẩm mới</li>
+                <li>Sản phẩm khuyến mãi</li>
+                <li class="filter-catalog filter-row">
+                    Quần áo nữ
+                    <i class="fa fa-chevron-down catalog-list-btn"></i>
+                </li>
+                <ul class="catalog-list">
+                    <li>Quần short</li>
+                    <li>Áo thun</li>
+                    <li>Áo khoác</li>
+                    <li>Chân váy</li>
+                </ul>
+                <li class="filter-catalog filter-row">
+                    Quần áo nam
+                    <i class="fa fa-chevron-down catalog-list-btn"></i>
+                </li>
+                <ul class="catalog-list">
+                    <li>Quần short</li>
+                    <li>Áo thun</li>
+                    <li>Áo khoác</li>
+                    <li>Quần jean</li>
+                </ul>
+
+            </ul>
         </div>
+
         <div class="filter-row">
             <p class="filter-title">Khoảng giá</p>
             <hr>
@@ -50,15 +51,21 @@
             <label class="price-option"><input type="checkbox" name="price" id="" value="">500.000 - 1.000.000</label>
             <label class="price-option"><input type="checkbox" name="price" id="" value="">> 1.000.000</label>
         </div>
-        <div class="filter-row">
+        <!-- <div class="filter-row">
             <p class="filter-title">Màu sắc</p>
             <hr>
             <i class="fa fa-chevron-down"></i>
-        </div>
+        </div> -->
         <div class="filter-row">
             <p class="filter-title">Kích thước</p>
             <hr>
             <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="size-options">
+            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">S</label>
+            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">M</label>
+            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">L</label>
+            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">XL</label>
         </div>
     </div>
     <div class="product-list">
@@ -243,5 +250,21 @@
             </div>
         </div>
     </div>
-
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".filter-row").forEach(row => {
+            const content = row.nextElementSibling;
+            const arrow = row.querySelector(".fa-chevron-down");
+            if (!content) return;
+
+            content.classList.add("open");
+            arrow.classList.add("open");
+
+            row.addEventListener("click", () => {
+                content.classList.toggle("open");
+                arrow.classList.toggle("open");
+            });
+        });
+    });
+</script>

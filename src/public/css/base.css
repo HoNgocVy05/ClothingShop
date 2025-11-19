@@ -13,6 +13,10 @@ body {
     max-width: 1250px;
     min-width: 750px;
 }
+body ::selection {
+  background-color: black;
+  color: white;
+}
 a {
     text-decoration: none;
     color: #000;

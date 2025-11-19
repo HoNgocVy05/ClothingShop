@@ -21,8 +21,7 @@
 .shopping-cart input[type="checkbox"].cart-checkbox {
     width: 15px;
     height: 15px;
-    accent-color:#fff;
-    background-color: #000;
+    accent-color: var(--primary-color);
     border: 1px solid #000;
 }
 /* ảnh */

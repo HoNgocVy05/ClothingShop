@@ -1,15 +1,9 @@
-.tag-group {
+.product-list-tag {
     display: flex;
-    align-items:last baseline;
-    margin-top: -15px;
-}
-.tag-child {
-    display: flex;
+    align-items: center;
+    font-size: 2rem;
     font-weight: bold;
-    font-size: 1rem;
-    gap: 30px;
-    margin-left: 10px;
-    color: #e8e8e8; 
+    margin: 10px;
 }
 .product-page {
     display: grid;
@@ -23,7 +17,7 @@
     gap: 10px;
 }
 
-/* bộ lọc  */
+/* bộ lọc */
 #filter-tag {
     display: flex;
     align-items: last baseline;
@@ -34,17 +28,16 @@
 }
 .filter {
     background-color: #e7e7e7;
-    padding-left: 10px;  
-    padding-right: 10px;  
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 5px;
 }
-
 .filter-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    /* margin: 10px 0; */
 }
 .filter .fa-chevron-down {
     margin-left: auto;
@@ -65,39 +58,107 @@
     flex: 1;
     margin: 4px 5px 0 5px;
 }
-.product-category-filter, .price-range {
-    margin-left: 10px;
-    width: 100%;
-}
-.filter-list ul, .filter-list p{
+.filter-list ul, 
+.filter-list p {
     list-style: none;
     margin: 10px 0;
     padding: 0;
 }
+
+/* danh mục sản phẩm  */
+.product-category-filter {
+    width: 100%;
+}
+.product-category-filter ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.product-category-filter li {
+    cursor: pointer;
+    color: #000000;
+    font-size: 1rem;
+}
+.product-category-filter .filter-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.catalog-list {
+    list-style: none;
+    color: #000;
+    padding-left: 20px;
+}
+.catalog-list li {
+    margin-left: 20px;
+    font-size: 0.9rem;
+}
+
+/* nút icon */
 .catalog-list-btn {
     margin-left: 5px !important;
     font-size: 0.8rem;
     color: black;
 }
-.catalog-list {
-    margin-left: 20px;
-    color: #383838;
-    font-size: 0.8rem;
-}
-.price-range {  
+
+/* === price range === */
+.price-range {
     display: flex;
     flex-direction: column;
     color: #383838;
     font-size: 1rem;
     align-items: flex-start;
 }
+
 .price-option {
     display: flex;
     align-items: center;
 }
+
 .price-option input[type="checkbox"] {
     accent-color: var(--primary-color);
     width: 16px;
     height: 16px;
-    margin-right: 10px;
+    margin-right: 5px;
+}
+.size-options {
+    display: flex;
+    color: #383838;
+    font-size: 1rem;
+    font-weight: normal;
+}
+.size-option:not(:first-child) {
+    margin-left: 10px;
+}
+
+/* dropdown open/close */
+.filter-row + * {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 10px;
+    transition:
+        max-height 0.4s ease-in-out,
+        opacity 0.4s ease-in-out,
+        padding 0.3s ease-in-out;
+}
+
+.filter-row + *.open {
+    max-height: 1000px;
+    opacity: 1;
+    padding: 0 10px;
+}
+
+.filter-row .fa-chevron-down {
+    margin-left: auto;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.filter-row .fa-chevron-down.open {
+    transform: rotate(180deg);
 }
