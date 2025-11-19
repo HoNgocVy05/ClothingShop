@@ -41,7 +41,41 @@
                 <span class="price">50.000đ</span>
             </div>
         </div>
-        
+        <div class="payment-method">
+            <strong>Phương thức thanh toán</strong>
+            <input type="radio" name="payment" id="online" checked>
+            <label for="online">
+                <div class="radio-custom"></div>
+                <div class="payment-title">Credit/ATM card/QR</div>
+                <div class="payment-logos">
+                    <img src="/images/payment.png" class="payment-single-logo">
+                </div>
+            </label>
+
+            <input type="radio" name="payment" id="momo">
+            <label for="momo">
+                <div class="radio-custom"></div>
+                <div class="payment-title">Ví Momo</div>
+                <div class="payment-logos">
+                    <img src="/images/momo.png" alt="Momo" style="height:28px;">
+                </div>
+            </label>
+
+            <input type="radio" name="payment" id="zalopay">
+            <label for="zalopay">
+                <div class="radio-custom"></div>
+                <div class="payment-title">Ví Zalo Pay</div>
+                <div class="payment-logos">
+                    <img src="/images/zalopay.png" alt="ZaloPay" style="height:28px;">
+                </div>
+            </label>
+
+            <input type="radio" name="payment" id="cod">
+            <label for="cod">
+                <div class="radio-custom"></div>
+                <span class="payment-cod">Thanh toán khi nhận hàng (COD)</span>
+            </label>
+        </div>
         <button class="btn-checkout">Tiến hành thanh toán</button>
     </div>
 
