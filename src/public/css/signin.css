@@ -1,0 +1,41 @@
+
+.signin-btn {
+    width: 100%;
+    padding: 14px;
+    background: #6f6f6f;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.signin-btn:hover { background: #555; }
+
+.password-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: flex-start;          
+}
+
+.password-row > .input-group {
+    flex: 1;
+    margin-bottom: 0;
+    display: flex;                    
+}
+
+.password-row .input-group input {
+    height: 52px;                     
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.password-row .toggle-password {
+    right: 50px;
+}
+
+.register .signin-box {
+    width: 580px;
+}
