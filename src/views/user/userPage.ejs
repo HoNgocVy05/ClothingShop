@@ -1,0 +1,59 @@
+<div class="user-page">
+    <div class="user-menu">
+        <div class="user-card">
+            <div class="user-img">
+                <img src="/images/defaultAvt.jpg" alt="default avatar">
+                <i class="fa-solid fa-camera"></i>
+            </div>
+            <p>User name</p>
+        </div>
+        <div class="user-sidebar">
+            <a href="#" class="sidebarItem" content="/userInfo">
+                <i class="fa-solid fa-user"></i>
+                Thông tin người dùng
+            </a>
+            <a href="#" class="sidebarItem" content="/myOrder">
+                <i class="fa-solid fa-box-archive"></i>
+                Đơn hàng của tôi
+            </a>
+            <a href="#" class="sidebarItem" content="/changePassword">
+                <i class="fa-solid fa-lock"></i>
+                Thay đổi mật khẩu
+            </a>
+            <a href="#" class="sidebarItem" noContent="true">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Đăng xuất
+            </a>
+        </div>
+    </div>
+    <div class="user-sidebar-content">
+        <!-- load trang  -->
+    </div>
+</div>
+<script>
+    const sidebarItems = document.querySelectorAll('.sidebarItem');
+    const contentDiv = document.querySelector('.user-sidebar-content');
+
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', e => {
+            e.preventDefault();
+
+            if(item.hasAttribute('noContent')) return; //js đăng xuất chưa làm  
+
+            const file = item.getAttribute('content');
+            if (file) {
+                fetch(file)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Không tải được file');
+                        return res.text();
+                    })
+                    .then(html => {
+                        contentDiv.innerHTML = html;
+                    })
+                    .catch(err => {
+                        contentDiv.innerHTML = `<p>Lỗi tải trang: ${err.message}</p>`;
+                    });
+            }
+        });
+    });
+</script>

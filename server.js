@@ -17,7 +17,7 @@ app.use(expressLayouts);
 app.set('layout', './layouts/userMaster');
 
 //route
-const userRoute = require('./src/routes/userRoute'); // import file route
+const userRoute = require('./src/routes/userRoute');
 const adminRoute = require('./src/routes/adminRoute');
 const actionRoute = require('./src/routes/actionRoute');
 app.use('/', userRoute);
