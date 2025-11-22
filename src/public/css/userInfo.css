@@ -1,0 +1,76 @@
+.user-info-container {
+    padding: 20px;
+}
+.edit-profile h2 {
+    margin: 0;
+}
+.edit-profile button {
+    width: 70px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    padding: 5px;
+    font-weight: bold;
+    box-shadow: 0 0 0 2px #000;
+    background-color: white;
+}
+.edit-profile button:hover {
+    background-color: rgb(41, 41, 41);
+    color: white;
+}
+.user-info label {
+    font-weight: 500;
+}
+.user-info-container .fa-pen-to-square{
+    margin-left: 10px;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: white;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.form-row input {
+    width: 500px;   
+    height: 20px;
+    padding: 6px 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.form-row input:disabled {
+    opacity: 1;
+    color: #000;
+}
+
+.form-row input[type="date"] {
+    appearance: none;
+}
+.form-row select {
+    border: none;
+    box-sizing: border-box;
+    width: 500px;   
+    height: 20px;
+    border-radius: 5px;
+}
+.form-row select:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.gender-box {
+    border: 1px inset light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-radius: 5px;
+    padding: 5px 5px;
+    display: flex;
+    align-items: center;
+}
+.gender-box:has(select:focus) {
+    box-shadow: 0 0 0 1px #000;
+}

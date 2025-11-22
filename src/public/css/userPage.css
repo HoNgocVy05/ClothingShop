@@ -1,6 +1,6 @@
 .user-page {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 300px 1fr;
     gap: 20px;
 }
 .user-card {
@@ -11,32 +11,30 @@
     border-bottom: 2px solid #d9d9d9;
 }
 .user-card p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #7d7c7c;
+    color: #000000;
 }
 .user-sidebar-content {
-    background-color: #f3f3f3;
+    background-color: #f8f8f8;
 }
 .user-img img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     border: 0.5px solid #d9d9d9;
 }
 .user-img {
     position: relative;
-    width: 100px;
-    height: 100px;
 }
 .fa-camera {
     position: absolute;
-    bottom: 2px;
-    right: 6px; 
+    bottom: 3px;
+    right: 7px; 
     background-color: #d9d9d9;
     padding: 5px;
     border-radius: 50%;
-    font-size: smaller;
+    font-size: 0.5rem;
     cursor: pointer;
 }
 .user-sidebar {
@@ -45,6 +43,9 @@
     gap: 20px;
     margin-top: 20px;
     margin-left: 20px;
+}
+.user-click {
+    font-weight: bold;
 }
 .user-sidebar i {
     margin-right: 10px;

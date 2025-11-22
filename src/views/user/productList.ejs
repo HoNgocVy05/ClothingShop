@@ -254,9 +254,9 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".filter-row").forEach(row => {
+            if (!content) return;
             const content = row.nextElementSibling;
             const arrow = row.querySelector(".fa-chevron-down");
-            if (!content) return;
 
             content.classList.add("open");
             arrow.classList.add("open");

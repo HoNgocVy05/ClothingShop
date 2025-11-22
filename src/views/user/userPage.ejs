@@ -2,10 +2,10 @@
     <div class="user-menu">
         <div class="user-card">
             <div class="user-img">
-                <img src="/images/defaultAvt.jpg" alt="default avatar">
+                <img src="/images/fox.jpg" alt="default avatar">
                 <i class="fa-solid fa-camera"></i>
             </div>
-            <p>User name</p>
+            <p>User Name</p>
         </div>
         <div class="user-sidebar">
             <a href="#" class="sidebarItem" content="/userInfo">
@@ -34,26 +34,35 @@
     const sidebarItems = document.querySelectorAll('.sidebarItem');
     const contentDiv = document.querySelector('.user-sidebar-content');
 
+    function loadContent(item) {
+        if (item.hasAttribute('noContent')) return;
+        //tô đậm mục được chọn
+        sidebarItems.forEach(i => i.classList.remove("user-click"));
+        item.classList.add("user-click");
+        const file = item.getAttribute('content');
+        if (file) {
+            fetch(file)
+                .then(res => {
+                    if (!res.ok) throw new Error('Không tải được file');
+                    return res.text();
+                })
+                .then(html => {
+                    contentDiv.innerHTML = html;
+                })
+                .catch(err => {
+                    contentDiv.innerHTML = `<p>Lỗi tải trang: ${err.message}</p>`;
+                });
+        }
+    }
     sidebarItems.forEach(item => {
         item.addEventListener('click', e => {
             e.preventDefault();
-
-            if(item.hasAttribute('noContent')) return; //js đăng xuất chưa làm  
-
-            const file = item.getAttribute('content');
-            if (file) {
-                fetch(file)
-                    .then(res => {
-                        if (!res.ok) throw new Error('Không tải được file');
-                        return res.text();
-                    })
-                    .then(html => {
-                        contentDiv.innerHTML = html;
-                    })
-                    .catch(err => {
-                        contentDiv.innerHTML = `<p>Lỗi tải trang: ${err.message}</p>`;
-                    });
-            }
+            loadContent(item);
         });
     });
+    // Load mặc định item đầu tiên
+    if (sidebarItems.length > 0) {
+        loadContent(sidebarItems[0]);
+    }
+
 </script>
