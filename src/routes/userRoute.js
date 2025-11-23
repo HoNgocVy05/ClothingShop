@@ -21,5 +21,8 @@ router.get('/shopping',shopping.getShoppingPage)
 router.get('/login',login.getLogin)
 router.get('/signin',signin.getSignin)
 router.get('/user',userPage.getUserPage)
+router.get('/userInfo',userPage.getUserInfo)
+router.get('/myOrder',userPage.getMyOrder)
+router.get('/changePassword',userPage.getChangePassword)
 
 module.exports = router;

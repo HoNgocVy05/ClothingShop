@@ -16,11 +16,12 @@
 <div class="tag">
     <a href="#" class="sale-tag">SALE UP TO 50%</a>
 </div>
-<div class="product-container">
+<div class="sale product-container">
+    <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="/product-infomation" class="product-name">Áo</a>
             <div class="product-price">
@@ -32,7 +33,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -44,7 +45,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -56,7 +57,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -68,7 +69,31 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
+        <div class="product-info">
+            <a href="#" class="product-name">Áo thun navy</a>
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">900.000đ</p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="card-img">
+            <img src="/images/shirt1.png" alt="shirt">
+        </div>
+        <div class="product-info">
+            <a href="#" class="product-name">Áo thun navy</a>
+            <div class="product-price">
+                <p class="discount-price">500.000đ</p>
+                <p class="origin-price">1.000.000đ</p>
+            </div>
+        </div>
+    </div>
+    <div class="product-card">
+        <div class="card-img">
+            <img src="/images/shirt1.png" alt="shirt">
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -77,6 +102,7 @@
             </div>
         </div>
     </div>
+    <i class="fa-solid fa-angle-right sale-nav-btn"></i>
 </div>
 <!-- từng danh mục cha  -->
 <div class="tag-group">
@@ -95,7 +121,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -107,7 +133,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -119,7 +145,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -131,7 +157,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -227,7 +253,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -239,7 +265,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -251,7 +277,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -263,7 +289,7 @@
     <div class="product-card">
         <div class="card-img">
             <img src="/images/shirt1.png" alt="shirt">
-        </div>  
+        </div>
         <div class="product-info">
             <a href="#" class="product-name">Áo thun navy</a>
             <div class="product-price">
@@ -352,4 +378,23 @@
             window.location.href = '#';
         });
     });
+
+    const container = document.querySelector('.sale.product-container');
+    const btnLeft = document.querySelector('.fa-angle-left');
+    const btnRight = document.querySelector('.fa-angle-right');
+
+    // Lấy width của 1 card
+    function getCardWidth() {
+        const card = container.querySelector('.product-card');
+        return card ? card.offsetWidth + 35 : 300;
+    }
+    // Scroll right
+    btnRight.addEventListener('click', () => {
+        container.scrollLeft += getCardWidth();
+    });
+    // Scroll left
+    btnLeft.addEventListener('click', () => {
+        container.scrollLeft -= getCardWidth();
+    });
+
 </script>
