@@ -1,0 +1,27 @@
+#admin-page {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20px;
+}
+#admin-sidebar {
+    background-color: #dedede;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 10px;
+    text-wrap: nowrap;
+    height: 100vh;
+}
+#admin-sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: #f0f0f0;
+}
+#admin-sidebar i {
+    margin-right: 10px;
+}

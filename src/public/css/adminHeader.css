@@ -1,0 +1,57 @@
+main {
+    margin: 0;
+}
+.adminHeader {
+    background-color: #dedede;
+    height: 100px;  
+    display: flex;
+    align-items: center;
+}
+#admin-logo {
+    width: 100px;
+    margin-left: 50px;
+    margin-top: -10px;
+    /* filter: invert(100%) */
+}
+.admin-info {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    margin-left: auto;
+    margin-right: 50px;
+    position: relative;
+}
+.admin-info img {
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 0 0 1px #00000097;
+    border-radius: 50%;
+}
+.admin-info i {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #00000097;
+}
+#admin-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 120px;
+}   
+#admin-dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+}
+#admin-dropdown-content a:hover {
+    color: #9f9f9f;
+    border-radius: 5px;
+}
+.admin-info:hover #admin-dropdown {
+    display: block;
+}

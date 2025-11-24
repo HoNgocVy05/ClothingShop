@@ -111,5 +111,5 @@
 .origin-price {
     margin-left: 5px;
     text-decoration: line-through;
-    color: var(--primary-color)
+    color: #9f9f9f;
 }

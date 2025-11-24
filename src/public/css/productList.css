@@ -117,7 +117,7 @@
 }
 
 .price-option input[type="checkbox"] {
-    accent-color: var(--primary-color);
+    accent-color: #9f9f9f;
     width: 16px;
     height: 16px;
     margin-right: 5px;

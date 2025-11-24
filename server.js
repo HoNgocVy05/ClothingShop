@@ -15,13 +15,14 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 //layout master
 app.use(expressLayouts);
 app.set('layout', './layouts/userMaster');
+app.set('layout', './layouts/adminMaster');
 
 //route
 const userRoute = require('./src/routes/userRoute');
 const adminRoute = require('./src/routes/adminRoute');
 const actionRoute = require('./src/routes/actionRoute');
 app.use('/', userRoute);
-app.use('/admin', adminRoute);
+app.use('/', adminRoute);
 app.use('/', actionRoute);
 
 // chạy server 
