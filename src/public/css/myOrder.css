@@ -1,0 +1,76 @@
+.my-order p {
+    margin: 0;
+}
+.my-order {
+    background-color: white;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.order-status {
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 10px;
+}
+.order-status p:last-child {
+    margin-left: auto;
+}
+.order-status p:first-child {
+    font-weight: bold;
+}
+.order-product {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+.order-product-info {
+    flex: 1;
+}
+.order-product img {
+    border-radius: 5px;
+    width: 100px;
+}
+.order-product-name {
+    font-weight: bold;
+}
+.order-product-size {
+    font-size: smaller;
+}
+.price-row {
+    display: flex;
+    margin-top: 30px;
+}
+.price-row p:first-child {
+    font-size: smaller;
+}
+.price-row p:last-child {
+    margin-left: auto;
+}
+.order-total-price {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    border-top: 1px solid #dbdbdb;
+    padding-top: 10px;
+}
+/* show all product  */
+.show-all-btn {
+    border: none;
+    color: #9f9f9f;
+    background-color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.show-all-btn:hover {
+    color: #000000;
+}
+.order-products .order-product:not(:first-child) {
+    display: none;
+}
+.order-products.show-all .order-product {
+    display: flex;
+}
+

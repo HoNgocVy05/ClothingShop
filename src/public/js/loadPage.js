@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(html => {
                     contentDiv.innerHTML = html;
+                    initShowAllOrder();
                 })
                 .catch(err => {
                     contentDiv.innerHTML = `<p>Lỗi tải trang: ${err.message}</p>`;
