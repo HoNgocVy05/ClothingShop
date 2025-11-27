@@ -1,4 +1,4 @@
-function initShowAllOrder() {
+function ShowAllOrder() {
     document.querySelectorAll(".my-order").forEach(order => {
         const wrapper = order.querySelector(".order-products");
         const btn = order.querySelector(".show-all-btn");

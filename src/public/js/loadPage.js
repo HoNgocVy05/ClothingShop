@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(html => {
                     contentDiv.innerHTML = html;
-                    initShowAllOrder();
+
+                    if (file === '/my-order') {
+                        ShowAllOrder()
+                    }
                 })
                 .catch(err => {
                     contentDiv.innerHTML = `<p>Lỗi tải trang: ${err.message}</p>`;

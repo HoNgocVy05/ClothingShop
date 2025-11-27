@@ -13,6 +13,11 @@ main {
     margin-top: -10px;
     /* filter: invert(100%) */
 }
+.admin.search-container {
+    width: 400px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
 .admin-info {
     display: flex;
     align-items: center;
