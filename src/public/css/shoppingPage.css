@@ -217,8 +217,12 @@ input:checked + .slider:before {
     padding: 30px;
     border-radius: 12px;
 }
+.order-right .my-order {
+    margin: 0;
+    box-shadow: none;
+}
 
-.checkout-item {
+/* .checkout-item {
     align-items: center;
     display: flex;
     gap: 16px;
@@ -268,7 +272,7 @@ input:checked + .slider:before {
     font-size: 15px;
     min-width: 100px;
     text-align: right;
-}
+} */
 
 /* Tổng tiền */
 .checkout-summary {

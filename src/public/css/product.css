@@ -114,7 +114,7 @@
 .product-price {
     display: flex;
     font-size: 0.8rem;
-    font-weight: bold;
+    font-weight: 500;
     padding: 0;
     margin: -10px 0 -10px 0;
 }

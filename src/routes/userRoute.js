@@ -24,5 +24,6 @@ router.get('/user',userPage.getUserPage)
 router.get('/user-infomation',userPage.getUserInfo)
 router.get('/my-order',userPage.getMyOrder)
 router.get('/change-password',userPage.getChangePassword)
+router.get('/my-order-detail',userPage.getMyOrderDetail)
 
 module.exports = router;

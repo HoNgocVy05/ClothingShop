@@ -10,3 +10,6 @@ exports.getMyOrder = (req, res) => {
 exports.getChangePassword = (req, res) => {
     res.render('user/changePassword', {layout: false});
 };
+exports.getMyOrderDetail = (req, res) => {
+    res.render('user/myOderDetail', {layout: false});
+};

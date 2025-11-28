@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const contentDiv = document.querySelector('.sidebar-content');
 
     function loadContent(item) {
-        if (item.hasAttribute('noContent')) return;
+        if (item.hasAttribute('noContent')) return; //nút đăng xuất
 
-        sidebarItems.forEach(i => i.classList.remove("menu-click"));
+        if(!item.hasAttribute('onItem')) {
+            sidebarItems.forEach(i => i.classList.remove("menu-click"));
+        }
         item.classList.add("menu-click");
 
         const file = item.getAttribute('content');
@@ -28,12 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    sidebarItems.forEach(item => {
-        item.addEventListener('click', e => {
-            e.preventDefault();
-            loadContent(item);
-        });
+    document.addEventListener('click', e => {
+        const item = e.target.closest('.sidebarItem');
+        if (!item) return;
+
+        e.preventDefault();
+        loadContent(item);
     });
+
 
     if (sidebarItems.length > 0) {
         loadContent(sidebarItems[0]);

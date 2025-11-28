@@ -1,44 +1,44 @@
 <div class="shopping-page">
     <div class="order-left">
         <h2>Mua hàng</h2>
-        
+
         <div class="form-group">
             <label>Họ và tên</label>
             <input type="text" placeholder="Nhập họ và tên">
         </div>
-        
+
         <div class="form-group">
             <label>Số điện thoại</label>
             <input type="tel" placeholder="Nhập số điện thoại">
         </div>
-        
+
         <div class="form-group">
             <label>Tỉnh/Thành phố, Quận/Huyện, Phường/Xã</label>
             <input type="text" placeholder="Ví dụ: TP. Hồ Chí Minh, Quận 1, Phường Bến Nghé">
         </div>
-        
+
         <div class="form-group">
             <label>Tên đường, Tòa nhà, Số nhà</label>
             <input type="text" placeholder="Ví dụ: 123 Đường Lê Lợi, Chung cư ABC, Lầu 5">
         </div>
-        
-        <div class="default-address">
+
+        <!-- <div class="default-address">
             <span>Đặt làm địa chỉ mặc định</span>
             <label class="switch">
                 <input type="checkbox">
                 <span class="slider"></span>
             </label>
-        </div>
-        
+        </div> -->
+
         <div class="form-group">
             <label>Ghi chú</label>
             <textarea rows="4" placeholder="Ghi chú thêm cho shop (không bắt buộc)"></textarea>
         </div>
-        
+
         <div class="shipping-method">
             <div class="shipping-box">
                 <strong>Phí vận chuyển</strong>
-                <span class="price">50.000đ</span>
+                <span class="price">20.000đ</span>
             </div>
         </div>
         <div class="payment-method">
@@ -61,14 +61,14 @@
                 </div>
             </label>
 
-            <input type="radio" name="payment" id="zalopay">
+            <!-- <input type="radio" name="payment" id="zalopay">
             <label for="zalopay">
                 <div class="radio-custom"></div>
                 <div class="payment-title">Ví Zalo Pay</div>
                 <div class="payment-logos">
                     <img src="/images/zalopay.png" alt="ZaloPay" style="height:28px;">
                 </div>
-            </label>
+            </label> -->
 
             <input type="radio" name="payment" id="cod">
             <label for="cod">
@@ -80,44 +80,51 @@
     </div>
 
     <div class="order-right">
-        <div class="checkout-item">
-            <div class="cart-product-img">
-                <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+            <div class="my-order">
+            <div class="order-item">
+                <div class="order-products-detail">
+                    <div class="order-product">
+                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                        <div class="order-product-info">
+                            <p class="order-product-name">OWL - ÁO thun navy</p>
+                            <p class="order-product-size">XL</p>
+                            <div class="price-row">
+                                <p>x2</p>
+                                <p>45.000đ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-product">
+                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                        <div class="order-product-info">
+                            <p class="order-product-name">OWL - ÁO thun navy</p>
+                            <p class="order-product-size">XL</p>
+                            <div class="price-row">
+                                <p>x2</p>
+                                <p>45.000đ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-product">
+                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                        <div class="order-product-info">
+                            <p class="order-product-name">OWL - ÁO thun navy</p>
+                            <p class="order-product-size">XL</p>
+                            <div class="price-row">
+                                <p>x2</p>
+                                <p>45.000đ</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        <div class="checkout-detail">
-            <div class="checkout-name">Đầm cerys</div>
-            <div class="checkout-size">Size S</div>
         </div>
-        <div class="checkout-price">320.000đ</div>
-    </div>
 
-    <div class="checkout-item">
-        <div class="cart-product-img">
-            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
+        <div class="checkout-summary">
+            <div class="sum-row"><span>Tổng phụ </span><strong>270.000đ</strong></div>
+            <div class="sum-row"><span>Vận chuyển</span><span>20.000đ</span></div>
+            <div class="sum-total"><span>Tổng</span><strong>290.000đ</strong></div>
         </div>
-        <div class="checkout-detail">
-            <div class="checkout-name">Áo layla</div>
-            <div class="checkout-size">Size M</div>
-        </div>
-        <div class="checkout-price">280.000đ</div>
-    </div>
 
-    <div class="checkout-item">
-        <div class="cart-product-img">
-            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
-        </div>
-        <div class="checkout-detail">
-            <div class="checkout-name">Áo elena</div>
-            <div class="checkout-size">Size S</div>
-        </div>
-        <div class="checkout-price">200.000đ</div>
-    </div>
-
-    <div class="checkout-summary">
-        <div class="sum-row"><span>Tổng phụ 3 mặt hàng</span><strong>800.000đ</strong></div>
-        <div class="sum-row"><span>Vận chuyển</span><span>50.000đ</span></div>
-        <div class="sum-total"><span>Tổng</span><strong>800.000đ</strong></div>
-    </div>
-        
     </div>
 </div>
