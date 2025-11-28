@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(html => {
                     contentDiv.innerHTML = html;
-
+                    if (typeof initShowAllOrder === "function") initShowAllOrder();
+                    if (typeof onPageLoaded === "function") onPageLoaded();
                     if (file === '/my-order') {
                         ShowAllOrder()
                     }
