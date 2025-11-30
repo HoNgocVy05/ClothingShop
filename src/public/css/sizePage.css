@@ -1,0 +1,28 @@
+.size-page {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.size-page h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.size-page h3 {
+    font-weight: 400;
+    text-align: left;
+    font-size: 26px;
+    color: #000;
+}
+    
+.image-women img,
+.image-men img {
+    width: 1000px;
+    height: 600px;                 
+}
