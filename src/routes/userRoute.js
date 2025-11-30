@@ -28,5 +28,6 @@ router.get('/change-password',userPage.getChangePassword)
 router.get('/my-order-detail',userPage.getMyOrderDetail)
 router.get('/contact',support.getContactPage)
 router.get('/size',support.getSizePage)
+router.get('/return-policy',support.getReturnPolicyPage)
 
 module.exports = router;
