@@ -9,6 +9,7 @@ const shopping = require('../controllers/shopping');
 const login = require('../controllers/login');
 const signin = require('../controllers/signin');
 const userPage = require('../controllers/userPage');
+const support = require('../controllers/support');
 
 // các trang user
 router.get('/', index.getIndex);
@@ -25,5 +26,8 @@ router.get('/user-infomation',userPage.getUserInfo)
 router.get('/my-order',userPage.getMyOrder)
 router.get('/change-password',userPage.getChangePassword)
 router.get('/my-order-detail',userPage.getMyOrderDetail)
+router.get('/contact',support.getContactPage)
+router.get('/size',support.getSizePage)
+router.get('/return-policy',support.getReturnPolicyPage)
 
 module.exports = router;
