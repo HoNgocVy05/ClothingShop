@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function loadContent(item) {
         if (item.hasAttribute('noContent')) return; //nút đăng xuất
 
+        // trang chi tiết sản phẩm không đánh dấu trên sibebar
         if(!item.hasAttribute('onItem')) {
             sidebarItems.forEach(i => i.classList.remove("menu-click"));
         }
@@ -19,10 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(html => {
                     contentDiv.innerHTML = html;
-                    if (typeof initShowAllOrder === "function") initShowAllOrder();
+                    //gọi hàm
                     if (typeof onPageLoaded === "function") onPageLoaded();
                     if (file === '/my-order') {
-                        ShowAllOrder()
+                        showAllOrder();
+                    }
+                    if (file === '/my-order-detail') {
+                        copyOrderCode();
                     }
                 })
                 .catch(err => {
@@ -35,10 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = e.target.closest('.sidebarItem');
         if (!item) return;
 
-        e.preventDefault();
+        e.preventDefault(); //không load lại trang khi click vào thẻ a
         loadContent(item);
     });
-
 
     if (sidebarItems.length > 0) {
         loadContent(sidebarItems[0]);

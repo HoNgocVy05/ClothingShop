@@ -62,3 +62,24 @@
     padding: 20px;
     margin-top: 10px;
 }
+.sum-row .fa-copy {
+    color: #9f9f9f;
+    cursor: pointer;
+}
+.sum-row .fa-copy.clicked {
+    color: black;
+}
+.order-code {
+    position: relative;
+}
+.sum-row #copy-notice {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    background: #222;
+    color: #fff;
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 5px;
+    display: none;
+}

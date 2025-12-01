@@ -1,0 +1,102 @@
+.dashboard {
+    padding: 20px 20px 20px 0;
+}
+.statistical-time {
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;  
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    border-radius: 5px;
+}
+.statistical-time p:first-child {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+}
+.statistical-time .form-row {
+    margin-left: auto;
+    margin-right: 20px;
+    width: 200px;
+}
+.statistical-time .gender-select {
+    background-color: #f8f8f8;
+}
+.statistical-time .gender-box {
+    width: 100%;
+}
+.statistical-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-top: 20px;
+    gap: 20px;
+}
+.overview-box {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #e7e7e7;  
+}
+.overview-box p {
+    margin: 0;
+    text-wrap: nowrap;
+}
+.overview-box p:first-child {
+    font-weight: bold;
+}
+.overview-box i {
+    font-size: 2rem;
+    margin-right: 20px;
+}
+/* bảng sản phẩm bns chạy */
+.statistical-best-seller {
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.admin-table {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+.admin-table table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed
+}
+.admin-table th, .admin-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+    /* text-align: left; */
+}
+.admin-table th:not(:nth-child(2)), .admin-table td:not(:nth-child(2)) {
+    text-align: center;
+}
+/* độ rộng cột bảng best seller */
+.best-seller-table .table-col th:first-child {
+    width: 5%;
+}   
+.best-seller-table .table-col th:nth-child(2) {
+    width: 50%;
+}
+.best-seller-table .table-col th:nth-child(3) {
+    width: 15%;
+}
+.best-seller-table .table-col th:last-child {
+    width: 30%;
+}
+/* độ rộng cột bảng sắp hết hàng */
+.low-stock-table .table-col th:first-child {
+    width: 5%;
+}
+.low-stock-table .table-col th:nth-child(2) {
+    width: 40%;
+}
+.low-stock-table .table-col th:nth-child(3) {
+    width: 10%;
+}
+.low-stock-table .table-col th:last-child {
+    width: 35%;
+}

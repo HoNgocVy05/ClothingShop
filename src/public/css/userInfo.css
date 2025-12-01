@@ -47,6 +47,7 @@
 .form-row input:disabled {
     opacity: 1;
     color: #000;
+    background-color: #f3f3f3;
 }
 
 .form-row input[type="date"] {

@@ -7,9 +7,9 @@
             </div>
 
             <div class="thumbnails">
-                <img src="/images/ao-lumi-1.png" alt="Thumb 1" onclick="changeMainImage(this)" />
-                <img src="/images/ao-lumi-2.png" alt="Model 1" onclick="changeMainImage(this)" />
-                <img src="/images/ao-lumi-3.png" alt="Model 2" onclick="changeMainImage(this)" />
+                <img class="thumbnails-img" src="/images/ao-lumi-1.png" alt="Thumb 1" onclick="changeMainImage(this)" />
+                <img class="thumbnails-img" src="/images/ao-lumi-2.png" alt="Model 1" onclick="changeMainImage(this)" />
+                <img class="thumbnails-img" src="/images/ao-lumi-3.png" alt="Model 2" onclick="changeMainImage(this)" />
             </div>
         </div>
 
@@ -118,7 +118,10 @@
     // đổi ảnh 
     function changeMainImage(thumbnail) {
         const mainImg = document.getElementById("mainImage");
+        const thumbnailsImg = document.querySelectorAll('.thumbnails-img');
         mainImg.src = thumbnail.src;
+        thumbnailsImg.forEach(img => img.classList.remove('active'));
+        thumbnail.classList.add('active');
     }
     // đóng mở dropdown 
     function toggleDropdown(type) {

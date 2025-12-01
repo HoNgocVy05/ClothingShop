@@ -2,6 +2,20 @@
     display: grid;
     grid-template-columns: minmax(100px, 300px) 1fr;
     gap: 20px;
+    height: 100vh;
+}
+.user-menu {
+    position: sticky;
+    top: 40px;
+    height: fit-content;
+    align-self: start;
+}
+
+.sidebar-content {
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    height: 100vh;
 }
 .user-card {
     display: flex;
