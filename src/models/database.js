@@ -1,16 +1,21 @@
 const mysql = require('mysql2');
+const mySqlPort = process.env.mySqlPort;
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'ClothingShop',
     port: 3306
-});
+}).promise();
 
-connection.connect(err => {
-    if (err) console.error('Kết nối thất bại:', err);
-    else console.log('Kết nối thành công!');
-});
+(async () => {
+    try {
+        const [rows] = await pool.query("SELECT 1");
+        console.log("Kết nối db thành công!");
+    } catch (err) {
+        console.log("Kết nối db thât bại:",err);
+    }
+})();
 
-module.exports = connection;
+module.exports = pool;

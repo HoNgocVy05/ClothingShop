@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +16,18 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.2",
     "mysql2": "^3.15.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HoNgocVy05/ClothingShop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HoNgocVy05/ClothingShop/issues"
+  },
+  "homepage": "https://github.com/HoNgocVy05/ClothingShop#readme"
 }
-  

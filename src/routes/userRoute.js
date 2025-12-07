@@ -10,6 +10,7 @@ const login = require('../controllers/login');
 const signin = require('../controllers/signin');
 const userPage = require('../controllers/userPage');
 const support = require('../controllers/support');
+const {checkLogin} = require('../middleware/auth');
 
 // các trang user
 router.get('/', index.getIndex);
@@ -17,17 +18,18 @@ router.get('/search',searchController.getSearchResult)
 router.get('/product',productInforController.getProductInfor)
 router.get('/product-list',productList.getProductList)
 router.get('/product-infomation',productInforController.getProductInfor)
-router.get('/cart',cartController.getShoppingCart)
-router.get('/shopping',shopping.getShoppingPage)
+router.get('/cart',checkLogin,cartController.getShoppingCart)
+router.get('/shopping',checkLogin,shopping.getShoppingPage)
 router.get('/login',login.getLogin)
 router.get('/signin',signin.getSignin)
-router.get('/user',userPage.getUserPage)
-router.get('/user-infomation',userPage.getUserInfo)
-router.get('/my-order',userPage.getMyOrder)
-router.get('/change-password',userPage.getChangePassword)
-router.get('/my-order-detail',userPage.getMyOrderDetail)
+router.get('/user',checkLogin,userPage.getUserPage)
+router.get('/user-infomation',checkLogin,userPage.getUserInfo)
+router.get('/my-order',checkLogin,userPage.getMyOrder)
+router.get('/change-password',checkLogin,userPage.getChangePassword)
+router.get('/my-order-detail',checkLogin,userPage.getMyOrderDetail)
 router.get('/contact',support.getContactPage)
 router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
+router.post('/login', login.postLogin);
 
 module.exports = router;
