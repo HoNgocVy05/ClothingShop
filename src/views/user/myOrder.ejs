@@ -1,109 +1,121 @@
 <!-- chưa code mấy cái nút  -->
-<div class="my-order">
-    <div class="order-item">
-        <div class="order-status">
-            <p>Trạng thái:</p>
-            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
-        </div>
-        <div class="order-products sidebarItem" content="/my-order-detail" onItem="true">
-            <div class="order-product ">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x2</p>
-                        <p>45.000đ</p>
+
+<div class="user-page">
+    <%- include("../partials/userSidebar", { activePage: locals.activePage }) %>
+        <div class="sidebar-content">
+            <div class="my-order">
+                <a href="/my-order-detail">
+                    <div class="order-item">
+                        <div class="order-status">
+                            <p>Trạng thái:</p>
+                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
+                        </div>
+                        <div class="order-products sidebarItem" onItem="true">
+                            <div class="order-product ">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-product">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="show-all-btn">Xem thêm...</button>
+                        <div class="order-total-price">
+                            <p>Tổng: <b> 180.000đ</b></p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="order-product">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x2</p>
-                        <p>45.000đ</p>
+            <div class="my-order">
+                <a href="/my-order-detail">
+                    <div class="order-item">
+                        <div class="order-status">
+                            <p>Trạng thái:</p>
+                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
+                        </div>
+                        <div class="order-products sidebarItem" onItem="true">
+                            <div class="order-product ">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-product">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="show-all-btn">Xem thêm...</button>
+                        <div class="order-total-price">
+                            <p>Tổng: <b> 180.000đ</b></p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-        </div>
-        <button class="show-all-btn">Xem thêm...</button>
-        <div class="order-total-price">
-            <p>Tổng: <b> 180.000đ</b></p>
-        </div>
-    </div>
-</div>
-<div class="my-order">
-    <div class="order-item">
-        <div class="order-status">
-            <p>Trạng thái:</p>
-            <p style="color: green;">Đang giao hàng</p>
-        </div>
-        <div class="order-products sidebarItem" content="/my-order-detail" onItem="true">
-            <div class="order-product">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x1</p>
-                        <p>45.000đ</p>
+            <div class="my-order">
+                <a href="/my-order-detail">
+                    <div class="order-item">
+                        <div class="order-status">
+                            <p>Trạng thái:</p>
+                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
+                        </div>
+                        <div class="order-products sidebarItem" onItem="true">
+                            <div class="order-product ">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-product">
+                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                                <div class="order-product-info">
+                                    <p class="order-product-name">OWL - ÁO thun navy</p>
+                                    <p class="order-product-size">XL</p>
+                                    <div class="price-row">
+                                        <p>x2</p>
+                                        <p>45.000đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="show-all-btn">Xem thêm...</button>
+                        <div class="order-total-price">
+                            <p>Tổng: <b> 180.000đ</b></p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
-        <button class="show-all-btn">Xem thêm...</button>
-        <div class="order-total-price">
-            <p>Tổng: <b> 45.000đ</b></p>
-        </div>
-    </div>
-</div>
-<div class="my-order">
-    <div class="order-item">
-        <div class="order-status">
-            <p>Trạng thái:</p>
-            <p>Đã nhận được hàng</p>
-        </div>
-        <div class="order-products sidebarItem" content="/my-order-detail" onItem="true">
-            <div class="order-product">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x1</p>
-                        <p>45.000đ</p>
-                    </div>
-                </div>
-            </div>
-            <div class="order-product">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x1</p>
-                        <p>45.000đ</p>
-                    </div>
-                </div>
-            </div>
-            <div class="order-product">
-                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                <div class="order-product-info">
-                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                    <p class="order-product-size">XL</p>
-                    <div class="price-row">
-                        <p>x1</p>
-                        <p>45.000đ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="show-all-btn">Xem thêm...</button>
-        <div class="order-total-price">
-            <p>Tổng: <b> 135.000đ</b></p>
-        </div>
-    </div>
 </div>

@@ -19,7 +19,7 @@
 <div class="sale-container">
     <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="sale product-container">
-        <div class="product-card">
+        <div class="product-card" onclick="window.location.href='/product-infomation'">
             <div class="card-img">
                 <img src="/images/shirt.png" alt="shirt">
             </div>
@@ -651,13 +651,7 @@
     </div>
 </div>
 
-<script>
-    document.querySelectorAll('.card-img').forEach((img) => {
-        img.addEventListener('click', () => {
-            window.location.href = '#';
-        });
-    });
-    
+<script>    
     //lướt mục sản phẩm giảm giá
     (() => {
         const container = document.querySelector('.sale.product-container');

@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+    showAllOrder();
+    copyOrderCode();
+});
 // hiện toàn bộ sản phẩm trong đơn hàng
 function showAllOrder() {
     document.querySelectorAll(".my-order").forEach(order => {

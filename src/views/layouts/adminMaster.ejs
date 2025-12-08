@@ -18,15 +18,21 @@
     <link rel="stylesheet" href="/css/myOrderDetail.css">
     <link rel="stylesheet" href="/css/userInfo.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/productManage.css">
 </head>
 
 <body>
     <%- include("../partials/adminHeader") %>
     <main>
-        <%- body %>
+        <div id="admin-page">
+            <%- include("../partials/adminSidebar") %>
+            <div class="sidebar-content">
+                <%- body %>
+            </div>
+        </div>
     </main>
-    <!-- <%- include("../partials/footer") %>    -->
 </body>
 
 </html>
 <script src="/js/loadPage.js"></script>
+<script src="/js/addProduct.js"></script>

@@ -69,10 +69,9 @@
 .admin-table th, .admin-table td {
     border-bottom: 1px solid #ddd;
     padding: 5px;
-    /* text-align: left; */
 }
 .admin-table th:not(:nth-child(2)), .admin-table td:not(:nth-child(2)) {
-    text-align: center;
+    text-align: center; 
 }
 /* độ rộng cột bảng best seller */
 .best-seller-table .table-col th:first-child {
