@@ -15,21 +15,21 @@
 
             <h2>Đăng ký</h2>
 
-            <form>
+            <form action="/signin" method="POST">
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Họ và tên" required>
+                    <input type="text" name="fullname" placeholder="Họ và tên" required>
                 </div>
 
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
 
                 <div class="password-row">
                     <div class="input-group">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="pass1" placeholder="Mật khẩu" required>
+                        <input type="password" name="password" id="pass1" placeholder="Mật khẩu" required>
                         <span class="toggle-password" onclick="togglePass('pass1', this)">
                             <i class="fas fa-eye"></i>
                         </span>
@@ -37,7 +37,7 @@
 
                     <div class="input-group">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="pass2" placeholder="Xác nhận mật khẩu" required>
+                        <input type="password" name="confirmPassword" id="pass2" placeholder="Xác nhận mật khẩu" required>
                         <span class="toggle-password" onclick="togglePass('pass2', this)">
                             <i class="fas fa-eye"></i>
                         </span>
@@ -49,8 +49,7 @@
                 <div class="or-register">
                     hoặc <a href="/login">Đăng nhập</a>
                 </div>
-            </form>
-            
+            </form>         
         </div>
     </div>
 <script src="/js/common.js"></script>

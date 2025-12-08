@@ -1,6 +1,7 @@
 require('dotenv').config(); //load biến môi trường từ file .env
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session');
 const path = require('path');
 
 
@@ -8,6 +9,13 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.urlencoded({ extended: true }));
+
+//session
+app.use(session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: true
+}));
 
 //cấu hình EJS và đường dẫn tới thư mục views
 app.set('view engine', 'ejs');
