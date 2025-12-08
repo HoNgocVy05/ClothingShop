@@ -10,7 +10,7 @@ const login = require('../controllers/login');
 const signin = require('../controllers/signin');
 const userPage = require('../controllers/userPage');
 const support = require('../controllers/support');
-const {checkLogin} = require('../middleware/auth');
+const { checkLogin, redirectIfLoggedIn } = require('../middleware/auth');
 
 // các trang user
 router.get('/', index.getIndex);
@@ -20,8 +20,8 @@ router.get('/product-list',productList.getProductList)
 router.get('/product-infomation',productInforController.getProductInfor)
 router.get('/cart',checkLogin,cartController.getShoppingCart)
 router.get('/shopping',checkLogin,shopping.getShoppingPage)
-router.get('/login',login.getLogin)
-router.get('/signin',signin.getSignin)
+router.get('/login',redirectIfLoggedIn,login.getLogin)
+router.get('/signin',redirectIfLoggedIn,signin.getSignin)
 router.get('/user',checkLogin,userPage.getUserPage)
 router.get('/user-infomation',checkLogin,userPage.getUserInfo)
 router.get('/my-order',checkLogin,userPage.getMyOrder)
@@ -30,6 +30,7 @@ router.get('/my-order-detail',checkLogin,userPage.getMyOrderDetail)
 router.get('/contact',support.getContactPage)
 router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
-router.post('/login', login.postLogin);
+router.post('/login',redirectIfLoggedIn, login.postLogin);
+router.post('/signin',redirectIfLoggedIn, signin.postSignin);
 
 module.exports = router;

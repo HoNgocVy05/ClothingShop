@@ -11,3 +11,10 @@ exports.checkAdmin = (req, res, next) => {
     }
     next();
 };
+
+exports.redirectIfLoggedIn = (req, res, next) => {
+    if (req.session.user) {
+        return res.redirect('/');
+    }
+    next();
+};
