@@ -9,6 +9,8 @@ exports.addProduct = async (req, res) => {
             name: req.body.name,
             category_id: req.body.category_id,
             price: req.body.price,
+            discount_percent: Number(req.body.discount_percent || 0),
+            final_price: req.body.final_price || req.body.price,
             description: req.body.description || null,
             stock_s: Number(req.body.stock_s || 0),
             stock_m: Number(req.body.stock_m || 0),
@@ -25,13 +27,7 @@ exports.addProduct = async (req, res) => {
             text: "Thêm sản phẩm thành công!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
 
     } catch (err) {
         console.error("Add product error:", err);
@@ -41,13 +37,7 @@ exports.addProduct = async (req, res) => {
             text: "Lỗi khi thêm sản phẩm!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
     }
 };
 
@@ -68,6 +58,8 @@ exports.updateProduct = async (req, res) => {
             name: req.body.name,
             category_id: req.body.category_id,
             price: req.body.price,
+            discount_percent: Number(req.body.discount_percent || 0),
+            final_price: req.body.final_price || req.body.price,
             description: req.body.description || null,
             stock_s: Number(req.body.stock_s || 0),
             stock_m: Number(req.body.stock_m || 0),
@@ -83,13 +75,7 @@ exports.updateProduct = async (req, res) => {
             text: "Cập nhật sản phẩm thành công!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
 
     } catch (err) {
         console.error("Update product error:", err);
@@ -99,13 +85,7 @@ exports.updateProduct = async (req, res) => {
             text: "Lỗi khi cập nhật sản phẩm!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
     }
 };
 
@@ -121,13 +101,7 @@ exports.deleteProduct = async (req, res) => {
             text: "Xóa sản phẩm thành công!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
 
     } catch (err) {
         console.error("Delete product error:", err);
@@ -137,12 +111,6 @@ exports.deleteProduct = async (req, res) => {
             text: "Lỗi khi xóa sản phẩm!"
         };
 
-        req.session.save((err) => {
-            if (err) {
-                console.error("Session save error:", err);
-                return res.status(500).json({ error: "Lỗi lưu session" });
-            }
-            return res.redirect('/admin/product-management');
-        });
+        return res.redirect('/admin/product-management');
     }
 };
