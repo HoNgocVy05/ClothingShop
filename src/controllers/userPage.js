@@ -30,12 +30,11 @@
     };  
     exports.updateUserInfo = async (req, res) => {
     try {
-        const { fullname, bio, address, dayOfBirth, gender, email, phoneNumber } = req.body;
+        const { fullname, address, dayOfBirth, gender, email, phoneNumber } = req.body;
         const userId = req.session.user.id;
 
         await User.update(userId, {
             fullname,
-            bio,
             address,
             dayOfBirth,
             gender,
