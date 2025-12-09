@@ -1,11 +1,5 @@
 <div class="product-management dashboard">
     <div class="statistical-time">
-        <!-- Thông báo -->
-        <% if (message) { %>
-            <div class="alert alert-<%= message.type %> <%= message.type === 'success' ? 'alert-success-custom' : 'alert-error-custom' %>" role="alert">
-                <%= message.text %>
-            </div>
-        <% } %>
 
         <!-- Thanh tìm kiếm -->
         <div class="admin search-container">
@@ -34,12 +28,14 @@
                 <!-- danh mục -->
                 <div class="form-row">
                     <label for="category">Danh mục:</label>
-                    <select id="category" name="category_id" required>
+                    <div class="gender-box">
+                        <select id="category" name="category_id" required>
                         <option value="">-- Chọn danh mục --</option>
                         <% categories.forEach(c=> { %>
-                            <option value="<%= c.id %>"><%= c.name %></option>
+                            <option value="<%= c.id %>"><%= c.full_name || c.name %></option>
                         <% }) %>
                     </select>
+                    </div>
                 </div>
 
                 <!-- sizes -->
@@ -73,6 +69,18 @@
                     <input type="number" id="price" name="price" required>
                 </div>
 
+                <!-- giảm giá % -->
+                <div class="form-row">
+                    <label for="discount">Phần trăm giảm giá (%):</label>
+                    <input type="number" id="discount" name="discount_percent" min="0" max="100" value="0" required>
+                </div>
+
+                <!-- giá cuối -->
+                <div class="form-row">
+                    <label for="final-price">Giá cuối (VND):</label>
+                    <input type="number" id="final-price" name="final_price" readonly>
+                </div>
+
                 <div class="form-row-btn">
                     <button type="submit" class="submit-product-btn">Lưu</button>
                     <button type="button" class="cancel-product-btn">Hủy</button>
@@ -101,7 +109,7 @@
 
                 <tbody>
                     <% products.forEach(p=> { %>
-                        <tr class="product-row" data-id="<%= p.id %>" data-name="<%= p.name.replace(/\"/g, '&quot;') %>" data-category="<%= p.category_id %>" data-s="<%= p.stock_s %>" data-m="<%= p.stock_m %>" data-l="<%= p.stock_l %>" data-xl="<%= p.stock_xl %>" data-price="<%= p.price %>" data-description="<%= (p.description || '').replace(/\"/g, '&quot;') %>" data-images='<%= JSON.stringify(p.images) %>'>
+                        <tr class="product-row" data-id="<%= p.id %>" data-name="<%= p.name.replace(/\"/g, '&quot;') %>" data-category="<%= p.category_id %>" data-s="<%= p.stock_s %>" data-m="<%= p.stock_m %>" data-l="<%= p.stock_l %>" data-xl="<%= p.stock_xl %>" data-price="<%= p.price %>" data-discount_percent="<%= p.discount_percent || 0 %>" data-final_price="<%= p.final_price || p.price %>" data-description="<%= (p.description || '').replace(/\"/g, '&quot;') %>" data-images='<%= JSON.stringify(p.images) %>'>
 
                             <td><input type="checkbox"></td>
 

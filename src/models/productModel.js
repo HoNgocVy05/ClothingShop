@@ -35,8 +35,8 @@ exports.getById = async (id) => {
 exports.add = async (data) => {
     const sql = `
         INSERT INTO products 
-        (name, category_id, stock_s, stock_m, stock_l, stock_xl, price, description, images)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (name, category_id, stock_s, stock_m, stock_l, stock_xl, price, discount_percent, final_price, description, images)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     const [result] = await db.query(sql, [
         data.name,
@@ -46,6 +46,8 @@ exports.add = async (data) => {
         data.stock_l,
         data.stock_xl,
         data.price,
+        data.discount_percent || 0,
+        data.final_price || data.price,
         data.description || null,
         JSON.stringify(data.images || [])
     ]);
@@ -58,7 +60,7 @@ exports.update = async (id, data) => {
         UPDATE products SET
             name=?, category_id=?, 
             stock_s=?, stock_m=?, stock_l=?, stock_xl=?, 
-            price=?, description=?, images=?
+            price=?, discount_percent=?, final_price=?, description=?, images=?
         WHERE id=?
     `;
 
@@ -70,6 +72,8 @@ exports.update = async (id, data) => {
         data.stock_l,
         data.stock_xl,
         data.price,
+        data.discount_percent || 0,
+        data.final_price || data.price,
         data.description || null,
         JSON.stringify(data.images || []),
         id
