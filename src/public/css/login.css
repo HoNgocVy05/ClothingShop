@@ -59,6 +59,25 @@
     font-size: 16px;
 }
 
+.input-group select {
+    width: 50%;                    
+    padding: 14px 20px;             
+    border: none;
+    background: #f3f3f3;
+    border-radius: 30px;
+    font-size: 15px;
+    color: #6f6f6f;
+    outline: none;
+    cursor: pointer;
+    display: block;
+    margin-left: 0;             
+}
+
+.input-group select:hover {
+    background: #e9e9e9;
+}
+
+
 .toggle-password {
     position: absolute;
     right: 50px;
