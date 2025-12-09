@@ -1,17 +1,15 @@
-// const express = require("express");
-// const router = express.Router();
-// const productController = require("../controllers/productController");
-// const upload = require("../middlewares/uploadProductImages");
+const express = require('express');
+const router = express.Router();
+const upload = require('../middleware/uploadProductImages');
+const productController = require('../controllers/productController');
 
-// router.get("/categories", productController.listCategories);
+// thêm
+router.post('/api/products/add', upload.array('images', 4), productController.addProduct);
 
-// router.get("/products", productController.listProducts);
-// router.get("/products/:id", productController.getProduct);
+// sửa
+router.post('/api/products/update/:id', upload.array('images', 4), productController.updateProduct);
 
-// router.post("/products", upload.array("images", 4), productController.createProduct);
+// xóa
+router.post('/api/products/delete/:id', productController.deleteProduct);
 
-// router.put("/products/:id", upload.array("images", 4), productController.updateProduct);
-
-// router.delete("/products/:id", productController.deleteProduct);
-
-// module.exports = router;
+module.exports = router;
