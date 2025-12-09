@@ -46,5 +46,5 @@ exports.postLogin = async (req, res) => {
         role: user.role
     };
 
-    return loginType === "admin" ? res.redirect('/admin') : res.redirect('/');
+    return loginType === "admin" ? res.redirect('admin/dashboard') : res.redirect('/');
 };
