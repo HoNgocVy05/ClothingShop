@@ -1,11 +1,15 @@
 const mysql = require('mysql2');
 const mySqlPort = process.env.mySqlPort;
+const mySqlHost = process.env.mySqlHost;
+const mySqlUser = process.env.mySqlUser;
+const mySqlPassword = process.env.mySqlPassword;
+const mySqlDb = process.env.mySqlDb;
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'ClothingShop',
+    host: mySqlHost,
+    user: mySqlUser,
+    password: mySqlPassword,
+    database: mySqlDb,
     port: mySqlPort
 }).promise();
 

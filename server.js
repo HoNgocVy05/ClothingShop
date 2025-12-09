@@ -32,7 +32,7 @@ const adminRoute = require('./src/routes/adminRoute');
 const actionRoute = require('./src/routes/actionRoute');
 app.use('/', userRoute);
 app.use('/', adminRoute);
-// app.use('/', actionRoute);
+app.use('/', actionRoute);
 
 // chạy server 
 const PORT = process.env.PORT;

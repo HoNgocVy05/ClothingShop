@@ -1,5 +1,11 @@
 <div class="product-management dashboard">
     <div class="statistical-time">
+        <!-- Thông báo -->
+        <% if (message) { %>
+            <div class="alert alert-<%= message.type %> <%= message.type === 'success' ? 'alert-success-custom' : 'alert-error-custom' %>" role="alert">
+                <%= message.text %>
+            </div>
+        <% } %>
 
         <!-- Thanh tìm kiếm -->
         <div class="admin search-container">
@@ -13,53 +19,55 @@
             <button class="add-product-btn open-add-form">Thêm sản phẩm</button>
         </div>
 
-        <!-- Form thêm sản phẩm -->
+        <!-- Form thêm/sửa -->
         <div class="add-product-container hidden">
-            <form class="add-product-form" id="product-form">
-
+            <form class="add-product-form" id="product-form" method="POST" enctype="multipart/form-data" action="/api/products/add">
                 <h2 id="form-title">Thêm sản phẩm mới</h2>
-
                 <input type="hidden" id="product-id" name="id">
 
+                <!-- tên -->
                 <div class="form-row">
                     <label for="product-name">Tên sản phẩm:</label>
                     <input type="text" id="product-name" name="name" required>
                 </div>
 
+                <!-- danh mục -->
                 <div class="form-row">
                     <label for="category">Danh mục:</label>
-                    <div class="gender-box">
-                        <select id="category" name="category_id" required>
-                            <option value="">-- Chọn danh mục --</option>
-
-
-
-                        </select>
-                    </div>
+                    <select id="category" name="category_id" required>
+                        <option value="">-- Chọn danh mục --</option>
+                        <% categories.forEach(c=> { %>
+                            <option value="<%= c.id %>"><%= c.name %></option>
+                        <% }) %>
+                    </select>
                 </div>
 
+                <!-- sizes -->
                 <div class="form-row">
                     <label>Số lượng:</label>
                     <div class="sizes-box">
                         <div><span>S:</span><input type="number" min="0" value="0" id="size-s" name="size_s"></div>
                         <div><span>M:</span><input type="number" min="0" value="0" id="size-m" name="size_m"></div>
                         <div><span>L:</span><input type="number" min="0" value="0" id="size-l" name="size_l"></div>
-                        <div><span>XL:</span><input type="number" min="0" value="0" id="size-xl" name="size_xl">
-                        </div>
+                        <div><span>XL:</span><input type="number" min="0" value="0" id="size-xl" name="size_xl"></div>
                     </div>
                 </div>
 
+                <!-- hình ảnh -->
                 <div class="form-row">
                     <label for="product-image">Hình ảnh (tối đa 4):</label>
                     <input type="file" id="product-image" name="images" accept="image/*" multiple>
+                    <input type="hidden" id="old-images" name="old_images">
                     <div class="image-preview" id="preview"></div>
                 </div>
 
+                <!-- mô tả -->
                 <div class="form-row">
                     <label for="description">Mô tả sản phẩm:</label>
                     <textarea id="description" name="description" rows="4"></textarea>
                 </div>
 
+                <!-- giá -->
                 <div class="form-row">
                     <label for="price">Giá bán (VND):</label>
                     <input type="number" id="price" name="price" required>
@@ -67,16 +75,15 @@
 
                 <div class="form-row-btn">
                     <button type="submit" class="submit-product-btn">Lưu</button>
-                    <button type="button" class="cancel-product-btn close-add-form">Hủy</button>
+                    <button type="button" class="cancel-product-btn">Hủy</button>
                 </div>
 
-                <button class="exit-btn close-add-form"><i class="fa-solid fa-circle-xmark"></i></button>
+                <button class="exit-btn cancel-product-btn"><i class="fa-solid fa-circle-xmark"></i></button>
             </form>
         </div>
-
     </div>
 
-    <!-- Bảng sản phẩm -->
+    <!-- bảng sản phẩm -->
     <div class="statistical-best-seller statistical-time">
         <div class="admin-table product-management-table">
             <table>
@@ -92,9 +99,38 @@
                     </tr>
                 </thead>
 
-                <tbody id="product-table-body">
+                <tbody>
+                    <% products.forEach(p=> { %>
+                        <tr class="product-row" data-id="<%= p.id %>" data-name="<%= p.name.replace(/\"/g, '&quot;') %>" data-category="<%= p.category_id %>" data-s="<%= p.stock_s %>" data-m="<%= p.stock_m %>" data-l="<%= p.stock_l %>" data-xl="<%= p.stock_xl %>" data-price="<%= p.price %>" data-description="<%= (p.description || '').replace(/\"/g, '&quot;') %>" data-images='<%= JSON.stringify(p.images) %>'>
 
+                            <td><input type="checkbox"></td>
 
+                            <td>
+                                <% if (p.images && p.images.length > 0) { %>
+                                    <img src="/uploads/products/<%= p.images[0] %>" class="product-manage-img">
+                                <% } else { %>
+                                    <img src="/images/img-product-default.png" class="product-manage-img">
+                                <% } %>
+                            </td>
+
+                            <td><%= p.name %></td>
+                            <td><%= p.category_name %></td>
+                            <td><%= p.stock_s + p.stock_m + p.stock_l + p.stock_xl %></td>
+                            <td>0</td>
+
+                            <td>
+                                <div class="action-btn">
+                                    <button class="btn-icon edit-btn" type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+
+                                    <form method="POST" action="/api/products/delete/<%= p.id %>" onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?');">
+                                        <button class="btn-icon delete-btn" type="submit">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>

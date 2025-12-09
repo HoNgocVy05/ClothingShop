@@ -4,6 +4,7 @@
     gap: 20px;
     height: 100vh;
 }
+
 .user-menu {
     position: sticky;
     top: 40px;
@@ -17,6 +18,7 @@
     scrollbar-width: none;
     height: 100vh;
 }
+
 .user-card {
     display: flex;
     align-items: center;
@@ -24,33 +26,39 @@
     padding: 20px;
     border-bottom: 2px solid #d9d9d9;
 }
+
 .user-card p {
     font-size: 1.1rem;
     font-weight: bold;
     color: #000000;
 }
+
 .user-page .sidebar-content {
     background-color: #f8f8f8;
 }
+
 .user-img img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     border: 0.5px solid #d9d9d9;
 }
+
 .user-img {
     position: relative;
 }
+
 .fa-camera {
     position: absolute;
     bottom: 3px;
-    right: 7px; 
+    right: 7px;
     background-color: #d9d9d9;
     padding: 5px;
     border-radius: 50%;
     font-size: 0.5rem;
     cursor: pointer;
 }
+
 .user-sidebar {
     display: flex;
     flex-direction: column;
@@ -58,10 +66,40 @@
     margin-top: 20px;
     margin-left: 20px;
 }
+
 .user-sidebar i {
     margin-right: 10px;
 }
+
 .sidebarItem.active {
     font-weight: bold;
 }
 
+.alert {
+    padding: 12px 16px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.alert.success {
+    background: #d1f7d6;
+    color: #0a720e;
+}
+
+.alert.error {
+    background: #ffd6d6;
+    color: #a30000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

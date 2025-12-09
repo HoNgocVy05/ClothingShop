@@ -1,11 +1,23 @@
-const productModel = require('../models/productModel');
-const categoryModel = require('../models/categoryModel');
+const Product = require('../models/productModel');
+const Category = require('../models/categoryModel');
 
 exports.getDashboard = (req, res) => {
     res.render('admin/dashboard', {layout: './layouts/adminMaster',title: 'VPQ Studio - Dashboard'});
 };
-exports.getProductManagement = (req, res) => {
-     res.render('admin/productManagement', {layout: './layouts/adminMaster',title: 'VPQ Studio - Quản lý sản phẩm'});
+//quản lý sản phẩm
+exports.getProductManagement = async (req, res) => {
+    const message = req.session.message;
+    req.session.message = null;
+    try {
+    const [categories, products] = await Promise.all([
+        Category.getAll(),
+        Product.getAll()
+    ]);
+    res.render('admin/productManagement', {layout: './layouts/adminMaster',title: 'VPQ Studio - Quản lý sản phẩm', categories, products, message});
+  } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi load trang quản lý sản phẩm');
+  }
 };
 exports.getCatalogManagement = (req, res) => {
     res.render('admin/catalogManagement', {layout: './layouts/adminMaster',title: 'VPQ Studio - Quản lý danh mục'});
