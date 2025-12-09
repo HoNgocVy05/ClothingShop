@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const mysql = require('mysql2');
 const mySqlPort = process.env.mySqlPort;
 const mySqlHost = process.env.mySqlHost;

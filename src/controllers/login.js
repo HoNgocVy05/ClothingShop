@@ -39,7 +39,7 @@ exports.postLogin = async (req, res) => {
         role: user.role
     };
 
-    // console.log('Đăng nhập thành công -> Lưu session:', req.session.user);
+    console.log('Đăng nhập thành công -> Lưu session:', req.session.user);
 
     // Điều hướng theo role
     if (user.role === "admin") {
