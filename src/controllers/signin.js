@@ -1,4 +1,3 @@
-// src/controllers/signin.js
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs'); // dùng bcryptjs cho Windows
 

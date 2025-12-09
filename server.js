@@ -17,6 +17,11 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+});
+
 //cấu hình EJS và đường dẫn tới thư mục views
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));

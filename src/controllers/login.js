@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const bcrypt = require('bcryptjs');
 
 exports.getLogin = (req, res) => {
     res.render('user/login', {
@@ -21,7 +22,8 @@ exports.postLogin = async (req, res) => {
         });
     }
 
-    if (user.password !== password) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
         return res.render('user/login', {
             layout: false,
             title: 'VPQ Studio - Đăng nhập',
@@ -41,7 +43,7 @@ exports.postLogin = async (req, res) => {
 
     // Điều hướng theo role
     if (user.role === "admin") {
-        return res.redirect('/admin/dashboard');
+        return res.redirect('/admin');
     } else {
         return res.redirect('/');
     }

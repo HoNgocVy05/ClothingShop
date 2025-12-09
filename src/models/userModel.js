@@ -12,6 +12,32 @@ const User = {
             [fullname, email, password]
         );
         return result.insertId; 
+    },
+
+    findById: async (id) => {
+        const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
+        return rows[0];
+    },
+
+    update: async (id, data) => {
+        const query = `
+            UPDATE users SET 
+                fullname = ?, 
+                bio = ?, 
+                address = ?, 
+                dayOfBirth = ?, 
+                gender = ?, 
+                email = ?, 
+                phoneNumber = ?
+            WHERE id = ?
+        `;
+        const values = [
+            data.fullname, data.bio, data.address, data.dayOfBirth,
+            data.gender, data.email, data.phoneNumber, id
+        ];
+
+        const [result] = await pool.query(query, values);
+        return result;
     }
 };
 

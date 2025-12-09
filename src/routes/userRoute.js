@@ -23,8 +23,8 @@ router.get('/shopping',checkLogin,shopping.getShoppingPage)
 router.get('/login',redirectIfLoggedIn,login.getLogin)
 router.get('/signin',redirectIfLoggedIn,signin.getSignin)
 // router.get('/user',checkLogin,userPage.getUserPage)
-router.get('/user',checkLogin,userPage.getUserPage)
-router.get('/user-infomation',checkLogin,userPage.getUserInfo)
+//router.get('/user',checkLogin,userPage.getUserPage)
+router.get('/user-infomation', checkLogin, userPage.getUserInfo);
 router.get('/my-order',checkLogin,userPage.getMyOrder)
 router.get('/change-password',checkLogin,userPage.getChangePassword)
 router.get('/my-order-detail',checkLogin,userPage.getMyOrderDetail)
@@ -33,5 +33,12 @@ router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
 router.post('/login',redirectIfLoggedIn, login.postLogin);
 router.post('/signin',redirectIfLoggedIn, signin.postSignin);
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
+router.post('/update-user', checkLogin, userPage.updateUserInfo);
+
 
 module.exports = router;
