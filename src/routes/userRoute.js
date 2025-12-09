@@ -33,5 +33,12 @@ router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
 router.post('/login',redirectIfLoggedIn, login.postLogin);
 router.post('/signin',redirectIfLoggedIn, signin.postSignin);
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
+router.post('/update-user', checkLogin, userPage.updateUserInfo);
+
 
 module.exports = router;

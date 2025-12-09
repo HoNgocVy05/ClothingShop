@@ -11,8 +11,16 @@
     <div id="user-dropdown">
         <a href="#" class="user-btn"><i class="fa fa-user"></i></a>
         <div id="user-dropdown-content">
+            <% if (!user) { %>
+            <!-- Chưa đăng nhập -->
+            <a href="/login">Đăng nhập</a>
+            <a href="/signin">Đăng ký</a>
+
+        <% } else { %>
+            <!-- Đã đăng nhập -->
             <a href="/user-infomation">Tài khoản của tôi</a>
-            <a href="#">Đăng xuất</a>
+            <a href="/logout">Đăng xuất</a>
+        <% } %>
         </div>
     </div>
     <nav class="navbar">
