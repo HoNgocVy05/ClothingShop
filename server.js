@@ -3,6 +3,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const path = require('path');
+const Category = require('./src/models/categoryModel');
 
 
 const app = express();
@@ -19,6 +20,28 @@ app.use(session({
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
+    next();
+});
+
+// Middleware để lấy categories
+app.use(async (req, res, next) => {
+    try {
+        const allCategories = await Category.getAll();
+        const parentCategories = allCategories.filter(c => !c.parent_id);
+        
+        const categoriesForNav = parentCategories.map(parent => {
+            const childCategories = allCategories.filter(c => c.parent_id === parent.id);
+            return {
+                ...parent,
+                children: childCategories || []
+            };
+        });
+        
+        res.locals.categoriesForNav = categoriesForNav || [];
+    } catch (err) {
+        console.error('Error loading categories:', err);
+        res.locals.categoriesForNav = [];
+    }
     next();
 });
 

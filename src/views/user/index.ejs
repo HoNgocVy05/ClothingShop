@@ -1,3 +1,11 @@
+<!-- Định nghĩa hàm formatPrice -->
+<% 
+    const formatPrice = (price) => {
+        if (!price && price !== 0) return '0';
+        return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
+%>
+
 <!-- Carousel -->
 <div class="swiper">
     <div class="swiper-wrapper">
@@ -12,56 +20,65 @@
     <div class="swiper-pagination"></div>
 </div>
 
-<!-- sale  -->
+<!-- sale section: up to 20 products with discount -->
 <div class="tag">
     <a href="#" class="sale-tag">SALE UP TO 50%</a>
 </div>
 <div class="sale-container">
     <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="sale product-container">
-        <div class="product-card" onclick="window.location.href='/product-infomation'">
+        <% saleProducts && saleProducts.filter(function(product) { return product.discount_percent > 0; }).slice(0, 20).forEach(function(product) { %>
+        <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
             <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
+                <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
             </div>
             <div class="product-info">
-                <a href="/product-infomation" class="product-name">Áo</a>
+                <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
                 <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">700.000đ</p>
+                    <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
+                    <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
                 </div>
             </div>
         </div>
+        <% }); %>
     </div>
     <i class="fa-solid fa-angle-right sale-nav-btn"></i>
 </div>
 
-<!-- từng danh mục cha  -->
+<!-- từng danh mục cha: tag-group + product-container (10 products each) -->
+<% categoriesWithProducts && categoriesWithProducts.forEach(function(category) { %>
 <div class="tag-group">
     <div class="tag">
-        <a href="/product-list" class="catalog-tag">QUẦN ÁO NỮ</a>
+        <a href="/product-list?category=<%= category.id %>" class="catalog-tag"><%= category.name %></a>
     </div>
     <div class="tag-child">
-        <a href="#" class="tag-item">Áo thun</a>
-        <a href="#" class="tag-item">Quần jean</a>
-        <a href="#" class="tag-item">Chân váy</a>
-        <a href="#" class="tag-item">Đầm</a>
-        <a href="#" class="tag-item">Áo khoác</a>
+        <% category.children && category.children.forEach(function(child) { %>
+            <a href="/product-list?category=<%= child.id %>" class="tag-item"><%= child.name %></a>
+        <% }); %>
     </div>
 </div>
 <div class="product-container">
-    <div class="product-card" onclick="window.location.href='/product-infomation'">
+    <% category.products && category.products.slice(0, 10).forEach(function(product) { %>
+    <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
         <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
+            <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
         </div>
         <div class="product-info">
-            <a href="/product-infomation" class="product-name">Áo</a>
+            <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
             <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
+                <% if (product.discount_percent > 0) { %>
+                    <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
+                    <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
+                <% } else { %>
+                    <p class="discount-price" style="display:none"></p>
+                    <p class="origin-price nodis"><%= formatPrice(product.price) %>đ</p>
+                <% } %>
             </div>
         </div>
     </div>
+    <% }); %>
 </div>
+<% }); %>
 
 <script>
     //lướt mục sản phẩm giảm giá

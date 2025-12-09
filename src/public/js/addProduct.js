@@ -179,6 +179,11 @@ function handleFormSubmit() {
 
     const formData = new FormData();
 
+    // Hàm để loại bỏ dấu phẩy từ giá tiền
+    const cleanPrice = (value) => {
+      return value.toString().replace(/,/g, '');
+    };
+
     // Thêm dữ liệu cơ bản
     formData.append('name', document.getElementById('product-name').value);
     formData.append('category_id', document.getElementById('category').value);
@@ -186,9 +191,9 @@ function handleFormSubmit() {
     formData.append('stock_m', document.getElementById('size-m').value);
     formData.append('stock_l', document.getElementById('size-l').value);
     formData.append('stock_xl', document.getElementById('size-xl').value);
-    formData.append('price', document.getElementById('price').value);
+    formData.append('price', cleanPrice(document.getElementById('price').value));
     formData.append('discount_percent', document.getElementById('discount').value);
-    formData.append('final_price', document.getElementById('final-price').value);
+    formData.append('final_price', cleanPrice(document.getElementById('final-price').value));
     formData.append('description', document.getElementById('description').value);
 
     // Lấy ảnh cũ từ form (nếu có)
@@ -356,6 +361,20 @@ function initPriceCalculator() {
 
   if (!priceInput || !discountInput || !finalPriceInput) return;
 
+  // Format giá tiền: 185938 -> "185,938"
+  const formatPrice = (value) => {
+    if (!value && value !== 0) return '';
+    const numValue = parseInt(value.toString().replace(/,/g, '')) || 0;
+    return numValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  // Xử lý input giá: format hiển thị nhưng giữ giá trị thực
+  priceInput.addEventListener('input', (e) => {
+    const rawValue = e.target.value.replace(/,/g, '');
+    e.target.value = formatPrice(rawValue);
+    calculateFinalPrice();
+  });
+
   // Ngăn nhập giảm giá > 100 hoặc < 0
   discountInput.addEventListener('input', (e) => {
     let value = parseInt(e.target.value);
@@ -373,11 +392,11 @@ function initPriceCalculator() {
   });
 
   function calculateFinalPrice() {
-    const price = parseFloat(priceInput.value) || 0;
+    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
     const discount = Math.max(0, Math.min(100, parseFloat(discountInput.value) || 0));
 
     const finalPrice = Math.round(price * (1 - discount / 100));
-    finalPriceInput.value = finalPrice >= 0 ? finalPrice : 0;
+    finalPriceInput.value = formatPrice(finalPrice >= 0 ? finalPrice : 0);
   }
 
   priceInput.addEventListener('input', calculateFinalPrice);
