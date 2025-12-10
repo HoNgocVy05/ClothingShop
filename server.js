@@ -4,12 +4,14 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const path = require('path');
 const Category = require('./src/models/categoryModel');
+const breadcrumb = require('./src/middleware/breadcrumb');
 
 
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(breadcrumb);
 
 //session
 app.use(session({

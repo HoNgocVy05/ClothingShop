@@ -1,0 +1,14 @@
+<div class="breadcrumb">
+    <a href="/">
+        Trang chủ<i class="fa fa-chevron-down breadcrumbb"></i>
+    </a>
+
+    <% if (breadcrumbs && breadcrumbs.length > 0) { %>
+        <% breadcrumbs.forEach(item => { %>
+            <a href="<%= item.url %>">
+                <%= item.name.charAt(0).toUpperCase() + item.name.slice(1) %>
+                <i class="fa fa-chevron-down breadcrumbb"></i>
+            </a>
+        <% }) %>
+    <% } %>
+</div>
