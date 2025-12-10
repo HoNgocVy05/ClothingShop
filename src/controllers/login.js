@@ -43,7 +43,7 @@ exports.postLogin = async (req, res) => {
 
     // Điều hướng theo role
     if (user.role === "admin") {
-        return res.redirect('/admin');
+        return res.redirect('/admin/dashboard');
     } else {
         return res.redirect('/');
     }
