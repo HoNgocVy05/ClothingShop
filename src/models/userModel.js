@@ -23,7 +23,6 @@ const User = {
         const query = `
             UPDATE users SET 
                 fullname = ?, 
-                bio = ?, 
                 address = ?, 
                 dayOfBirth = ?, 
                 gender = ?, 
@@ -32,7 +31,7 @@ const User = {
             WHERE id = ?
         `;
         const values = [
-            data.fullname, data.bio, data.address, data.dayOfBirth,
+            data.fullname, data.address, data.dayOfBirth,
             data.gender, data.email, data.phoneNumber, id
         ];
 

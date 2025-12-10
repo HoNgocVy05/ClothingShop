@@ -10,7 +10,7 @@ exports.getLogin = (req, res) => {
 };
 
 exports.postLogin = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, loginType } = req.body; // ⬅ QUAN TRỌNG
 
     const user = await User.findByEmail(email);
 
@@ -31,7 +31,14 @@ exports.postLogin = async (req, res) => {
         });
     }
 
-    // lưu session
+    if (user.role !== loginType) {
+        return res.render('user/login', {
+            layout: false,
+            title: 'VPQ Studio - Đăng nhập',
+            message: `Tài khoản này không phải ${loginType}!`
+        });
+    }
+
     req.session.user = {
         id: user.id,
         fullname: user.fullname,
@@ -39,12 +46,5 @@ exports.postLogin = async (req, res) => {
         role: user.role
     };
 
-    console.log('Đăng nhập thành công -> Lưu session:', req.session.user);
-
-    // Điều hướng theo role
-    if (user.role === "admin") {
-        return res.redirect('/admin/dashboard');
-    } else {
-        return res.redirect('/');
-    }
-};  
+    return loginType === "admin" ? res.redirect('admin/dashboard') : res.redirect('/');
+};
