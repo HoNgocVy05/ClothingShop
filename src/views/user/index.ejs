@@ -1,9 +1,12 @@
-<!-- Định nghĩa hàm formatPrice -->
 <% 
-    const formatPrice = (price) => {
-        if (!price && price !== 0) return '0';
-        return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    };
+    // const formatPrice = (price) => {
+    //     if (!price && price !== 0) return '0';
+    //     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    // };
+
+    const saleIds = saleProducts
+        ? saleProducts.filter(p => p.discount_percent > 0).map(p => p.id)
+        : [];
 %>
 
 <!-- Carousel -->
@@ -13,21 +16,59 @@
         <div class="swiper-slide"><img src="images/banner2.png" alt="banner2"></div>
         <div class="swiper-slide"><img src="images/banner3.png" alt="banner3"></div>
     </div>
-    <!-- navigation -->
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
-    <!-- pagination (dots) -->
     <div class="swiper-pagination"></div>
 </div>
 
-<!-- sale section: up to 20 products with discount -->
+<!-- SALE -->
 <div class="tag">
     <a href="#" class="sale-tag">SALE UP TO 50%</a>
 </div>
 <div class="sale-container">
     <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="sale product-container">
-        <% saleProducts && saleProducts.filter(function(product) { return product.discount_percent > 0; }).slice(0, 20).forEach(function(product) { %>
+        <% saleProducts && saleProducts
+            .filter(p => p.discount_percent > 0)
+            .slice(0, 10)
+            .forEach((product) => { %>
+
+            <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
+                <div class="card-img">
+                    <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-info">
+                    <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
+                    <div class="product-price">
+                        <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
+                        <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <i class="fa-solid fa-angle-right sale-nav-btn"></i>
+</div>
+
+// CATEGORY  
+<% categoriesWithProducts && categoriesWithProducts.forEach((category) => { %>
+<div class="tag-group">
+    <div class="tag">
+        <a href="/product-list?category=<%= category.id %>" class="catalog-tag"><%= category.name %></a>
+    </div>
+    <div class="tag-child">
+        <% category.children && category.children.forEach((child) => { %>
+            <a href="/product-list?category=<%= child.id %>" class="tag-item"><%= child.name %></a>
+        <% }) %>
+    </div>
+</div>
+
+<div class="product-container">
+    <% category.products && category.products
+        .filter(p => !saleIds.includes(p.id))
+        .slice(0, 10)
+        .forEach((product) => { %>
+
         <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
             <div class="card-img">
                 <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
@@ -35,71 +76,38 @@
             <div class="product-info">
                 <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
                 <div class="product-price">
-                    <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
-                    <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
+                    <% if (product.discount_percent > 0) { %>
+                        <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
+                        <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
+                    <% } else { %>
+                        <p class="discount-price" style="display:none"></p>
+                        <p class="origin-price nodis"><%= formatPrice(product.price) %>đ</p>
+                    <% } %>
                 </div>
             </div>
         </div>
-        <% }); %>
-    </div>
-    <i class="fa-solid fa-angle-right sale-nav-btn"></i>
+    <% }) %>
 </div>
-
-<!-- từng danh mục cha -->
-<% categoriesWithProducts && categoriesWithProducts.forEach(function(category) { %>
-<div class="tag-group">
-    <div class="tag">
-        <a href="/product-list?category=<%= category.id %>" class="catalog-tag"><%= category.name %></a>
-    </div>
-    <div class="tag-child">
-        <% category.children && category.children.forEach(function(child) { %>
-            <a href="/product-list?category=<%= child.id %>" class="tag-item"><%= child.name %></a>
-        <% }); %>
-    </div>
-</div>
-<div class="product-container">
-    <% category.products && category.products.slice(0, 10).forEach(function(product) { %>
-    <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
-        <div class="card-img">
-            <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
-        </div>
-        <div class="product-info">
-            <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
-            <div class="product-price">
-                <% if (product.discount_percent > 0) { %>
-                    <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
-                    <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
-                <% } else { %>
-                    <p class="discount-price" style="display:none"></p>
-                    <p class="origin-price nodis"><%= formatPrice(product.price) %>đ</p>
-                <% } %>
-            </div>
-        </div>
-    </div>
-    <% }); %>
-</div>
-<% }); %>
+<% }) %>
 
 <script>
-    //lướt mục sản phẩm giảm giá
-    (() => {
-        const container = document.querySelector('.sale.product-container');
-        const btnLeft = document.querySelector('.fa-angle-left');
-        const btnRight = document.querySelector('.fa-angle-right');
+(() => {
+    const container = document.querySelector('.sale.product-container');
+    const btnLeft = document.querySelector('.fa-angle-left');
+    const btnRight = document.querySelector('.fa-angle-right');
 
-        if (!container || !btnLeft || !btnRight) return;
+    if (!container || !btnLeft || !btnRight) return;
 
-        const getCardWidth = () => {
-            const card = container.querySelector('.product-card');
-            return card ? card.offsetWidth + 30 : 200;
-        };
+    const getCardWidth = () => {
+        const card = container.querySelector('.product-card');
+        return card ? card.offsetWidth + 30 : 200;
+    };
 
-        const scroll = (distance) => {
-            container.scrollBy({ left: distance, behavior: 'smooth' });
-        };
+    const scroll = (distance) => {
+        container.scrollBy({ left: distance, behavior: 'smooth' });
+    };
 
-        btnRight.addEventListener('click', () => scroll(getCardWidth()));
-        btnLeft.addEventListener('click', () => scroll(-getCardWidth()));
-    })();
-
+    btnRight.addEventListener('click', () => scroll(getCardWidth()));
+    btnLeft.addEventListener('click', () => scroll(-getCardWidth()));
+})();
 </script>
