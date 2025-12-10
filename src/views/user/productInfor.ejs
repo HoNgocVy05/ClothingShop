@@ -1,45 +1,91 @@
+<% 
+  // fallback an toàn nếu product = null/undefined
+  const prod = product || {
+    id: null,
+    name: 'Không tìm được thông tin sản phẩm',
+    images: [],
+    price: 0,
+    final_price: 0,
+    description: '',
+    stock_s: 0,
+    stock_m: 0,
+    stock_l: 0,
+    stock_xl: 0
+  };
+%>
+
 <div class="product-infor-page">
     <div class="product-wrapper">
+
         <!-- Hình ảnh sản phẩm -->
         <div class="product-image">
             <div class="main-img">
-                <img id="mainImage" src="/images/ao-lumi-main.png" alt="Áo Lumi" />
+                <img id="mainImage"
+                     src="/uploads/products/<%= (prod.images && prod.images.length > 0) ? prod.images[0] : 'img-product-default.png' %>" alt="<%= prod.name %>" />
             </div>
 
             <div class="thumbnails">
-                <img class="thumbnails-img" src="/images/ao-lumi-1.png" alt="Thumb 1" onclick="changeMainImage(this)" />
-                <img class="thumbnails-img" src="/images/ao-lumi-2.png" alt="Model 1" onclick="changeMainImage(this)" />
-                <img class="thumbnails-img" src="/images/ao-lumi-3.png" alt="Model 2" onclick="changeMainImage(this)" />
+                <% if (prod.images && prod.images.length > 0) { %>
+                    <% prod.images.forEach(img => { %>
+                        <img class="thumbnails-img" src="/uploads/products/<%= img %>" alt="Thumb" onclick="changeMainImage(this)" />
+                    <% }) %>
+                <% } %>
             </div>
         </div>
 
         <!-- Thông tin sản phẩm -->
         <div class="product-info-page">
-            <h1 class="product-title">Áo Lumi Áo Lumi Áo Lumi Áo Lumi Áo Lumi Áo Lumi</h1>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">700.000đ</p>
+            <div id="productData"
+                 data-id="<%= prod.id %>"
+                 data-stock-s="<%= Number(prod.stock_s || 0) %>"
+                 data-stock-m="<%= Number(prod.stock_m || 0) %>"
+                 data-stock-l="<%= Number(prod.stock_l || 0) %>"
+                 data-stock-xl="<%= Number(prod.stock_xl || 0) %>">
             </div>
-            <!-- <div class="product-review-simple">
-                <div class="product-rated">
-                    <p><i class="fa-solid fa-star"></i> 4.9</p>
-                </div>
-                <div class="product-sold">
-                    <p>3k+ đã bán</p>
-                </div>
-            </div> -->
+
+            <h1 class="product-title"><%= prod.name %></h1>
+
+            <div class="product-price">
+                <p class="discount-price"><%= Number(prod.final_price || prod.price).toLocaleString() %>đ</p>
+                <p class="origin-price"><%= Number(prod.price || 0).toLocaleString() %>đ</p>
+            </div>
+
             <hr class="price-divider" />
 
             <!-- Chọn size -->
             <div class="size-options">
-                <label>Size</label>
-                <div class="size-list">
-                    <button class="size-btn selected" onclick="selectSize(this)">S</button>
-                    <button class="size-btn" onclick="selectSize(this)">M</button>
-                    <button class="size-btn" onclick="selectSize(this)">L</button>
-                    <button class="size-btn" onclick="selectSize(this)">XL</button>
-                </div>
+        <label>Size</label>
+        <div class="size-list">
+                <button 
+                    class="size-btn <%= product.stock_s > 0 ? '' : 'disabled' %> selected" 
+                    onclick="<%= product.stock_s > 0 ? 'selectSize(this)' : '' %>"
+                    <%= product.stock_s > 0 ? '' : 'disabled' %>>
+                    S
+                </button>
+
+                <button 
+                    class="size-btn <%= product.stock_m > 0 ? '' : 'disabled' %>" 
+                    onclick="<%= product.stock_m > 0 ? 'selectSize(this)' : '' %>"
+                    <%= product.stock_m > 0 ? '' : 'disabled' %>>
+                    M
+                </button>
+
+                <button 
+                    class="size-btn <%= product.stock_l > 0 ? '' : 'disabled' %>" 
+                    onclick="<%= product.stock_l > 0 ? 'selectSize(this)' : '' %>"
+                    <%= product.stock_l > 0 ? '' : 'disabled' %>>
+                    L
+                </button>
+
+                <button 
+                    class="size-btn <%= product.stock_xl > 0 ? '' : 'disabled' %>" 
+                    onclick="<%= product.stock_xl > 0 ? 'selectSize(this)' : '' %>"
+                    <%= product.stock_xl > 0 ? '' : 'disabled' %>>
+                    XL
+                </button>
             </div>
+        </div>
+
 
             <!-- Số lượng -->
             <div class="quantity">
@@ -48,7 +94,10 @@
                     <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
                     <input type="text" class="quantity-input" value="1" id="quantity" readonly />
                     <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                    <span class="stock-info">(còn 25 sản phẩm)</span>
+
+                    <span class="stock-info">
+                        (còn <%= Number(prod.stock_s + prod.stock_m + prod.stock_l + prod.stock_xl || 0) %> sản phẩm)
+                    </span>
                 </div>
             </div>
 
@@ -71,21 +120,10 @@
                 Mô tả sản phẩm
                 <span class="arrow">▼</span>
             </div>
-
         </div>
 
         <div class="dropdown-content" id="desc">
-            Lumi Top là lựa chọn lý tưởng cho những ai yêu sự nhẹ nhàng và nữ tính. Thiết kế nhấn với tay áo phồng bồng
-            bềnh, cổ chữ V viền ren dịu dàng tôn vẻ thanh thoát.
-            <br><b>Chi tiết:</b><br />
-            • Dáng lửng, bo nhún linh hoạt ở eo<br />
-            • Cổ V nữ tính, phối viền và lót ren bên trong<br />
-            • Tay phồng nhẹ, bo chun ở cổ tay<br />
-            • Vải cotton thêu siêu nhẹ, mát mẻ<br />
-            • Màu sắc: Xanh nhạt<br />
-            • Chất liệu: Cotton thêu phối ren<br />
-            • Người mẫu mặc size S<br />
-            • Sản xuất tại Việt Nam
+            <%= prod.description %>
         </div>
     </div>
 
@@ -97,7 +135,6 @@
                 Thời gian nhận hàng
                 <span class="arrow">▼</span>
             </div>
-
         </div>
 
         <div class="dropdown-content" id="shipping">
@@ -105,48 +142,10 @@
             Không bao gồm thời gian xử lý hải quan 7-10 ngày.
             <br /><br />
             Thời gian giao hàng được tính trong ngày làm việc chỉ dành cho khu vực thành phố lớn và chỉ là ước tính.
-            Thời gian vận chuyển do các hãng chuyển phát cung cấp và có thể thay đổi tùy thuộc vào địa điểm và điều kiện
-            bên ngoài.
+            Thời gian vận chuyển do các hãng chuyển phát cung cấp và có thể thay đổi tùy thuộc vào địa điểm và điều kiện bên ngoài.
             <br /><br />
             Trong thời gian bán hàng, vui lòng cho phép thêm thời gian.
             Không giao hàng đến hộp thư Bưu điện hoặc Tủ đựng Bưu kiện.
         </div>
     </div>
 </div>
-
-<script>
-    // đổi ảnh 
-    function changeMainImage(thumbnail) {
-        const mainImg = document.getElementById("mainImage");
-        const thumbnailsImg = document.querySelectorAll('.thumbnails-img');
-        mainImg.src = thumbnail.src;
-        thumbnailsImg.forEach(img => img.classList.remove('active'));
-        thumbnail.classList.add('active');
-    }
-    // đóng mở dropdown 
-    function toggleDropdown(type) {
-        const content = document.getElementById(type);
-        const arrow = content.previousElementSibling.querySelector(".arrow");
-
-        content.classList.toggle("open");
-        arrow.classList.toggle("open");
-    }
-
-    // chọn size    
-    function selectSize(button) {
-        const allSize = document.querySelectorAll('.size-btn');
-        allSize.forEach(btn => btn.classList.remove('selected'));
-        button.classList.add('selected');
-    }
-
-    function changeQuantity(change) {
-        const input = document.getElementById("quantity");
-        let current = parseInt(input.value);
-        // Tính số mới
-        let newValue = current + change;
-        if (newValue < 1) newValue = 1;
-        const maxStock = 25; ///////////
-        if (newValue > maxStock) newValue = maxStock;
-        input.value = newValue;
-    }
-</script>

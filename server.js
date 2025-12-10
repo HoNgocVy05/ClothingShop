@@ -14,11 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(breadcrumb);
 
 //session
-app.use(session({
-    secret: 'secret-key',
-    resave: false,
-    saveUninitialized: true
-}));
+app.use(session({secret: 'secret-key', resave: false, saveUninitialized: true}));
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
