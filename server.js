@@ -6,6 +6,8 @@ const path = require('path');
 const Category = require('./src/models/categoryModel');
 const cartMiddleware = require('./src/middleware/cartMiddleware');
 const cookieParser = require('cookie-parser');
+const breadcrumb = require('./src/middleware/breadcrumb');
+
 
 const app = express();
 
@@ -25,6 +27,10 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(cartMiddleware);
+app.use(breadcrumb);
+
+//session
+app.use(session({secret: 'secret-key', resave: false, saveUninitialized: true}));
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;

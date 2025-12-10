@@ -361,47 +361,43 @@ function initPriceCalculator() {
 
   if (!priceInput || !discountInput || !finalPriceInput) return;
 
-  // Format giá tiền: 185938 -> "185,938"
+  // Format giá tiền: nhận string hoặc number, trả về string với dấu phẩy
   const formatPrice = (value) => {
-    if (!value && value !== 0) return '';
-    const numValue = parseInt(value.toString().replace(/,/g, '')) || 0;
-    return numValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (value === null || value === undefined) return '';
+    const s = String(value);
+    const digits = s.replace(/[^0-9]/g, '');
+    if (digits === '') return '';
+    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  // Xử lý input giá: format hiển thị nhưng giữ giá trị thực
+  // Hàm tính final price
+  const calculateFinalPrice = () => {
+    const raw = priceInput.value.replace(/,/g, '');
+    const price = raw ? Number(raw) : 0;
+
+    let discount = Number(discountInput.value) || 0;
+    if (discount < 0) discount = 0;
+    if (discount > 100) discount = 100;
+
+    const final = Math.round(price * (1 - discount / 100));
+    finalPriceInput.value = formatPrice(final >= 0 ? final : 0);
+  };
+
+  // Khi nhập vào price → format + tính lại
   priceInput.addEventListener('input', (e) => {
-    const rawValue = e.target.value.replace(/,/g, '');
-    e.target.value = formatPrice(rawValue);
+    e.target.value = formatPrice(e.target.value);
     calculateFinalPrice();
   });
 
-  // Ngăn nhập giảm giá > 100 hoặc < 0
+  // Khi nhập vào discount → giới hạn và tính lại
   discountInput.addEventListener('input', (e) => {
-    let value = parseInt(e.target.value);
-
-    // Nếu nhập số > 100, set lại thành 100
-    if (value > 100) {
-      e.target.value = 100;
-    }
-    // Nếu nhập số < 0, set lại thành 0
-    if (value < 0) {
-      e.target.value = 0;
-    }
-
+    let v = Number(e.target.value);
+    if (v < 0) v = 0;
+    if (v > 100) v = 100;
+    e.target.value = v;
     calculateFinalPrice();
   });
 
-  function calculateFinalPrice() {
-    const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-    const discount = Math.max(0, Math.min(100, parseFloat(discountInput.value) || 0));
-
-    const finalPrice = Math.round(price * (1 - discount / 100));
-    finalPriceInput.value = formatPrice(finalPrice >= 0 ? finalPrice : 0);
-  }
-
-  priceInput.addEventListener('input', calculateFinalPrice);
-
-  // Tính ngay khi form load
+  // Khi load / khởi tạo → tính 1 lần
   calculateFinalPrice();
 }
-
