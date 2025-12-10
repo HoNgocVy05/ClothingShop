@@ -1,35 +1,14 @@
 <div class="contact-wrapper">
-    <div class="contact-form-col">
-        <form action="/contact" method="POST" class="contact-form">
-        
-            <% if (typeof success !== 'undefined' && success) { %>
-                <div class="alert-success"><%= success %></div>
-            <% } %>
-
-            <div class="form-group">
-                <label for="name">Họ và tên</label>
-                <input type="text" id="name" name="name" required placeholder="Nhập họ và tên của bạn">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required placeholder="example@gmail.com">
-            </div>
-
-            <div class="form-group">
-                <label for="message">Tin nhắn</label>
-                <textarea id="message" name="message" rows="7" required placeholder="Nội dung bạn muốn hỏi..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-submit">GỬI</button>
-        </form>
-    </div>
-
-    <div class="contact-info-col">
         <h1>Liên hệ VPQ</h1>
         <p>
             Chúng tôi luôn sẵn sàng đồng hành và giải đáp mọi thắc mắc của bạn. 
             Liên hệ ngay để được tư vấn thời trang, hỗ trợ đổi trả và nhận ưu đãi dành riêng cho bạn!
         </p>
+
+        <div class="contact-info">
+            <h2>THÔNG TIN LIÊN HỆ</h2>
+            <p><i class="fa-solid fa-map-location-dot"></i>70 Tô Ký, phường Tân Chánh Hiệp, quận 12, TP. Hồ Chí Minh</p>
+            <p><i class="fa-solid fa-envelope"></i>support@vpqstudio.vn</p>
+            <p><i class="fa-solid fa-phone"></i>(+84) 123456789</p>
+        </div>
     </div>
-</div

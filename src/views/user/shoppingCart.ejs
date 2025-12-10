@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>
-                    <input type="checkbox" class="cart-checkbox">
+                    <input type="checkbox" class="cart-checkbox" id="select-all">
                 </th>
                 <th></th>
                 <th>Giá</th>
@@ -11,193 +11,142 @@
                 <th>Thành tiền</th>
             </tr>
         </thead>
-
         <tbody>
-            <tr class="shopping-product">
-                <td>
-                    <input type="checkbox" class="cart-checkbox">
-                </td>
-                <!-- ảnh, thông tin -->
-                <td>
-                    <div class="cart-product-box">
-                        <div class="cart-product-img">
-                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
-                        </div>
-
-                        <div class="cart-product-info">
-                            <a href="#" class="product-name">Đầm cerys</a>
-                            <p class="size">Size: S</p>
-                            <button class="remove-item">Xóa</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- giá  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-                <!-- số lượng  -->
-                <td>
-                    <div class="quantity">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
-                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- thành tiền  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-            </tr>
-            <tr class="shopping-product">
-                <td>
-                    <input type="checkbox" class="cart-checkbox">
-                </td>
-                <!-- ảnh, thông tin -->
-                <td>
-                    <div class="cart-product-box">
-                        <div class="cart-product-img">
-                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
-                        </div>
-
-                        <div class="cart-product-info">
-                            <a href="#" class="product-name">Đầm cerys</a>
-                            <p class="size">Size: S</p>
-                            <button class="remove-item">Xóa</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- giá  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-                <!-- số lượng  -->
-                <td>
-                    <div class="quantity">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
-                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- thành tiền  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-            </tr>
-            <tr class="shopping-product">
-                <td>
-                    <input type="checkbox" class="cart-checkbox">
-                </td>
-                <!-- ảnh, thông tin -->
-                <td>
-                    <div class="cart-product-box">
-                        <div class="cart-product-img">
-                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
-                        </div>
-
-                        <div class="cart-product-info">
-                            <a href="#" class="product-name">Đầm cerys</a>
-                            <p class="size">Size: S</p>
-                            <button class="remove-item">Xóa</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- giá  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-                <!-- số lượng  -->
-                <td>
-                    <div class="quantity">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
-                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- thành tiền  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-            </tr>
-            <tr class="shopping-product">
-                <td>
-                    <input type="checkbox" class="cart-checkbox">
-                </td>
-                <!-- ảnh, thông tin -->
-                <td>
-                    <div class="cart-product-box">
-                        <div class="cart-product-img">
-                            <img src="/images/ao-lumi-1.png" alt="Đầm cerys">
-                        </div>
-
-                        <div class="cart-product-info">
-                            <a href="#" class="product-name">Đầm cerys</a>
-                            <p class="size">Size: S</p>
-                            <button class="remove-item">Xóa</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- giá  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-                <!-- số lượng  -->
-                <td>
-                    <div class="quantity">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
-                            <input type="text" class="quantity-input" value="1" id="quantity" readonly />
-                            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-                        </div>
-                    </div>
-                </td>
-                <!-- thành tiền  -->
-                <td>
-                    <div class="product-price">
-                        <p class="origin-price">700.000đ</p>
-                        <p class="discount-price">500.000đ</p>
-                    </div>
-                </td>
-            </tr>
+            <% if (cart && cart.length > 0) { %>
+                <% cart.forEach(item => { %>
+                    <tr class="shopping-product">
+                        <td><input type="checkbox" class="cart-checkbox row-checkbox"></td>
+                        <td>
+                            <div class="cart-product-box">
+                                <div class="cart-product-img">
+                                    <img src="<%= item.image %>" alt="<%= item.name %>">
+                                </div>
+                                <div class="cart-product-info">
+                                    <a href="#" class="product-name"><%= item.name %></a>
+                                    <p class="size">Size: <%= item.size %></p>
+                                    <button class="remove-item" data-id="<%= item.productId %>" data-size="<%= item.size %>">Xóa</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="discount-price" data-price="<%= item.price %>"><%= (item.price).toLocaleString() %>đ</p>
+                        </td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn">-</button>
+                                <input type="text" class="quantity-input" value="<%= item.quantity %>" readonly />
+                                <button class="quantity-btn">+</button>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="discount-price"><%= (item.price * item.quantity).toLocaleString() %>đ</p>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr><td colspan="5">Giỏ hàng trống</td></tr>
+            <% } %>
         </tbody>
     </table>
-
 
     <div class="cart-footer">
         <div class="cart-summary">
             <span class="summary-text">
-                Số lượng (<span id="total-quantity">3</span>)
+               Số lượng (<span id="total-quantity"><%= totalQuantity %></span>)
             </span>
             <span class="summary-text total-price">
-                Tổng tiền: <strong id="total-amount">800.000đ</strong>
+              Tổng tiền: <strong id="total-amount"><%= totalAmount.toLocaleString() %>đ</strong>
             </span>
         </div>
         <button class="btn btn-buy">MUA NGAY</button>
     </div>
 </div>
+
+<script>
+    const selectAllCheckbox = document.getElementById('select-all');
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', () => {
+            const checked = selectAllCheckbox.checked;
+            rowCheckboxes.forEach(cb => cb.checked = checked);
+        });
+    }
+
+    rowCheckboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            const allChecked = [...rowCheckboxes].every(r => r.checked);
+            selectAllCheckbox.checked = allChecked;
+        });
+    });
+
+function changeQuantity(btn, change) {
+    const qtyInput = btn.closest('.quantity-controls').querySelector('.quantity-input');
+    let newQty = Math.max(1, Number(qtyInput.value) + change);
+    qtyInput.value = newQty;
+
+    // Update row total
+    const row = btn.closest('.shopping-product');
+    const price = Number(row.querySelector('.discount-price').dataset.price);
+    row.querySelectorAll('.discount-price')[1].innerText = (price * newQty).toLocaleString() + 'đ';
+
+    // Update tổng số lượng & tổng tiền
+    updateCartSummary();
+
+
+    const productId = row.querySelector('.remove-item').dataset.id;
+    const size = row.querySelector('.remove-item').dataset.size;
+    fetch('/cart/update', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ productId, size, quantity: newQty })
+    });
+}
+
+// Xóa sản phẩm
+document.querySelectorAll('.remove-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const row = btn.closest('.shopping-product');
+        const productId = btn.dataset.id;
+        const size = btn.dataset.size;
+
+        fetch('/cart/remove', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ productId, size })
+        })
+        .then(res => res.json())
+        .then(data => {
+            row.remove();
+            updateCartSummary();
+        });
+    });
+});
+
+// Update tổng số lượng & tổng tiền
+function updateCartSummary() {
+    const rows = document.querySelectorAll('.shopping-product');
+    let totalQty = 0, totalAmount = 0;
+    rows.forEach(row => {
+        const qty = Number(row.querySelector('.quantity-input').value);
+        const price = Number(row.querySelector('.discount-price').dataset.price);
+        totalQty += qty;
+        totalAmount += qty * price;
+    });
+    document.getElementById('total-quantity').innerText = totalQty;
+    document.getElementById('total-amount').innerText = totalAmount.toLocaleString() + 'đ';
+
+    const cartIcon = document.querySelector('.cart-count');
+    if(cartIcon) cartIcon.innerText = totalQty;
+}
+
+
+document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const change = btn.innerText === '+' ? 1 : -1;
+        changeQuantity(btn, change);
+    });
+});
+
+updateCartSummary(); // khởi tạo khi load trang
+</script>

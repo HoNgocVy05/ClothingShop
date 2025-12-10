@@ -37,13 +37,18 @@ exports.getIndex = async (req, res) => {
                 products: products
             };
         });
+        // **Thêm giỏ hàng**
+        const cart = req.session.cart || [];
+        const totalQuantity = cart.reduce((sum, i) => sum + i.quantity, 0);
 
         res.render('user/index', {
             layout: './layouts/userMaster',
             title: 'VPQ Studio - Trang chủ',
             saleProducts: saleProducts || [],
             categoriesWithProducts: categoriesWithProducts || [],
-            formatPrice: formatPrice
+            formatPrice: formatPrice,
+            cart,           // truyền cart
+            totalQuantity   // truyền số lượng để header dùng
         });
     } catch (err) {
         console.error('Index page error:', err);

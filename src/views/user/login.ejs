@@ -15,7 +15,7 @@
             <form action="/login" method="POST">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" required value="<%= rememberedEmail %>">
                 </div>
 
                 <div class="input-group">
@@ -35,7 +35,7 @@
 
                 <div class="options">
                     <label class="remember">
-                        <input type="checkbox">
+                        <input type="checkbox" name="remember" value="1" <%= rememberedEmail ? 'checked' : '' %>>
                         <span class="checkmark"></span>
                         Ghi nhớ tôi
                     </label>

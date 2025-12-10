@@ -4,12 +4,19 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const path = require('path');
 const Category = require('./src/models/categoryModel');
-
+const cartMiddleware = require('./src/middleware/cartMiddleware');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
+
 app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// middleware parse JSON
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 
 //session
 app.use(session({
@@ -17,6 +24,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+app.use(cartMiddleware);
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
