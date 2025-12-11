@@ -2,13 +2,42 @@ const express = require('express');
 const router = express.Router();
 const adminPage = require('../controllers/adminPage');
 const { checkAdmin } = require('../middleware/auth');
+const AdminUser = require('../models/adminUserModel');
 
 //các trang admin 
 // router.get('/admin', checkAdmin, adminPage.getAdminPage);
 router.get('/admin/dashboard', checkAdmin, adminPage.getDashboard);
-router.get('/admin/product-management', adminPage.getProductManagement);
+router.get('/admin/product-management',checkAdmin, adminPage.getProductManagement);
 router.get('/admin/catalog-management', checkAdmin, adminPage.getCatalogManagement);
 router.get('/admin/order-management', checkAdmin, adminPage.getOrderManagement);
 router.get('/admin/account-management', checkAdmin, adminPage.getAccountManagement);
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
+
+router.post('/admin/account-management/delete', checkAdmin, async (req, res) => {
+    const { id } = req.body;
+    try {
+        await AdminUser.delete(id);
+        res.json({ success: true, message: 'Xóa thành công!' });
+    } catch (err) {
+        console.error(err);
+        res.json({ success: false, message: 'Xóa thất bại!' });
+    }
+});
+
+router.post('/admin/account-management/toggle-status', checkAdmin, async (req, res) => {
+    const { id, status } = req.body;
+    try {
+        await AdminUser.updateStatus(id, status);
+        res.json({ success: true, message: status ? 'Mở khóa thành công!' : 'Khóa thành công!' });
+    } catch (err) {
+        console.error(err);
+        res.json({ success: false, message: 'Cập nhật thất bại!' });
+    }
+});
+
 
 module.exports = router;
