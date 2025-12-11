@@ -59,6 +59,7 @@
     color: #ffffff;
     background-color: #ff0000;
     padding: 3px;   
+    text-align: center;
 }
 /* user dropdown */
 #user-dropdown {

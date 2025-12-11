@@ -1,7 +1,6 @@
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
 
-// Format giá tiền: 185938 -> "185,938"
 const formatPrice = (price) => {
     if (!price && price !== 0) return '0';
     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -37,13 +36,18 @@ exports.getIndex = async (req, res) => {
                 products: products
             };
         });
+        // **Thêm giỏ hàng**
+        const cart = req.session.cart || [];
+        const totalQuantity = cart.reduce((sum, i) => sum + i.quantity, 0);
 
         res.render('user/index', {
             layout: './layouts/userMaster',
             title: 'VPQ Studio - Trang chủ',
             saleProducts: saleProducts || [],
             categoriesWithProducts: categoriesWithProducts || [],
-            formatPrice: formatPrice
+            formatPrice: formatPrice,
+            cart,           // truyền cart
+            totalQuantity   // truyền số lượng để header dùng
         });
     } catch (err) {
         console.error('Index page error:', err);

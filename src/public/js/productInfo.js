@@ -39,4 +39,32 @@ document.addEventListener("DOMContentLoaded", () => {
         input.value = newValue;
     };
 
+    document.getElementById("addToCart").onclick = function () {
+        const btn = this;
+        const size = document.querySelector(".size-btn.selected")?.innerText;
+        if (!size) return alert("Chọn size trước!");
+
+        const quantity = Number(document.getElementById("quantity").value);
+
+        fetch("/cart/add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                productId: btn.dataset.id,
+                name: btn.dataset.name,
+                price: Number(btn.dataset.price),
+                image: btn.dataset.image,
+                size,
+                quantity
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                document.querySelector(".cart-count").innerText = data.cartCount;
+                alert(`Đã thêm ${quantity} sản phẩm vào giỏ!`);
+            })
+            .catch(err => console.log("Lỗi:", err));
+    }
+
+    updateCartSummary();
 });

@@ -10,7 +10,7 @@
     width: 40%;
     text-align: left;
 }
-.cart-table td:nth-child(1) {
+.cart-table td:not(:nth-child(2)) {
     text-align: center;
 }
 .cart-product-box {
@@ -28,23 +28,17 @@
 .cart-product-img {
     position: relative;
     margin: 5px;
-}
-.cart-product-img img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(125, 125, 125);
     border-radius: 5px;
 }
-.cart-product-img::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
-    z-index: 2;
-    pointer-events: none;
+.cart-product-img img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    
 }
 /* thogn tin  */
 .cart-product-info .size{
@@ -53,7 +47,7 @@
 .cart-product-info .product-name {
     font-size: 1.2rem;
 }
-.shopping-cart .remove-item {
+.shopping-cart .remove-item {   
     margin-top: 8px;
     background: none;
     border: none;
@@ -109,4 +103,8 @@
 .cart-footer .btn-buy {
     min-width: 300px;
     font-weight: bold;
+}
+.shopping-product .quantity-controls {
+    display: flex;
+    justify-content: center;
 }

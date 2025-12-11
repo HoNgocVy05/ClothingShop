@@ -1,121 +1,58 @@
 <!-- chưa code mấy cái nút  -->
 
 <div class="user-page">
-    <%- include("../partials/userSidebar", { activePage: locals.activePage }) %>
-        <div class="sidebar-content">
-            <div class="my-order">
-                <a href="/my-order-detail">
-                    <div class="order-item">
-                        <div class="order-status">
-                            <p>Trạng thái:</p>
-                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
-                        </div>
-                        <div class="order-products sidebarItem" onItem="true">
-                            <div class="order-product ">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
-                                    </div>
-                                </div>
+    <%- include("../partials/userSidebar", { activePage: 'my-order' }) %>
+
+    <div class="sidebar-content">
+
+        <% if (!orders || orders.length === 0) { %>
+            <p style="padding:20px">Bạn chưa có đơn hàng nào.</p>
+        <% } else { %>
+
+            <% orders.forEach(order => { %>
+                <div class="my-order">
+                    <a href="/my-order-detail/<%= order.id %>">
+                        <div class="order-item">
+
+                            <div class="order-status">
+                                <p>Trạng thái:</p>
+                                <p style="color: rgb(255, 196, 0);"><%= order.status %></p>
                             </div>
-                            <div class="order-product">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
+
+                            <div class="order-products sidebarItem" onItem="true">
+
+                                <% if(order.items){ %>
+                                <% order.items.forEach(item => { %>
+                                    <div class="order-product">
+                                        <img src="<%= item.image %>" alt="Ảnh sản phẩm">
+
+                                        <div class="order-product-info">
+                                            <p class="order-product-name"><%= item.product_name %></p>
+                                            <p class="order-product-size"><%= item.size %></p>
+
+                                            <div class="price-row">
+                                                <p>x<%= item.quantity %></p>
+                                                <p><%= item.price %>đ</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                <% }) %>
+                                <% } %>
+
                             </div>
-                        </div>
-                        <button class="show-all-btn">Xem thêm...</button>
-                        <div class="order-total-price">
-                            <p>Tổng: <b> 180.000đ</b></p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="my-order">
-                <a href="/my-order-detail">
-                    <div class="order-item">
-                        <div class="order-status">
-                            <p>Trạng thái:</p>
-                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
-                        </div>
-                        <div class="order-products sidebarItem" onItem="true">
-                            <div class="order-product ">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
-                                    </div>
-                                </div>
+
+                            <button class="show-all-btn">Xem thêm...</button>
+
+                            <div class="order-total-price">
+                                <p>Tổng: <b><%= order.total_price %>đ</b></p>
                             </div>
-                            <div class="order-product">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
-                        <button class="show-all-btn">Xem thêm...</button>
-                        <div class="order-total-price">
-                            <p>Tổng: <b> 180.000đ</b></p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="my-order">
-                <a href="/my-order-detail">
-                    <div class="order-item">
-                        <div class="order-status">
-                            <p>Trạng thái:</p>
-                            <p style="color: rgb(255, 196, 0);">Đã đặt hàng</p>
-                        </div>
-                        <div class="order-products sidebarItem" onItem="true">
-                            <div class="order-product ">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="order-product">
-                                <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                                <div class="order-product-info">
-                                    <p class="order-product-name">OWL - ÁO thun navy</p>
-                                    <p class="order-product-size">XL</p>
-                                    <div class="price-row">
-                                        <p>x2</p>
-                                        <p>45.000đ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="show-all-btn">Xem thêm...</button>
-                        <div class="order-total-price">
-                            <p>Tổng: <b> 180.000đ</b></p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
+                    </a>
+                </div>
+            <% }) %>
+
+        <% } %>
+
+    </div>
 </div>

@@ -39,6 +39,10 @@ router.get('/logout', (req, res) => {
     });
 });
 router.post('/update-user', checkLogin, userPage.updateUserInfo);
+router.post('/cart/add',checkLogin, cartController.addToCart);
+router.post('/cart/remove',checkLogin, cartController.removeItem);
+router.post('/cart/update', checkLogin, cartController.updateCart);
+
 
 
 module.exports = router;

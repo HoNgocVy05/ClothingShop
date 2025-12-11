@@ -2,6 +2,7 @@
     //     res.render('user/userPage', {layout: './layouts/userMaster', title: 'VPQ Studio - Người dùng', activePage: 'change-password'});
     // };
     const User = require('../models/userModel');
+    const db = require('../models/database');
     exports.getUserInfo = async (req, res) => {
         if (!req.session.user) return res.redirect('/login');
 
@@ -19,9 +20,30 @@
             res.redirect('/'); 
         }
     };
-    exports.getMyOrder = (req, res) => {
-        res.render('user/myOrder', {layout: './layouts/userMaster', title: 'VPQ Studio - Đơn hàng của tôi'});
-    };
+    exports.getMyOrder = async (req, res) => {
+    if (!req.session.user) return res.redirect('/login');
+    
+    const userId = req.session.user.id;
+
+    try {
+        const [orders] = await db.query(`SELECT * FROM orders WHERE user_id=?`, [userId]);
+
+        for (let order of orders) {
+            const [items] = await db.query(`SELECT * FROM order_items WHERE order_id=?`, [order.id]);
+            order.items = items;
+        }
+
+        res.render('user/myOrder', { 
+            layout: './layouts/userMaster', 
+            title: 'VPQ Studio - Đơn hàng của tôi', 
+            orders
+        });
+
+    } catch(e) {
+        console.log(e);
+        res.send("Lỗi tải đơn hàng");
+    }
+};
     exports.getChangePassword = (req, res) => {
         res.render('user/changePassword', {layout: './layouts/userMaster', title: 'VPQ Studio - Thay đổi mật khẩu'});
     };

@@ -1,17 +1,16 @@
 <% 
-  // fallback an toàn nếu product = null/undefined
-  const prod = product || {
-    id: null,
-    name: 'Không tìm được thông tin sản phẩm',
-    images: [],
-    price: 0,
-    final_price: 0,
-    description: '',
-    stock_s: 0,
-    stock_m: 0,
-    stock_l: 0,
-    stock_xl: 0
-  };
+    const prod = product || {
+        id: null,
+        name: 'Không tìm được thông tin sản phẩm',
+        images: [],
+        price: 0,
+        final_price: 0,
+        description: '',
+        stock_s: 0,
+        stock_m: 0,
+        stock_l: 0,
+        stock_xl: 0
+    };
 %>
 
 <div class="product-infor-page">
@@ -54,34 +53,34 @@
 
             <!-- Chọn size -->
             <div class="size-options">
-            <label>Size</label>
-            <div class="size-list">
-                    <% const S_disabled = product.stock_s <= 0; %>
-                    <% const M_disabled = product.stock_m <= 0; %>
-                    <% const L_disabled = product.stock_l <= 0; %>
-                    <% const XL_disabled = product.stock_xl <= 0; %>
-
+                <label>Size</label>
+                <div class="size-list">
+                    <% const S_disabled  = prod.stock_s  <= 0; %>
+                    <% const M_disabled  = prod.stock_m  <= 0; %>
+                    <% const L_disabled  = prod.stock_l  <= 0; %>
+                    <% const XL_disabled = prod.stock_xl <= 0; %>
                     <button 
-                        class="size-btn <%= S_disabled ? 'disabled' : '' %> selected"
-                        <%= S_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        class="size-btn <%= S_disabled ? 'disabled' : '' %> <%= !S_disabled ? 'selected' : '' %>"
+                        <%= S_disabled ? 'disabled' : '' %> onclick="<%= S_disabled ? '' : 'selectSize(this)' %>">
                         S
                     </button>
                     <button 
                         class="size-btn <%= M_disabled ? 'disabled' : '' %>"
-                        <%= M_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        <%= M_disabled ? 'disabled' : '' %>  onclick="<%= M_disabled ? '' : 'selectSize(this)' %>">
                         M
                     </button>
                     <button 
                         class="size-btn <%= L_disabled ? 'disabled' : '' %>"
-                        <%= L_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        <%= L_disabled ? 'disabled' : '' %>  onclick="<%= L_disabled ? '' : 'selectSize(this)' %>">
                         L
                     </button>
                     <button 
                         class="size-btn <%= XL_disabled ? 'disabled' : '' %>"
-                        <%= XL_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        <%= XL_disabled ? 'disabled' : '' %> onclick="<%= XL_disabled ? '' : 'selectSize(this)' %>">
                         XL
                     </button>
                 </div>
+
             </div>
 
             <!-- Số lượng -->
@@ -100,7 +99,12 @@
 
             <!-- Nút hành động -->
             <div class="actions">
-                <button class="btn btn-cart">
+                <button class="btn btn-cart"
+                    id="addToCart"
+                    data-id="<%= prod.id %>"
+                    data-name="<%= prod.name %>"
+                    data-price="<%= prod.price %>"
+                    data-image="<%= prod.image %>">
                     <i class="fa-solid fa-cart-shopping cart-icon"></i>
                     Thêm vào giỏ hàng
                 </button>
@@ -146,3 +150,12 @@
         </div>
     </div>
 </div>
+<script>
+    window.PRODUCT = {
+        id: "<%= prod.id %>",
+        stock_s: Number("<%= prod.stock_s %>"),
+        stock_m: Number("<%= prod.stock_m %>"),
+        stock_l: Number("<%= prod.stock_l %>"),
+        stock_xl: Number("<%= prod.stock_xl %>")
+    };
+</script>

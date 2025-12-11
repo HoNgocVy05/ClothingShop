@@ -355,49 +355,49 @@ function initSearchHandler() {
 
 // Tính giá cuối dựa trên giá bán và % giảm giá
 function initPriceCalculator() {
-  const priceInput = document.getElementById('price');
-  const discountInput = document.getElementById('discount');
-  const finalPriceInput = document.getElementById('final-price');
+    const priceInput = document.getElementById('price');
+    const discountInput = document.getElementById('discount');
+    const finalPriceInput = document.getElementById('final-price');
 
-  if (!priceInput || !discountInput || !finalPriceInput) return;
+    if (!priceInput || !discountInput || !finalPriceInput) return;
 
-  // Format giá tiền: nhận string hoặc number, trả về string với dấu phẩy
-  const formatPrice = (value) => {
-    if (value === null || value === undefined) return '';
-    const s = String(value);
-    const digits = s.replace(/[^0-9]/g, '');
-    if (digits === '') return '';
-    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
+    // Format giá tiền: nhận string hoặc number, trả về string với dấu phẩy
+    const formatPrice = (value) => {
+        if (value === null || value === undefined) return '';
+        const s = String(value);
+        const digits = s.replace(/[^0-9]/g, '');
+        if (digits === '') return '';
+        return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    };
 
-  // Hàm tính final price
-  const calculateFinalPrice = () => {
-    const raw = priceInput.value.replace(/,/g, '');
-    const price = raw ? Number(raw) : 0;
+    // Hàm tính final price
+    const calculateFinalPrice = () => {
+        const raw = priceInput.value.replace(/,/g, '');
+        const price = raw ? Number(raw) : 0;
 
-    let discount = Number(discountInput.value) || 0;
-    if (discount < 0) discount = 0;
-    if (discount > 100) discount = 100;
+        let discount = Number(discountInput.value) || 0;
+        if (discount < 0) discount = 0;
+        if (discount > 100) discount = 100;
 
-    const final = Math.round(price * (1 - discount / 100));
-    finalPriceInput.value = formatPrice(final >= 0 ? final : 0);
-  };
+        const final = Math.round(price * (1 - discount / 100));
+        finalPriceInput.value = formatPrice(final >= 0 ? final : 0);
+    };
 
-  // Khi nhập vào price → format + tính lại
-  priceInput.addEventListener('input', (e) => {
-    e.target.value = formatPrice(e.target.value);
+    // Khi nhập vào price → format + tính lại
+    priceInput.addEventListener('input', (e) => {
+        e.target.value = formatPrice(e.target.value);
+        calculateFinalPrice();
+    });
+
+    // Khi nhập vào discount → giới hạn và tính lại
+    discountInput.addEventListener('input', (e) => {
+        let v = Number(e.target.value);
+        if (v < 0) v = 0;
+        if (v > 100) v = 100;
+        e.target.value = v;
+        calculateFinalPrice();
+    });
+
+    // Khi load / khởi tạo → tính 1 lần
     calculateFinalPrice();
-  });
-
-  // Khi nhập vào discount → giới hạn và tính lại
-  discountInput.addEventListener('input', (e) => {
-    let v = Number(e.target.value);
-    if (v < 0) v = 0;
-    if (v > 100) v = 100;
-    e.target.value = v;
-    calculateFinalPrice();
-  });
-
-  // Khi load / khởi tạo → tính 1 lần
-  calculateFinalPrice();
 }
