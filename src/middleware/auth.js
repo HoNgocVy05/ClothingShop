@@ -6,8 +6,8 @@ exports.checkLogin = (req, res, next) => {
 };
 
 exports.checkAdmin = (req, res, next) => {
-    if (!req.session.user || req.session.user.role !== 'admin') {
-        return res.redirect('/login');
+    if (!req.session.admin) {
+        return res.redirect('/admin/login');
     }
     next();
 };

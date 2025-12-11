@@ -55,43 +55,62 @@ exports.getShoppingCart = async (req, res) => {
 
 // Thêm sản phẩm vào giỏ
 exports.addToCart = async (req, res) => {
-    const { productId, name, price, size, quantity } = req.body;
-    if (!req.session.cart) req.session.cart = [];
-    const cart = req.session.cart;
+    try {
+        let { productId, name, price, size, quantity } = req.body;
 
-    const existing = cart.find(item => item.productId == productId && item.size == size);
-    if (existing) {
-        existing.quantity += Number(quantity);
-    } else {
-        cart.push({ productId, name, price, size, quantity: Number(quantity), image: '' });
-    }
-    req.session.cart = cart;
+        console.log('addToCart payload:', { productId, name, price, size, quantity });
 
-    if (req.session.user) {
-        try {
-            const [rows] = await db.query(
-                "SELECT * FROM cart_items WHERE user_id=? AND product_id=? AND size=?",
-                [req.session.user.id, productId, size]
-            );
-            if (rows.length > 0) {
-                await db.query(
-                    "UPDATE cart_items SET quantity = quantity + ? WHERE user_id=? AND product_id=? AND size=?",
-                    [quantity, req.session.user.id, productId, size]
-                );
-            } else {
-                await db.query(
-                    "INSERT INTO cart_items(user_id, product_id, size, quantity) VALUES(?,?,?,?)",
-                    [req.session.user.id, productId, size, quantity]
-                );
-            }
-        } catch (err) {
-            console.error("Lỗi cập nhật DB giỏ hàng:", err);
+        if (!productId || !size) {
+            return res.status(400).json({ message: 'Thiếu productId hoặc size' });
         }
-    }
 
-    const cartCount = cart.reduce((acc, i) => acc + i.quantity, 0);
-    res.json({ cartCount });
+        let qty = Number(quantity);
+        if (!Number.isFinite(qty) || qty <= 0) qty = 1; 
+
+        let unitPrice = Number(price) || 0;
+
+        if (!req.session.cart) req.session.cart = [];
+        const cart = req.session.cart;
+
+        const existing = cart.find(item => item.productId == productId && item.size == size);
+        if (existing) {
+            existing.quantity += qty;
+        } else {
+            cart.push({ productId, name, price: unitPrice, size, quantity: qty, image: '' });
+        }
+        req.session.cart = cart;
+
+        if (req.session.user) {
+            try {
+                const userId = req.session.user.id;
+                const [rows] = await db.query(
+                    "SELECT * FROM cart_items WHERE user_id=? AND product_id=? AND size=?",
+                    [userId, productId, size]
+                );
+                if (rows.length > 0) {
+                    await db.query(
+                        "UPDATE cart_items SET quantity = quantity + ? WHERE user_id=? AND product_id=? AND size=?",
+                        [qty, userId, productId, size]
+                    );
+                } else {
+                    await db.query(
+                        "INSERT INTO cart_items(user_id, product_id, size, quantity) VALUES(?,?,?,?)",
+                        [userId, productId, size, qty]
+                    );
+                }
+            } catch (err) {
+                console.error("Lỗi cập nhật DB giỏ hàng:", err);
+            }
+        }
+
+        const cartCount = (req.session.cart || []).reduce((acc, i) => acc + i.quantity, 0);
+        res.json({ cartCount });
+    } catch (err) {
+        console.error("addToCart error:", err);
+        res.status(500).json({ message: 'Lỗi server' });
+    }
 };
+
 
 // Cập nhật số lượng sản phẩm trong giỏ
 exports.updateCart = async (req, res) => {
