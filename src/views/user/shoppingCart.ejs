@@ -75,3 +75,49 @@
         <% } %>
 </div>
 
+<script>
+const selectAll = document.getElementById("select-all");
+const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+const totalQuantityEl = document.getElementById("total-quantity");
+const totalAmountEl = document.getElementById("total-amount");
+const rows = document.querySelectorAll(".shopping-product");
+
+function updateSummary() {
+    let totalQty = 0;
+    let totalAmount = 0;
+
+    rows.forEach((row, index) => {
+        const check = row.querySelector(".row-checkbox");
+        if (check.checked) {
+            const qty = Number(row.querySelector(".quantity-input").value);
+            const price = Number(row.querySelector(".discount-price").dataset.price);
+
+            totalQty += qty;
+            totalAmount += qty * price;
+        }
+    });
+
+    totalQuantityEl.textContent = totalQty;
+    totalAmountEl.textContent = totalAmount.toLocaleString() + "đ";
+}
+selectAll.addEventListener("change", () => {
+    rowCheckboxes.forEach(cb => cb.checked = selectAll.checked);
+    updateSummary();
+});
+
+//click
+rowCheckboxes.forEach(cb => {
+    cb.addEventListener("change", () => {
+        selectAll.checked = [...rowCheckboxes].every(c => c.checked);
+
+        updateSummary();
+    });
+});
+
+document.querySelectorAll(".quantity-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        setTimeout(() => updateSummary(), 50);
+    });
+});
+</script>
+
