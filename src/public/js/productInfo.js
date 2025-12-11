@@ -25,8 +25,7 @@ function selectSize(button) {
 
 // số lượng
 document.addEventListener("DOMContentLoaded", () => {
-
-    window.changeQuantity = function (change) {
+    window. changeProductQuantity = function (change) {
         const input = document.getElementById("quantity");
         let current = parseInt(input.value);
         let newValue = current + change;

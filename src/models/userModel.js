@@ -27,12 +27,13 @@ const User = {
                 dayOfBirth = ?, 
                 gender = ?, 
                 email = ?, 
-                phoneNumber = ?
+                phoneNumber = ?,
+                bio = ?
             WHERE id = ?
         `;
         const values = [
             data.fullname, data.address, data.dayOfBirth,
-            data.gender, data.email, data.phoneNumber, id
+            data.gender, data.email, data.phoneNumber, data.bio, id
         ];
 
         const [result] = await pool.query(query, values);

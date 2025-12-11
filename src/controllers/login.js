@@ -45,7 +45,7 @@ exports.postLogin = async (req, res) => {
         httpOnly: true
     });
     } else {
-    res.clearCookie('rememberedEmail');
+        res.clearCookie('rememberedEmail');
     }
 
     return loginType === "admin" ? res.redirect('admin/dashboard') : res.redirect('/');

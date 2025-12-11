@@ -15,7 +15,7 @@ rowCheckboxes.forEach(cb => {
     });
 });
 
-function changeQuantity(btn, change) {
+function changeCartQuantity(btn, change) {
     const qtyInput = btn.closest('.quantity-controls').querySelector('.quantity-input');
     let newQty = Math.max(1, Number(qtyInput.value) + change);
     qtyInput.value = newQty;
@@ -78,13 +78,6 @@ function updateCartSummary() {
     const cartIcon = document.querySelector('.cart-count');
     if (cartIcon) cartIcon.innerText = totalQty;
 }
-
-document.querySelectorAll('.quantity-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const change = btn.innerText === '+' ? 1 : -1;
-        changeQuantity(btn, change);
-    });
-});
 
 // Khởi tạo khi load trang
 updateCartSummary();

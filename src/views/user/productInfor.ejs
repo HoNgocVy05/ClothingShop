@@ -87,10 +87,9 @@
             <div class="quantity">
                 <label>Số lượng</label>
                 <div class="quantity-controls">
-                    <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                    <button class="quantity-btn" onclick=" changeProductQuantity(-1)">-</button>
                     <input type="text" class="quantity-input" value="1" id="quantity" readonly />
-                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
-
+                    <button class="quantity-btn" onclick=" changeProductQuantity(1)">+</button>
                     <span class="stock-info">
                         (còn <%= Number(prod.stock_s + prod.stock_m + prod.stock_l + prod.stock_xl || 0) %> sản phẩm)
                     </span>
@@ -158,4 +157,5 @@
         stock_l: Number("<%= prod.stock_l %>"),
         stock_xl: Number("<%= prod.stock_xl %>")
     };
+
 </script>
