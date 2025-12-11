@@ -54,38 +54,35 @@
 
             <!-- Chọn size -->
             <div class="size-options">
-        <label>Size</label>
-        <div class="size-list">
-                <button 
-                    class="size-btn <%= product.stock_s > 0 ? '' : 'disabled' %> selected" 
-                    onclick="<%= product.stock_s > 0 ? 'selectSize(this)' : '' %>"
-                    <%= product.stock_s > 0 ? '' : 'disabled' %>>
-                    S
-                </button>
+            <label>Size</label>
+            <div class="size-list">
+                    <% const S_disabled = product.stock_s <= 0; %>
+                    <% const M_disabled = product.stock_m <= 0; %>
+                    <% const L_disabled = product.stock_l <= 0; %>
+                    <% const XL_disabled = product.stock_xl <= 0; %>
 
-                <button 
-                    class="size-btn <%= product.stock_m > 0 ? '' : 'disabled' %>" 
-                    onclick="<%= product.stock_m > 0 ? 'selectSize(this)' : '' %>"
-                    <%= product.stock_m > 0 ? '' : 'disabled' %>>
-                    M
-                </button>
-
-                <button 
-                    class="size-btn <%= product.stock_l > 0 ? '' : 'disabled' %>" 
-                    onclick="<%= product.stock_l > 0 ? 'selectSize(this)' : '' %>"
-                    <%= product.stock_l > 0 ? '' : 'disabled' %>>
-                    L
-                </button>
-
-                <button 
-                    class="size-btn <%= product.stock_xl > 0 ? '' : 'disabled' %>" 
-                    onclick="<%= product.stock_xl > 0 ? 'selectSize(this)' : '' %>"
-                    <%= product.stock_xl > 0 ? '' : 'disabled' %>>
-                    XL
-                </button>
+                    <button 
+                        class="size-btn <%= S_disabled ? 'disabled' : '' %> selected"
+                        <%= S_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        S
+                    </button>
+                    <button 
+                        class="size-btn <%= M_disabled ? 'disabled' : '' %>"
+                        <%= M_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        M
+                    </button>
+                    <button 
+                        class="size-btn <%= L_disabled ? 'disabled' : '' %>"
+                        <%= L_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        L
+                    </button>
+                    <button 
+                        class="size-btn <%= XL_disabled ? 'disabled' : '' %>"
+                        <%= XL_disabled ? 'disabled' : 'onclick="selectSize(this)"' %>>
+                        XL
+                    </button>
+                </div>
             </div>
-        </div>
-
 
             <!-- Số lượng -->
             <div class="quantity">
