@@ -56,11 +56,41 @@ exports.getProductManagement = async (req, res) => {
     }
 };
 
-exports.getCatalogManagement = (req, res) => {
-    res.render('admin/catalogManagement', {
-        layout: './layouts/adminMaster',
-        title: 'VPQ Studio - Quản lý danh mục'
-    });
+exports.getCatalogManagement = async (req, res) => {
+    try {
+        const allCategories = await Category.getAll();
+
+        // Lọc danh mục Nam/Nữ và nhóm con
+        const maleCategories = allCategories
+            .filter(c => c.gender === 'male' && !c.parent_id)
+            .map(parent => ({
+                ...parent,
+                children: allCategories.filter(c => c.parent_id === parent.id)
+            }));
+
+        const femaleCategories = allCategories
+            .filter(c => c.gender === 'female' && !c.parent_id)
+            .map(parent => ({
+                ...parent,
+                children: allCategories.filter(c => c.parent_id === parent.id)
+            }));
+
+        res.render('admin/catalogManagement', {
+            layout: './layouts/adminMaster',
+            title: 'VPQ Studio - Quản lý danh mục',
+            categories: {
+                male: maleCategories,
+                female: femaleCategories
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.render('admin/catalogManagement', {
+            layout: './layouts/adminMaster',
+            title: 'VPQ Studio - Quản lý danh mục',
+            categories: { male: [], female: [] }
+        });
+    }
 };
 
 exports.getOrderManagement = (req, res) => {

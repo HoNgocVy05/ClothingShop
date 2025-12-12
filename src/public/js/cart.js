@@ -106,3 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartSummary();
 
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const buyNowBtn = document.querySelector('.cart-footer .btn-buy');
+    if (buyNowBtn) {
+        buyNowBtn.addEventListener('click', () => {
+            window.location.href = '/shopping';
+        });
+    }
+});
