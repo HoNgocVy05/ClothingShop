@@ -21,23 +21,35 @@ function selectSize(button) {
     const allSize = document.querySelectorAll('.size-btn');
     allSize.forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
+
+    const size = button.innerText.toLowerCase();
+    const maxStock = window.PRODUCT[`stock_${size}`] || 1;
+    const qtyInput = document.getElementById("quantity");
+    if (parseInt(qtyInput.value) > maxStock) qtyInput.value = maxStock;
 }
 
 // số lượng
+
+window.changeProductQuantity = function(change) {
+    const input = document.getElementById("quantity");
+    let current = Number(input.value) || 1;
+
+    const selectedSizeBtn = document.querySelector(".size-btn.selected");
+    if (!selectedSizeBtn) return alert("Chọn size trước!");
+    const size = selectedSizeBtn.innerText.toLowerCase();
+
+    const maxStock = Number(window.PRODUCT[`stock_${size}`]) || 1;
+
+    let newValue = current + change;
+    if (newValue < 1) newValue = 1;
+    if (newValue > maxStock) newValue = maxStock;
+
+    input.value = newValue;
+};
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
-    window. changeProductQuantity = function (change) {
-        const input = document.getElementById("quantity");
-        let current = parseInt(input.value);
-        let newValue = current + change;
-
-        if (newValue < 1) newValue = 1;
-
-        const maxStock = window.PRODUCT.stock_s || 1;
-        if (newValue > maxStock) newValue = maxStock;
-
-        input.value = newValue;
-    };
-
     document.getElementById("addToCart").onclick = function () {
         const btn = this;
         const size = document.querySelector(".size-btn.selected")?.innerText;

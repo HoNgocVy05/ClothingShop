@@ -6,18 +6,17 @@
     </div>
     <a href="/cart" class="cart-btn">
         <i class="fa fa-shopping-cart"></i>
-        <span class="cart-count"><%= totalQuantity >= 100 ? '99+' : totalQuantity %></span>
+        <% if (user) { %>
+            <span class="cart-count"><%= totalQuantity >= 100 ? '99+' : totalQuantity %></span>
+        <% } %>
     </a>
     <div id="user-dropdown">
         <a href="#" class="user-btn"><i class="fa fa-user"></i></a>
         <div id="user-dropdown-content">
             <% if (!user) { %>
-            <!-- Chưa đăng nhập -->
             <a href="/login">Đăng nhập</a>
             <a href="/signin">Đăng ký</a>
-
             <% } else { %>
-                <!-- Đã đăng nhập -->
                 <a href="/user-infomation">Tài khoản của tôi</a>
                 <a href="/logout">Đăng xuất</a>
             <% } %>

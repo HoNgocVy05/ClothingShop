@@ -3,12 +3,20 @@ const Product = require('../models/productModel');
 
 exports.getProductInfor = async (req, res) => {
     const id = req.query.id;
+    const cart = req.session.cart || [];
+    const userId = req.session.user?.id;
+    let totalQuantity = 0;
+
+    if (userId) {
+        totalQuantity = await Cart.countCartRowsByUser(userId);
+    }
 
     if (!id) {
         return res.render('user/productInfor', {
             layout: './layouts/userMaster',
             title: 'Không tìm thấy sản phẩm',
-            product: null
+            product: null,
+            totalQuantity
         });
     }
 
@@ -19,7 +27,8 @@ exports.getProductInfor = async (req, res) => {
             return res.render('user/productInfor', {
                 layout: './layouts/userMaster',
                 title: 'Không tìm thấy sản phẩm',
-                product: null
+                product: null,
+            totalQuantity
             });
         }
 
@@ -43,7 +52,8 @@ exports.getProductInfor = async (req, res) => {
         return res.render('user/productInfor', {
             layout: './layouts/userMaster',
             title: `${product.name} - VPQ Studio`,
-            product
+            product,
+            totalQuantity
         });
 
     } catch (err) {
@@ -51,7 +61,8 @@ exports.getProductInfor = async (req, res) => {
         return res.render('user/productInfor', {
             layout: './layouts/userMaster',
             title: 'Lỗi hệ thống',
-            product: null
+            product: null,
+            totalQuantity
         });
     }
 };

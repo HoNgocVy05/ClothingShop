@@ -21,12 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('total-quantity').innerText = totalQty;
         document.getElementById('total-amount').innerText = totalAmount.toLocaleString() + 'đ';
 
+        updateCartIcon()
+    }
+    function updateCartIcon() {
         const cartIcon = document.querySelector('.cart-count');
         if (cartIcon) {
-            const rows = document.querySelectorAll('.shopping-product').length;
+            const rows = document.querySelectorAll('.shopping-product').length || cart.length || 0;
             cartIcon.innerText = rows >= 100 ? '99+' : rows;
         }
     }
+
 
     // Gắn sự kiện checkbox row
     function initRowCheckboxes() {
@@ -56,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initRowCheckboxes();
 
     // Tăng giảm số lượng
-    document.querySelectorAll('.quantity-btn').forEach(btn => {
+    document.querySelectorAll('.cart-quantity-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const change = btn.innerText === '+' ? 1 : -1;
             const qtyInput = btn.closest('.quantity-controls').querySelector('.quantity-input');
@@ -104,5 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateCartSummary();
+    updateCartIcon();
 
 });

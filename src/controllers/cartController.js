@@ -154,3 +154,4 @@ exports.removeItem = async (req, res) => {
     const cartCount = req.session.cart.reduce((acc, i) => acc + i.quantity, 0);
     res.json({ cartCount });
 };
+

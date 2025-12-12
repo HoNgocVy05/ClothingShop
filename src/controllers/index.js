@@ -1,5 +1,6 @@
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
+const Cart = require('../models/cartModel');
 
 const formatPrice = (price) => {
     if (!price && price !== 0) return '0';
@@ -17,7 +18,7 @@ exports.getIndex = async (req, res) => {
         // Lấy tất cả categories
         const allCategories = await Category.getAll();
 
-        // Tìm categories cha (parent_id = null)
+        // Tìm categories cha 
         const parentCategories = allCategories.filter(c => !c.parent_id);
 
         // Với mỗi category cha, lấy children và sản phẩm
@@ -36,9 +37,14 @@ exports.getIndex = async (req, res) => {
                 products: products
             };
         });
-        // **Thêm giỏ hàng**
+        // Thêm giỏ hàng
         const cart = req.session.cart || [];
-        const totalQuantity = cart.reduce((sum, i) => sum + i.quantity, 0);
+        const userId = req.session.user?.id;
+        let totalQuantity = 0;
+
+        if (userId) {
+            totalQuantity = await Cart.countCartRowsByUser(userId);
+        }
 
         res.render('user/index', {
             layout: './layouts/userMaster',
@@ -46,8 +52,8 @@ exports.getIndex = async (req, res) => {
             saleProducts: saleProducts || [],
             categoriesWithProducts: categoriesWithProducts || [],
             formatPrice: formatPrice,
-            cart,           // truyền cart
-            totalQuantity   // truyền số lượng để header dùng
+            cart,
+            totalQuantity
         });
     } catch (err) {
         console.error('Index page error:', err);
