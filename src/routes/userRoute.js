@@ -43,7 +43,6 @@ router.post('/update-user', checkLogin, userPage.updateUserInfo);
 router.post('/cart/add',checkLogin, cartController.addToCart);
 router.post('/cart/remove',checkLogin, cartController.removeItem);
 router.post('/cart/update', checkLogin, cartController.updateCart);
-
-
+router.post('/change-password', checkLogin, userPage.postChangePassword);
 
 module.exports = router;
