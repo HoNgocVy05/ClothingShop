@@ -44,7 +44,7 @@
     border: 1px solid #000;
     border-radius: 5px;
 }
-.form-row input:disabled {
+.form-row .disabled {
     opacity: 1;
     color: #000;
     background-color: #f3f3f3;

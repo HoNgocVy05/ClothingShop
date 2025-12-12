@@ -61,9 +61,9 @@ exports.updateUserInfo = async (req, res) => {
     if (!currentUser) return res.redirect('/login');
 
     try {
-        const { fullname, address, dayOfBirth, gender, email, phoneNumber } = req.body;
+        const { fullname, address, dayOfBirth, gender, email, phoneNumber, bio } = req.body;
 
-        await User.update(currentUser.id, { fullname, address, dayOfBirth, gender, email, phoneNumber });
+        await User.update(currentUser.id, { fullname, address, dayOfBirth, gender, email, phoneNumber, bio });
 
         // Cập nhật lại session user
         req.session.user.fullname = fullname;

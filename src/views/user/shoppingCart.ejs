@@ -28,8 +28,9 @@
                                     </a>
                                     <p class="size">Size: <%= item.size %>
                                     </p>
-                                    <button class="remove-item" data-id="<%= item.productId %>"
-                                        data-size="<%= item.size %>">Xóa</button>
+                                    <button class="remove-item" data-id="<%= item.productId %>" data-size="<%= item.size %>">
+                                        Xóa
+                                    </button>
                                 </div>
                             </div>
                         </td>
@@ -46,9 +47,7 @@
                             </div>
                         </td>
                         <td>
-                            <p class="discount-price">
-                                <%= (item.price * item.quantity).toLocaleString() %>đ
-                            </p>
+                            <p class="discount-price"> <%= (item.price * item.quantity).toLocaleString() %>đ</p>
                         </td>
                     </tr>
                     <% }) %>
@@ -58,66 +57,16 @@
         <div class="cart-footer">
             <div class="cart-summary">
                 <span class="summary-text">
-                    Số lượng (<span id="total-quantity">
-                        <%= totalQuantity %>
-                    </span>)
+                    Số lượng (<span id="total-quantity"><%= totalQuantity %></span>)
                 </span>
                 <span class="summary-text total-price">
-                    Tổng tiền: <strong id="total-amount">
-                        <%= totalAmount.toLocaleString() %>đ
-                    </strong>
+                    Tổng tiền: <strong id="total-amount"><%= totalAmount.toLocaleString() %>đ</strong>
                 </span>
             </div>
             <button class="btn btn-buy">MUA NGAY</button>
         </div>
         <% } else { %>
             <h2 style="margin: 0 auto">Giỏ hàng trống</h2>
-            <% } %>
+        <% } %>
 </div>
-
-<script>
-const selectAll = document.getElementById("select-all");
-const rowCheckboxes = document.querySelectorAll(".row-checkbox");
-const totalQuantityEl = document.getElementById("total-quantity");
-const totalAmountEl = document.getElementById("total-amount");
-const rows = document.querySelectorAll(".shopping-product");
-
-function updateSummary() {
-    let totalQty = 0;
-    let totalAmount = 0;
-
-    rows.forEach((row, index) => {
-        const check = row.querySelector(".row-checkbox");
-        if (check.checked) {
-            const qty = Number(row.querySelector(".quantity-input").value);
-            const price = Number(row.querySelector(".discount-price").dataset.price);
-
-            totalQty += qty;
-            totalAmount += qty * price;
-        }
-    });
-
-    totalQuantityEl.textContent = totalQty;
-    totalAmountEl.textContent = totalAmount.toLocaleString() + "đ";
-}
-selectAll.addEventListener("change", () => {
-    rowCheckboxes.forEach(cb => cb.checked = selectAll.checked);
-    updateSummary();
-});
-
-//click
-rowCheckboxes.forEach(cb => {
-    cb.addEventListener("change", () => {
-        selectAll.checked = [...rowCheckboxes].every(c => c.checked);
-
-        updateSummary();
-    });
-});
-
-document.querySelectorAll(".quantity-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        setTimeout(() => updateSummary(), 50);
-    });
-});
-</script>
 
