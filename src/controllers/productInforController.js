@@ -1,5 +1,5 @@
-const db = require('../models/database');
 const Product = require('../models/productModel');
+const Cart = require('../models/cartModel');
 
 exports.getProductInfor = async (req, res) => {
     const id = req.query.id;
@@ -28,7 +28,7 @@ exports.getProductInfor = async (req, res) => {
                 layout: './layouts/userMaster',
                 title: 'Không tìm thấy sản phẩm',
                 product: null,
-            totalQuantity
+                totalQuantity
             });
         }
 
