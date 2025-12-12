@@ -32,6 +32,102 @@ exports.getById = async (id) => {
     };
 };
 
+exports.getByCategory = async (categoryId) => {
+    const sql = `
+        SELECT 
+            p.*, 
+            c.name AS category_name
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        WHERE p.category_id = ?
+        ORDER BY p.id DESC
+    `;
+
+    const [rows] = await db.query(sql, [categoryId]);
+
+    return rows.map(r => {
+        let images = [];
+
+        // Parse ảnh an toàn
+        try {
+            images = r.images ? JSON.parse(r.images) : [];
+        } catch (e) {
+            images = [];
+        }
+
+        return {
+            ...r,
+            images,
+            stock_s: Number(r.stock_s || 0),
+            stock_m: Number(r.stock_m || 0),
+            stock_l: Number(r.stock_l || 0),
+            stock_xl: Number(r.stock_xl || 0),
+        };
+    });
+};
+
+exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
+    let conditions = [];
+    let params = [];
+
+    // DANH MỤC
+    if (categoryId) {
+        conditions.push("p.category_id = ?");
+        params.push(categoryId);
+    }
+
+    // SALE
+    if (isSale === "1") { // nhớ chuỗi
+        conditions.push("p.discount_percent > 0");
+    }
+
+    // GIÁ
+    switch (priceRange) {
+        case "0-200":
+            conditions.push("p.final_price BETWEEN 0 AND 200000");
+            break;
+        case "200-500":
+            conditions.push("p.final_price BETWEEN 200000 AND 500000");
+            break;
+        case "500-1000":
+            conditions.push("p.final_price BETWEEN 500000 AND 1000000");
+            break;
+        case "1000+":
+            conditions.push("p.final_price > 1000000");
+            break;
+    }
+
+    // SIZE
+    switch (size) {
+        case "S": conditions.push("p.stock_s > 0"); break;
+        case "M": conditions.push("p.stock_m > 0"); break;
+        case "L": conditions.push("p.stock_l > 0"); break;
+        case "XL": conditions.push("p.stock_xl > 0"); break;
+    }
+
+    const sql = `
+        SELECT p.*, c.name AS category_name
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        ${conditions.length ? "WHERE " + conditions.join(" AND ") : ""}
+        ORDER BY p.id DESC
+    `;
+
+    const [rows] = await db.query(sql, params);
+
+    return rows.map(r => ({
+        ...r,
+        images: r.images ? JSON.parse(r.images) : [],
+        stock_s: Number(r.stock_s || 0),
+        stock_m: Number(r.stock_m || 0),
+        stock_l: Number(r.stock_l || 0),
+        stock_xl: Number(r.stock_xl || 0)
+    }));
+};
+
+
+
+
 exports.add = async (data) => {
     const sql = `
         INSERT INTO products 

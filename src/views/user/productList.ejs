@@ -1,5 +1,5 @@
 <div class="product-list-tag">
-    <a href="#">DANH MỤC SẢN PHẨM</a>
+    <%= selectedCategoryName || "DANH MỤC SẢN PHẨM" %>
 </div>
 <div class="product-page">
     <div class="filter">
@@ -14,251 +14,105 @@
         </div>
         <div class="product-category-filter">
             <ul class="category-list">
-                <li>Sản phẩm mới</li>
-                <li>Sản phẩm khuyến mãi</li>
-                <li class="filter-catalog filter-row">
-                    Quần áo nữ
-                    <i class="fa fa-chevron-down catalog-list-btn"></i>
-                </li>
-                <ul class="catalog-list">
-                    <li>Quần short</li>
-                    <li>Áo thun</li>
-                    <li>Áo khoác</li>
-                    <li>Chân váy</li>
-                </ul>
-                <li class="filter-catalog filter-row">
-                    Quần áo nam
-                    <i class="fa fa-chevron-down catalog-list-btn"></i>
-                </li>
-                <ul class="catalog-list">
-                    <li>Quần short</li>
-                    <li>Áo thun</li>
-                    <li>Áo khoác</li>
-                    <li>Quần jean</li>
-                </ul>
-
+                <!-- Giữ nguyên -->
+                <li><a href="/product-list?sale=1">Sản phẩm khuyến mãi</a></li>
+                <%  const parents = categories.filter(c => c.parent_id === null);%>
+                <% parents.forEach(parent => { %>
+                    <!-- Danh mục cha -->
+                    <li class="filter-catalog filter-row">
+                        <a href="/product-list?category=<%= parent.id %>">
+                            <%= parent.name %>
+                        </a>
+                        <i class="fa fa-chevron-down catalog-list-btn"></i>
+                    </li>
+                    <!-- Danh mục con -->
+                    <ul class="catalog-list">
+                        <%  const children = categories.filter(c => c.parent_id === parent.id);  %>
+                        <% children.forEach(child => { %>
+                            <li>
+                                <a href="/product-list?category=<%= child.id %>"  class="<%= activeCategory == child.id ? 'active' : '' %>">
+                                    <%= child.name %>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% }) %>
             </ul>
         </div>
-
+        <!-- giá  -->
         <div class="filter-row">
-            <p class="filter-title">Khoảng giá</p>
-            <hr>
+            <p class="filter-title">Khoảng giá</p><hr>
             <i class="fa fa-chevron-down"></i>
         </div>
         <div class="price-range">
-            <label class="price-option"><input type="checkbox" name="price" id="" value="">0 - 200.000</label>
-            <label class="price-option"><input type="checkbox" name="price" id="" value="">200.000 - 500.000</label>
-            <label class="price-option"><input type="checkbox" name="price" id="" value="">500.000 - 1.000.000</label>
-            <label class="price-option"><input type="checkbox" name="price" id="" value="">> 1.000.000</label>
+            <label class="price-option">
+                <input data-filter="price" type="checkbox" value="0-200" onchange="updateFilter('price', this.value)">0 - 200.000   
+            </label>
+            <label class="price-option">
+                <input data-filter="price" type="checkbox" value="200-500" onchange="updateFilter('price', this.value)">200.000 - 500.000
+            </label>
+            <label class="price-option">
+                <input data-filter="price" type="checkbox" value="500-1000" onchange="updateFilter('price', this.value)">500.000 - 1.000.000
+            </label>
+            <label class="price-option">
+                <input data-filter="price" type="checkbox" value="1000+" onchange="updateFilter('price', this.value)">> 1.000.000
+            </label>
         </div>
-        <!-- <div class="filter-row">
-            <p class="filter-title">Màu sắc</p>
-            <hr>
-            <i class="fa fa-chevron-down"></i>
-        </div> -->
+        <!-- kích thước  -->
         <div class="filter-row">
             <p class="filter-title">Kích thước</p>
             <hr>
             <i class="fa fa-chevron-down"></i>
         </div>
         <div class="size-options">
-            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">S</label>
-            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">M</label>
-            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">L</label>
-            <label class="size-option price-option"><input type="checkbox" name="size" id="" value="">XL</label>
+            <label class="size-option price-option">
+                <input data-filter="size" type="checkbox" value="S" onchange="updateFilter('size', this.value)"> S
+            </label>
+            <label class="size-option price-option">
+                <input data-filter="size" type="checkbox" value="M" onchange="updateFilter('size', this.value)"> M
+            </label>
+            <label class="size-option price-option">
+                <input data-filter="size" type="checkbox" value="L" onchange="updateFilter('size', this.value)"> L
+            </label>
+            <label class="size-option price-option">
+                <input data-filter="size" type="checkbox" value="XL" onchange="updateFilter('size', this.value)"> XL
+            </label>
         </div>
     </div>
     <div class="product-list">
-        <div class="product-card" onclick="window.location.href='/product-infomation'">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
+        <% if (products.length === 0) { %>
+            <p>Không có sản phẩm nào.</p>
+        <% } %>
+
+        <% products.forEach(p => { %>
+            <div class="product-card" onclick="window.location.href='/product-infomation?id=<%= p.id %>'">
+                <div class="card-img">
+                    <img src="<%= p.images[0] ? '/uploads/products/' + p.images[0] : '/public/images/img-product-default.png' %>" alt="product">
+                </div>
+
+                <div class="product-info">
+                    <a href="/product-infomation?id=<%= p.id %>" class="product-name"><%= p.name %></a>
+
+                    <div class="product-price">
+                        <p class="discount-price"><%= formatPrice(p.final_price) %>đ</p>
+                        <% if (p.discount_percent > 0) { %>
+                            <p class="origin-price"><%= formatPrice(p.price) %>đ</p>
+                        <% } %>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="card-img">
-                <img src="/images/shirt.png" alt="shirt">
-            </div>
-            <div class="product-info">
-                <a href="#" class="product-name">Áo thun navy</a>
-                <div class="product-price">
-                    <p class="discount-price">500.000đ</p>
-                    <p class="origin-price">500.000đ</p>
-                </div>
-            </div>
-        </div>
+        <% }) %>
     </div>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
+        // Mở/đóng filter
         document.querySelectorAll(".filter-row").forEach(row => {
             const content = row.nextElementSibling;
             const arrow = row.querySelector(".fa-chevron-down");
-
             if (!content) return;
-            
+
+            // auto mở tất cả
             content.classList.add("open");
             arrow.classList.add("open");
 
@@ -267,5 +121,29 @@
                 arrow.classList.toggle("open");
             });
         });
+
+        // Giữ checkboxes sau reload
+        const params = new URLSearchParams(window.location.search);
+
+        // price
+        document.querySelectorAll("input[data-filter='price']").forEach(input => {
+            if (params.get("price") === input.value) {
+                input.checked = true;
+            }
+        });
+
+        // size
+        document.querySelectorAll("input[data-filter='size']").forEach(input => {
+            if (params.get("size") === input.value) {
+                input.checked = true;
+            }
+        });
     });
+
+    // Hàm update filter không làm mất filter khác
+    function updateFilter(param, value) {
+        const url = new URL(window.location.href);
+        url.searchParams.set(param, value);
+        window.location.href = url.toString();
+    }
 </script>

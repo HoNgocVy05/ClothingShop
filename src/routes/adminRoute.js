@@ -3,6 +3,7 @@ const router = express.Router();
 const adminPage = require('../controllers/adminPage');
 const { checkAdmin } = require('../middleware/auth');
 const AdminUser = require('../models/adminUserModel');
+const Category = require('../models/categoryModel');
 
 //các trang admin 
 // router.get('/admin', checkAdmin, adminPage.getAdminPage);
@@ -39,5 +40,15 @@ router.post('/admin/account-management/toggle-status', checkAdmin, async (req, r
     }
 });
 
+router.post('/admin/catalog-management/add', checkAdmin, async (req, res) => {
+    const { name, gender, parent_id } = req.body;
+    try {
+        await Category.add(name, gender, parent_id || null);
+        res.json({ success: true, message: 'Thêm danh mục thành công' });
+    } catch(err) {
+        console.error(err);
+        res.json({ success: false, message: 'Thêm thất bại' });
+    }
+});
 
 module.exports = router;

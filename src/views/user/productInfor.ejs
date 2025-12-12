@@ -19,7 +19,7 @@
         <!-- Hình ảnh sản phẩm -->
         <div class="product-image">
             <div class="main-img">
-                <img id="mainImage" src="/uploads/products/<%= (prod.images && prod.images.length > 0) ? prod.images[0] : 'img-product-default.png' %>" alt="<%= prod.name %>" />
+                <img id="mainImage" src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>" alt="<%= product.name %>" />
             </div>
 
             <div class="thumbnails">
@@ -106,7 +106,7 @@
                     <i class="fa-solid fa-cart-shopping cart-icon"></i>
                     Thêm vào giỏ hàng
                 </button>
-                <button class="btn btn-buy">MUA NGAY</button>
+                <button class="btn btn-buy" id="buyNow">MUA NGAY</button>
             </div>
         </div>
     </div>
