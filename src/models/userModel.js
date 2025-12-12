@@ -38,6 +38,10 @@ const User = {
 
         const [result] = await pool.query(query, values);
         return result;
+    },
+
+    updatePassword: async (id, hashedPassword) => {
+    return pool.query("UPDATE users SET password=? WHERE id=?", [hashedPassword, id]);
     }
 };
 

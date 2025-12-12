@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const db = require('../models/database');
+const bcrypt = require('bcryptjs');
 
 exports.getUserInfo = async (req, res) => {
     const currentUser = req.session.user;
@@ -45,8 +46,68 @@ exports.getMyOrder = async (req, res) => {
 exports.getChangePassword = (req, res) => {
     res.render('user/changePassword', {
         layout: './layouts/userMaster',
-        title: 'VPQ Studio - Thay đổi mật khẩu'
+        title: 'VPQ Studio - Thay đổi mật khẩu',
+        message: null,
+        error: null
     });
+};
+
+exports.postChangePassword = async (req, res) => {
+    const currentUser = req.session.user;
+    if (!currentUser) return res.redirect('/login');
+
+    const { currentPassword, newPassword, confirmPassword } = req.body;
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        return res.render('user/changePassword', {
+            layout: './layouts/userMaster',
+            title: 'VPQ Studio - Thay đổi mật khẩu',
+            message: null,
+            error: 'Vui lòng điền đầy đủ thông tin.'
+        });
+    }
+
+    if (newPassword !== confirmPassword) {
+        return res.render('user/changePassword', {
+            layout: './layouts/userMaster',
+            title: 'VPQ Studio - Thay đổi mật khẩu',
+            message: null,
+            error: 'Mật khẩu mới và xác nhận mật khẩu không khớp.'
+        });
+    }
+
+    try {
+        const user = await User.findById(currentUser.id);
+
+        const match = await bcrypt.compare(currentPassword, user.password);
+        if (!match) {
+            return res.render('user/changePassword', {
+                layout: './layouts/userMaster',
+                title: 'VPQ Studio - Thay đổi mật khẩu',
+                message: null,
+                error: 'Mật khẩu hiện tại không đúng.'
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await User.updatePassword(currentUser.id, hashedPassword);
+
+        res.render('user/changePassword', {
+            layout: './layouts/userMaster',
+            title: 'VPQ Studio - Thay đổi mật khẩu',
+            message: 'Đổi mật khẩu thành công!',
+            error: null
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.render('user/changePassword', {
+            layout: './layouts/userMaster',
+            title: 'VPQ Studio - Thay đổi mật khẩu',
+            message: null,
+            error: 'Đã có lỗi xảy ra, vui lòng thử lại.'
+        });
+    }
 };
 
 exports.getMyOrderDetail = (req, res) => {
