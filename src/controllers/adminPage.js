@@ -114,11 +114,40 @@ exports.getCatalogManagement = async (req, res) => {
     }
 };
 
-exports.getOrderManagement = (req, res) => {
-    res.render('admin/orderManagement', {
-        layout: './layouts/adminMaster',
-        title: 'VPQ Studio - Quản lý đơn hàng'
-    });
+exports.getOrderManagement = async (req, res) => {
+    try {
+        const q = req.query.q || '';
+
+        // Lấy tất cả đơn hàng
+        let orders = await orderModel.getAllOrders(); // [{id, order_code, created_at, user_name, total_price, payment_method, status, products[]}, ...]
+
+        // Lọc theo mã đơn hàng nếu có query
+        if (q) {
+            orders = orders.filter(order => {
+                const code = order.order_code ? order.order_code.toString().toLowerCase() : '';
+                return code.includes(q.toLowerCase());
+            });
+        }
+
+        // Thống kê số lượng đơn hàng theo trạng thái
+        const stats = {
+            pending: orders.filter(o => o.status === 'Chờ xác nhận').length,
+            picking: orders.filter(o => o.status === 'Chờ lấy hàng').length,
+            shipping: orders.filter(o => o.status === 'Đang giao hàng').length,
+            delivered: orders.filter(o => o.status === 'Đã giao').length
+        };
+
+        res.render('admin/orderManagement', {
+            layout: './layouts/adminMaster',
+            title: 'VPQ Studio - Quản lý đơn hàng',
+            orders,
+            stats,
+            q
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi server');
+    }
 };
 
 exports.getAccountManagement = async (req, res) => {

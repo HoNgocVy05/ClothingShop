@@ -27,11 +27,16 @@
             <td>
               <% if (user.role === 'user') { %>
                 <button class="toggle-btn" 
-                  onclick="toggleStatus(<%= user.id %>, <%= user.isActive ? 0 : 1 %>)">
-                  <%= user.isActive ? 'Khóa' : 'Mở khóa' %>
+                data-id="<%= user.id %>" 
+                data-status="<%= user.isActive ? 0 : 1 %>" 
+                onclick="handleToggle(this)">
+              <%= user.isActive ? 'Khóa' : 'Mở khóa' %>
                 </button>
               <% } else if (user.role === 'admin' && user.email !== mainAdminEmail) { %>
-                <button class="delete-btn" onclick="deleteUser(<%= user.id %>)">Xóa</button>
+                <button class="delete-btn" 
+                data-id="<%= user.id %>" 
+                onclick="handleDelete(this)">Xóa
+                </button>
               <% } %>
             </td>
           <% } %>

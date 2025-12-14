@@ -232,3 +232,21 @@
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+.dashboard .admin.search-container {
+    width: 250px;      /* độ rộng thanh tìm kiếm */
+    margin-left: 0;    /* căn trái */
+    display: flex;
+    align-items: center;
+}
+
+.dashboard .admin.search-container .search-box {
+    flex: 1;
+    padding: 12px 20px;
+    outline: none;
+}
+
+.dashboard .admin.search-container .search-btn {
+    padding: 8px 12px;
+    border-left: none;
+    cursor: pointer;
+}
