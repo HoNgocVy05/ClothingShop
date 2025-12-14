@@ -6,9 +6,9 @@ exports.getShoppingCart = async (req, res) => {
 
     if (req.session.user) {
         try {
-            // Lấy từ DB nếu đã login
+            // Lấy từ DB nếu đã login, thêm discount_percent và final_price
             const [rows] = await db.query(
-                `SELECT c.product_id, c.size, c.quantity, p.name, p.price, p.images
+                `SELECT c.product_id, c.size, c.quantity, p.name, p.price AS originalPrice, p.images, p.discount_percent, p.final_price
                  FROM cart_items c
                  JOIN products p ON c.product_id = p.id
                  WHERE c.user_id = ?`,
@@ -21,12 +21,18 @@ exports.getShoppingCart = async (req, res) => {
                     const imgs = JSON.parse(r.images);
                     if (Array.isArray(imgs) && imgs.length > 0) image = imgs[0];
                 } catch (err) {
-                    image = ''; 
+                    image = '';
                 }
+
+                // Tính toán giá để truyền vào EJS/Session
+                const priceToUse = r.discount_percent > 0 ? r.final_price : r.originalPrice;
+
                 return {
                     productId: r.product_id,
                     name: r.name,
-                    price: r.price,
+                    price: priceToUse, // Giá đã xử lý (finalPrice nếu có discount, hoặc originalPrice)
+                    originalPrice: r.originalPrice, // Giá gốc
+                    discountPercent: r.discount_percent, // Phần trăm giảm
                     image,
                     size: r.size,
                     quantity: r.quantity
@@ -38,9 +44,11 @@ exports.getShoppingCart = async (req, res) => {
             console.error("Lỗi lấy giỏ hàng:", err);
         }
     } else {
+        // Nếu chưa login, chỉ lấy từ session
         cart = req.session.cart || [];
     }
 
+    // Tính tổng tiền và tổng số lượng dựa trên 'price' (đã là giá cuối cùng)
     const totalQuantity = cart.reduce((sum, p) => sum + p.quantity, 0);
     const totalAmount = cart.reduce((sum, p) => sum + p.quantity * p.price, 0);
 
@@ -56,18 +64,19 @@ exports.getShoppingCart = async (req, res) => {
 // Thêm sản phẩm vào giỏ
 exports.addToCart = async (req, res) => {
     try {
-        let { productId, name, price, size, quantity } = req.body;
+        let { productId, name, originalPrice, price, size, quantity } = req.body; // Thêm originalPrice
 
-        console.log('addToCart payload:', { productId, name, price, size, quantity });
+        console.log('addToCart payload:', { productId, name, originalPrice, price, size, quantity });
 
         if (!productId || !size) {
             return res.status(400).json({ message: 'Thiếu productId hoặc size' });
         }
 
         let qty = Number(quantity);
-        if (!Number.isFinite(qty) || qty <= 0) qty = 1; 
+        if (!Number.isFinite(qty) || qty <= 0) qty = 1;
 
         let unitPrice = Number(price) || 0;
+        let unitOriginalPrice = Number(originalPrice) || unitPrice; // Đảm bảo có giá gốc
 
         if (!req.session.cart) req.session.cart = [];
         const cart = req.session.cart;
@@ -76,7 +85,16 @@ exports.addToCart = async (req, res) => {
         if (existing) {
             existing.quantity += qty;
         } else {
-            cart.push({ productId, name, price: unitPrice, size, quantity: qty, image: '' });
+            cart.push({
+                productId,
+                name,
+                price: unitPrice, // Giá cuối cùng
+                originalPrice: unitOriginalPrice, // Giá gốc
+                size,
+                quantity: qty,
+                image: '',
+                discountPercent: (unitPrice < unitOriginalPrice && unitOriginalPrice > 0) ? Math.round((unitOriginalPrice - unitPrice) / unitOriginalPrice * 100) : 0
+            });
         }
         req.session.cart = cart;
 
@@ -154,4 +172,3 @@ exports.removeItem = async (req, res) => {
     const cartCount = req.session.cart.reduce((acc, i) => acc + i.quantity, 0);
     res.json({ cartCount });
 };
-

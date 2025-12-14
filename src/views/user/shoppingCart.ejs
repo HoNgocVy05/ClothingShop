@@ -1,5 +1,5 @@
 <div class="shopping-cart">
-    <% if (cart && cart.length> 0) { %>
+    <% if (cart && cart.length > 0) { %>
         <table class="cart-table">
             <thead>
                 <tr>
@@ -15,7 +15,7 @@
             <tbody>
 
                 <% cart.forEach(item=> { %>
-                    <tr class="shopping-product">
+                    <tr class="shopping-product" data-product-id="<%= item.productId %>" data-size="<%= item.size %>">
                         <td><input type="checkbox" class="cart-checkbox row-checkbox"></td>
                         <td>
                             <div class="cart-product-box">
@@ -23,7 +23,7 @@
                                     <img src="uploads/products/<%= item.image %>" alt="<%= item.name %>">
                                 </div>
                                 <div class="cart-product-info">
-                                    <a href="#" class="product-name">
+                                    <a href="/product-infomation?id=<%= item.productId %>" class="product-name">
                                         <%= item.name %>
                                     </a>
                                     <p class="size">Size: <%= item.size %>
@@ -34,26 +34,41 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <p class="discount-price" data-price="<%= Number(item.price) %>">
-                                <%= Number(item.price).toLocaleString() %>đ
-                            </p>
+                        <td class="price-cell">
+                            <% if (item.discountPercent > 0) { %>
+                                <p class="discount-price" data-price="<%= Number(item.price) %>">
+                                    <%= Number(item.price).toLocaleString() %>đ
+                                </p>
+                                <p class="origin-price" data-original-price="<%= Number(item.originalPrice) %>">
+                                    <%= Number(item.originalPrice).toLocaleString() %>đ
+                                </p>
+                            <% } else { %>
+                                <p class="discount-price" data-price="<%= Number(item.price) %>" style="display:none"></p>
+                                <p class="origin-price nodis" data-original-price="<%= Number(item.originalPrice) %>">
+                                    <%= Number(item.price).toLocaleString() %>đ
+                                </p>
+                            <% } %>
                         </td>
                         <td>
                             <div class="quantity-controls">
-                                <button class="cart-quantity-btn" onclick="changeCartQuantity(this, -1)">-</button>
+                                <button class="cart-quantity-btn" data-change="-1">-</button>
                                 <input type="text" class="quantity-input" value="<%= item.quantity %>" readonly />
-                                <button class="cart-quantity-btn" onclick="changeCartQuantity(this, 1)">+</button>
+                                <button class="cart-quantity-btn" data-change="1">+</button>
                             </div>
                         </td>
-                        <td>
-                            <p class="discount-price"> <%= (item.price * item.quantity).toLocaleString() %>đ</p>
+                        <td class="subtotal-cell">
+                            <% 
+                                const finalPrice = item.price;
+                                const subTotal = finalPrice * item.quantity;
+                            %>
+                            <p class="discount-price sub-total-display" data-sub-total="<%= subTotal %>"> 
+                                <%= subTotal.toLocaleString() %>đ
+                            </p>
                         </td>
                     </tr>
-                    <% }) %>
+                <% }) %>
             </tbody>
         </table>
-
         <div class="cart-footer">
             <div class="cart-summary">
                 <span class="summary-text">
@@ -67,6 +82,5 @@
         </div>
         <% } else { %>
             <h2 style="margin: 0 auto">Giỏ hàng trống</h2>
-        <% } %>
+    <% } %>
 </div>
-

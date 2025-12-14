@@ -12,22 +12,39 @@ document.addEventListener('DOMContentLoaded', () => {
         rows.forEach(row => {
             const checkbox = row.querySelector('.row-checkbox');
             if (!checkbox.checked) return; // chỉ tính hàng checked
+            
             const qty = Number(row.querySelector('.quantity-input').value);
-            const price = Number(row.querySelector('.discount-price').dataset.price);
+            
+            // Lấy giá cuối cùng
+            const discountPriceElement = row.querySelector('.discount-price');
+            const originPriceElement = row.querySelector('.origin-price');
+            
+            let price = 0;
+            if (discountPriceElement && discountPriceElement.dataset.price) {
+                price = Number(discountPriceElement.dataset.price);
+            } else if (originPriceElement && originPriceElement.dataset.originalPrice) {
+                price = Number(originPriceElement.dataset.originalPrice);
+            }
+
             totalQty += qty;
             totalAmount += qty * price;
         });
 
         document.getElementById('total-quantity').innerText = totalQty;
-        document.getElementById('total-amount').innerText = totalAmount.toLocaleString() + 'đ';
+        // Đã đổi id của strong trong EJS thành total-amount
+        const totalAmountElement = document.getElementById('total-amount');
+        if (totalAmountElement) {
+            totalAmountElement.innerText = totalAmount.toLocaleString() + 'đ';
+        }
 
-        updateCartIcon()
+        updateCartIcon();
     }
+
     function updateCartIcon() {
         const cartIcon = document.querySelector('.cart-count');
         if (cartIcon) {
-            const rows = document.querySelectorAll('.shopping-product').length || cart.length || 0;
-            cartIcon.innerText = rows >= 100 ? '99+' : rows;
+            const rows = document.querySelectorAll('.shopping-product').length;
+            cartIcon.innerText = rows >= 100 ? '99+' : rows.toString();
         }
     }
 
@@ -62,16 +79,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tăng giảm số lượng
     document.querySelectorAll('.cart-quantity-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const change = btn.innerText === '+' ? 1 : -1;
+            const change = Number(btn.dataset.change); 
             const qtyInput = btn.closest('.quantity-controls').querySelector('.quantity-input');
             let newQty = Math.max(1, Number(qtyInput.value) + change);
             qtyInput.value = newQty;
 
             // Cập nhật tổng tiền row
             const row = btn.closest('.shopping-product');
-            const price = Number(row.querySelector('.discount-price').dataset.price);
-            row.querySelectorAll('.discount-price')[1].innerText =
-                (price * newQty).toLocaleString() + 'đ';
+            
+            // Lấy giá cuối cùng
+            const priceElement = row.querySelector('.discount-price[data-price], .origin-price[data-original-price]');
+            let price = 0;
+            if (priceElement) {
+                price = Number(priceElement.dataset.price || priceElement.dataset.originalPrice);
+            }
+            
+            const subTotalDisplay = row.querySelector('.sub-total-display');
+            if (subTotalDisplay) {
+                const newSubTotal = price * newQty;
+                subTotalDisplay.innerText = newSubTotal.toLocaleString() + 'đ';
+                subTotalDisplay.dataset.subTotal = newSubTotal;
+            }
 
             // Update DB
             const productId = row.querySelector('.remove-item').dataset.id;
@@ -111,10 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartIcon();
 
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     const buyNowBtn = document.querySelector('.cart-footer .btn-buy');
     if (buyNowBtn) {
         buyNowBtn.addEventListener('click', () => {
+            // Lấy danh sách sản phẩm đã check để mua (nếu cần, nhưng yêu cầu chỉ là chuyển hướng)
             window.location.href = '/shopping';
         });
     }
