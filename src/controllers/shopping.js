@@ -81,10 +81,15 @@ exports.submitOrder = async (req, res) => {
         total_price: req.body.total
     }, items);
 
-    req.session.cart = [];
-    await db.query( 
-        "DELETE FROM cart_items WHERE user_id = ?",
-        [user.id]
+    for (const item of items) {
+        await db.query(
+            `DELETE FROM cart_items 
+             WHERE user_id = ? AND product_id = ? AND size = ?`,
+            [user.id, item.product_id, item.size]
+        );
+    }
+    req.session.cart = (req.session.cart || []).filter(c =>
+        !items.some(i => i.product_id == c.productId && i.size == c.size)
     );
     req.session.checkoutItems = null;
     res.json({ success: true, orderId });

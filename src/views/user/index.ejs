@@ -1,10 +1,7 @@
 <% 
-    const saleIds = saleProducts
-        ? saleProducts.filter(p => p.discount_percent > 0).map(p => p.id)
-        : [];
+    const dsIds = []; 
 %>
 
-<!-- Carousel -->
 <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide"><img src="images/banner1.png" alt="banner1"></div>
@@ -16,15 +13,15 @@
     <div class="swiper-pagination"></div>
 </div>
 
-<!-- SALE -->
 <div class="tag">
     <a href="#" class="sale-tag">SALE UP TO 50%</a>
 </div>
 <div class="sale-container">
     <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="sale product-container">
-        <% saleProducts && saleProducts .filter(p => p.discount_percent > 0) .slice(0, 10) .forEach((product) => { %>
-
+        <% saleProducts && saleProducts .filter(p => p.discount_percent > 0)  .slice(0, 10).forEach((product) => { 
+                dsIds.push(product.id);
+        %>
             <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
                 <div class="card-img">
                     <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>" alt="<%= product.name %>">
@@ -42,7 +39,6 @@
     <i class="fa-solid fa-angle-right sale-nav-btn"></i>
 </div>
 
-<!-- catalog -->
 <% categoriesWithProducts && categoriesWithProducts.forEach((category) => { %>
 <div class="tag-group">
     <div class="tag">
@@ -56,24 +52,24 @@
 </div>
 
 <div class="product-container">
-    <% category.products && category.products .filter(p => !saleIds.includes(p.id)) .slice(0, 10) .forEach((product) => { %>
-        <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
-            <div class="card-img">
-                <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
-            </div>
-            <div class="product-info">
-                <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
-                <div class="product-price">
-                    <% if (product.discount_percent > 0) { %>
-                        <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
-                        <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
-                    <% } else { %>
-                        <p class="discount-price" style="display:none"></p>
-                        <p class="origin-price nodis"><%= formatPrice(product.price) %>đ</p>
-                    <% } %>
+    <% category.products && category.products .filter(p => !dsIds.includes(p.id))  .slice(0, 10) .forEach((product) => { %>
+            <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
+                <div class="card-img">
+                    <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-info">
+                    <a href="/product-infomation?id=<%= product.id %>" class="product-name"><%= product.name %></a>
+                    <div class="product-price">
+                        <% if (product.discount_percent > 0) { %>
+                            <p class="discount-price"><%= formatPrice(product.final_price) %>đ</p>
+                            <p class="origin-price"><%= formatPrice(product.price) %>đ</p>
+                        <% } else { %>
+                            <p class="discount-price" style="display:none"></p>
+                            <p class="origin-price nodis"><%= formatPrice(product.price) %>đ</p>
+                        <% } %>
+                    </div>
                 </div>
             </div>
-        </div>
     <% }) %>
 </div>
 <% }) %>
@@ -88,9 +84,9 @@
 
     const getCardWidth = () => {
         const card = container.querySelector('.product-card');
-        return card ? card.offsetWidth + 30 : 200;
+        return card ? card.offsetWidth + 30 : 200; 
     };
-
+    
     const scroll = (distance) => {
         container.scrollBy({ left: distance, behavior: 'smooth' });
     };

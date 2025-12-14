@@ -1,3 +1,17 @@
+<%
+    // ngày dự kiến giao hàng 
+    const createdAt = new Date(order.created_at);
+    const fromDate = new Date(createdAt);
+    fromDate.setDate(fromDate.getDate() + 10);
+    const toDate = new Date(createdAt);
+    toDate.setDate(toDate.getDate() + 15);
+    const formatDate = (d) =>
+        d.toLocaleDateString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+%>
 <div class="user-page">
 <%- include("../partials/userSidebar", { activePage: activePage }) %>
 
@@ -6,7 +20,7 @@
         <!-- Trạng thái đơn hàng -->
         <div class="order-status detail">
             <p><%= order.status %></p>
-            <p>Dự kiến giao hàng vào <span style="color: green"><%= order.delivery_from %> - <%= order.delivery_to %></span></p>
+            <p>Dự kiến giao hàng vào <span style="color: green"><%= formatDate(fromDate) %> - <%= formatDate(toDate) %> </span></p>
         </div>
 
         <!-- Thông tin địa chỉ -->
