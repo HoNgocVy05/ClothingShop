@@ -46,3 +46,49 @@ exports.createOrder = async (order, items) => {
         conn.release();
     }
 };
+exports.getOrderById = async (orderId) => {
+    const conn = await db.getConnection();
+    try {
+        // Lấy thông tin đơn hàng
+        const [orders] = await conn.query(`
+            SELECT * FROM orders WHERE id = ?
+        `, [orderId]);
+
+        if (!orders[0]) return null;
+
+        const order = orders[0];
+
+        // Lấy các sản phẩm trong đơn hàng
+        const [items] = await conn.query(`
+            SELECT * FROM order_items WHERE order_id = ?
+        `, [orderId]);
+
+        // Trả về object đầy đủ
+        return {
+            ...order,
+            items: items.map(i => ({
+                ...i,
+                price: Number(i.price),
+                quantity: Number(i.quantity)
+            }))
+        };
+    } catch (err) {
+        throw err;
+    } finally {
+        conn.release();
+    }
+};
+exports.getOrderItems = async (orderId) => {
+    const [rows] = await db.query(`
+        SELECT * FROM order_items WHERE order_id = ?
+    `, [orderId]);
+
+    return rows.map(r => ({
+        product_id: r.product_id,
+        name: r.product_name,
+        image: r.image,
+        size: r.size,
+        price: r.price,
+        quantity: r.quantity
+    }));
+};

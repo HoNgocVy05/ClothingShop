@@ -1,9 +1,9 @@
 <div class="search-header-bar">
     <div class="search-result-header">
         <h1 class="search-result-title">
-            Kết quả tìm kiếm cho "<span class="search-keyword"></span>"
+            Kết quả tìm kiếm cho "<span class="search-keyword"><%= searchQuery %></span>"
         </h1>
-        <p class="search-result-count">6 sản phẩm</p>
+        <p class="search-result-count"><%= products.length %> sản phẩm</p>
     </div>
     <div class="sort-form">
         <select class="sort-select">
@@ -16,92 +16,30 @@
 </div>
 
 <div class="search-product-list">
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
+    <% if (products.length === 0) { %>
+        <p>Không tìm thấy sản phẩm nào.</p>
+    <% } else { %>
+        <% products.forEach(product => { %>
+            <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product?id=<%= product.id %>'">
+                <div class="card-img">
+                    <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-info">
+                    <a href="/product?id=<%= product.id %>" class="product-name"><%= product.name %></a>
+                    <div class="product-price">
+                        <p class="discount-price"><%= product.final_price.toLocaleString() %>đ</p>
+                        <% if (product.discount_percent > 0) { %>
+                            <p class="origin-price"><%= product.price.toLocaleString() %>đ</p>
+                        <% } %>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
-    <div class="product-card">
-        <div class="card-img">
-            <img src="/images/shirt.png" alt="shirt">
-        </div>
-        <div class="product-info">
-            <a href="#" class="product-name">Áo thun navy</a>
-            <div class="product-price">
-                <p class="discount-price">500.000đ</p>
-                <p class="origin-price">500.000đ</p>
-            </div>
-        </div>
-    </div>
+        <% }) %>
+    <% } %>
 </div>
-<!--Nút xem thêm-->
+
+<% if (products.length > 0) { %>
 <div class="load-more-container">
     <button class="load-more-btn">Xem thêm</button>
 </div>
+<% } %>
