@@ -1,34 +1,27 @@
 <div class="shopping-page">
+    <!-- LEFT -->
     <div class="order-left">
         <h2>Mua hàng</h2>
 
         <div class="form-group">
             <label>Họ và tên</label>
-            <input type="text" placeholder="Nhập họ và tên">
+            <input type="text" placeholder="Nhập họ và tên" required>
         </div>
 
         <div class="form-group">
             <label>Số điện thoại</label>
-            <input type="tel" placeholder="Nhập số điện thoại">
+            <input type="tel" placeholder="Nhập số điện thoại" required>
         </div>
 
         <div class="form-group">
             <label>Tỉnh/Thành phố, Quận/Huyện, Phường/Xã</label>
-            <input type="text" placeholder="Ví dụ: TP. Hồ Chí Minh, Quận 1, Phường Bến Nghé">
+            <input type="text" placeholder="Ví dụ: TP. Hồ Chí Minh, Quận 1, Phường Bến Nghé" required>
         </div>
 
         <div class="form-group">
             <label>Tên đường, Tòa nhà, Số nhà</label>
-            <input type="text" placeholder="Ví dụ: 123 Đường Lê Lợi, Chung cư ABC, Lầu 5">
+            <input type="text" placeholder="Ví dụ: 123 Đường Lê Lợi, Chung cư ABC, Lầu 5" required>
         </div>
-
-        <!-- <div class="default-address">
-            <span>Đặt làm địa chỉ mặc định</span>
-            <label class="switch">
-                <input type="checkbox">
-                <span class="slider"></span>
-            </label>
-        </div> -->
 
         <div class="form-group">
             <label>Ghi chú</label>
@@ -38,37 +31,32 @@
         <div class="shipping-method">
             <div class="shipping-box">
                 <strong>Phí vận chuyển</strong>
-                <span class="price">20.000đ</span>
+                <span class="price">
+                    <%= shipping.toLocaleString() %>đ
+                </span>
             </div>
         </div>
+
         <div class="payment-method">
             <strong>Phương thức thanh toán</strong>
-            <input type="radio" name="payment" id="online" checked>
+
+            <!-- <input type="radio" name="payment" id="online" checked>
             <label for="online">
                 <div class="radio-custom"></div>
-                <div class="payment-title">Credit/ATM card/QR</div>
+                <div class="payment-title">Credit / ATM / QR</div>
                 <div class="payment-logos">
                     <img src="/images/payment.png" class="payment-single-logo">
                 </div>
-            </label>
+            </label> -->
 
             <input type="radio" name="payment" id="momo">
             <label for="momo">
                 <div class="radio-custom"></div>
                 <div class="payment-title">Ví Momo</div>
                 <div class="payment-logos">
-                    <img src="/images/momo.png" alt="Momo" style="height:28px;">
+                    <img src="/images/momo.png" style="height:28px;">
                 </div>
             </label>
-
-            <!-- <input type="radio" name="payment" id="zalopay">
-            <label for="zalopay">
-                <div class="radio-custom"></div>
-                <div class="payment-title">Ví Zalo Pay</div>
-                <div class="payment-logos">
-                    <img src="/images/zalopay.png" alt="ZaloPay" style="height:28px;">
-                </div>
-            </label> -->
 
             <input type="radio" name="payment" id="cod">
             <label for="cod">
@@ -76,55 +64,89 @@
                 <span class="payment-cod">Thanh toán khi nhận hàng (COD)</span>
             </label>
         </div>
-        <button class="btn-checkout">Tiến hành thanh toán</button>
+
+        <!-- GẮN DATA-TOTAL -->
+        <button class="btn-checkout" data-total="<%= total %>">
+            Tiến hành thanh toán
+        </button>
     </div>
 
+    <!-- RIGHT -->
     <div class="order-right">
-            <div class="my-order">
+        <div class="my-order">
             <div class="order-item">
                 <div class="order-products-detail">
-                    <div class="order-product">
-                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                        <div class="order-product-info">
-                            <p class="order-product-name">OWL - ÁO thun navy</p>
-                            <p class="order-product-size">XL</p>
-                            <div class="price-row">
-                                <p>x2</p>
-                                <p>45.000đ</p>
+
+                    <% if (items && items.length > 0) { %>
+                        <% items.forEach(item => { %>
+                            <div class="order-product">
+                                <img src="/uploads/products/<%= item.image %>" alt="<%= item.name %>">
+                                <div class="order-product-info">
+                                    <p class="order-product-name"><%= item.name %></p>
+                                    <p class="order-product-size"><%= item.size %></p>
+                                    <div class="price-row">
+                                        <p>x<%= item.quantity %></p>
+                                        <p>
+                                            <%= (item.price * item.quantity).toLocaleString() %>đ
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="order-product">
-                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                        <div class="order-product-info">
-                            <p class="order-product-name">OWL - ÁO thun navy</p>
-                            <p class="order-product-size">XL</p>
-                            <div class="price-row">
-                                <p>x2</p>
-                                <p>45.000đ</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="order-product">
-                        <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                        <div class="order-product-info">
-                            <p class="order-product-name">OWL - ÁO thun navy</p>
-                            <p class="order-product-size">XL</p>
-                            <div class="price-row">
-                                <p>x2</p>
-                                <p>45.000đ</p>
-                            </div>
-                        </div>
-                    </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>Không có sản phẩm nào.</p>
+                    <% } %>
+
                 </div>
             </div>
         </div>
 
         <div class="checkout-summary">
-            <div class="sum-row"><span>Tổng phụ </span><strong>270.000đ</strong></div>
-            <div class="sum-row"><span>Vận chuyển</span><span>20.000đ</span></div>
-            <div class="sum-total"><span>Tổng</span><strong>290.000đ</strong></div>
+            <div class="sum-row">
+                <span>Tổng phụ</span>
+                <strong><%= subTotal.toLocaleString() %>đ</strong>
+            </div>
+            <div class="sum-row">
+                <span>Vận chuyển</span>
+                <span><%= shipping.toLocaleString() %>đ</span>
+            </div>
+            <div class="sum-total">
+                <span>Tổng</span>
+                <strong><%= total.toLocaleString() %>đ</strong>
+            </div>
         </div>
-
     </div>
 </div>
+
+<script>
+document.querySelector('.btn-checkout').addEventListener('click', async () => {
+    const form = document.querySelector('.order-left');
+    const btn = document.querySelector('.btn-checkout');
+
+    const data = {
+        fullname: form.querySelectorAll('input[type="text"]')[0].value,
+        phone: form.querySelector('input[type="tel"]').value,
+        address:
+            form.querySelectorAll('input[type="text"]')[1].value + ' - ' +
+            form.querySelectorAll('input[type="text"]')[2].value,
+        note: form.querySelector('textarea').value,
+        payment: document.querySelector('input[name="payment"]:checked').id,
+        total: Number(btn.dataset.total)
+    };
+
+    const res = await fetch('/checkout/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+
+    if (res.ok && result.success) {
+        alert('Đặt hàng thành công');
+        window.location.href = '/my-order';
+    } else {
+        alert(result.message || 'Có lỗi xảy ra');
+    }
+});
+</script>

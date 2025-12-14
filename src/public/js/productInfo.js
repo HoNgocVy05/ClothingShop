@@ -81,29 +81,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById('buyNow').addEventListener('click', async () => {
+    const sizeBtn = document.querySelector('.size-btn.selected');
+    if (!sizeBtn) return alert('Chọn size trước');
+
     const quantity = Number(document.getElementById('quantity').value);
-    const productId = PRODUCT.id;
 
-    // Lấy size từ nút đang chọn
-    const selectedBtn = document.querySelector(".size-btn.selected");
-    if (!selectedBtn) return; // Không chọn size thì không làm gì
-    const size = selectedBtn.innerText;
+    await fetch('/checkout/from-product', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            productId: PRODUCT.id,
+            size: sizeBtn.innerText,
+            quantity
+        })
+    });
 
-    try {
-        await fetch('/cart/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                productId,
-                size,
-                quantity
-            })
-        });
-
-        // Sau khi thêm vào giỏ, chuyển thẳng sang trang shopping
-        window.location.href = '/shopping';
-    } catch (err) {
-        console.error(err);
-    }
+    window.location.href = '/shopping';
 });
 

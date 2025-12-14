@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.getElementById('total-quantity').innerText = totalQty;
-        // Đã đổi id của strong trong EJS thành total-amount
         const totalAmountElement = document.getElementById('total-amount');
         if (totalAmountElement) {
             totalAmountElement.innerText = totalAmount.toLocaleString() + 'đ';
@@ -140,12 +139,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const buyNowBtn = document.querySelector('.cart-footer .btn-buy');
-    if (buyNowBtn) {
-        buyNowBtn.addEventListener('click', () => {
-            // Lấy danh sách sản phẩm đã check để mua (nếu cần, nhưng yêu cầu chỉ là chuyển hướng)
-            window.location.href = '/shopping';
-        });
-    }
+document.querySelector('.cart-footer .btn-buy').addEventListener('click', async () => {
+    const checked = [];
+    document.querySelectorAll('.shopping-product').forEach(row => {
+        if (row.querySelector('.row-checkbox').checked) {
+            checked.push({
+                productId: row.querySelector('.remove-item').dataset.id,
+                size: row.querySelector('.remove-item').dataset.size
+            });
+        }
+    });
+
+    if (checked.length === 0) return alert('Chọn ít nhất 1 sản phẩm');
+
+    await fetch('/checkout/from-cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: checked })
+    });
+
+    window.location.href = '/shopping';
 });
