@@ -6,7 +6,8 @@ exports.createOrder = async (order, items) => {
         await conn.beginTransaction();
 
         const [result] = await conn.query(`
-            INSERT INTO orders (order_code, user_id, fullname, phone, address, note, payment_method, shipping_fee, total_price)
+            INSERT INTO orders 
+            (order_code, user_id, fullname, phone, address, note, payment_method, shipping_fee, total_price)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, [
             order.order_code,
@@ -47,6 +48,7 @@ exports.createOrder = async (order, items) => {
         conn.release();
     }
 };
+
 exports.getOrderById = async (orderId) => {
     const conn = await db.getConnection();
     try {
@@ -111,4 +113,40 @@ exports.getTotalRevenue = async () => {
 exports.getNewUsersCount = async () => {
     const [rows] = await db.query(`SELECT COUNT(*) as total FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)`);
     return rows[0].total || 0;
+};
+exports.getAllOrders = async () => {
+    const [rows] = await db.query(`
+        SELECT 
+            o.order_code,
+            o.created_at,
+            o.fullname AS user_name,
+            o.total_price,
+            o.payment_method,
+            o.status,
+            GROUP_CONCAT(
+                CONCAT(oi.product_name, ':', oi.quantity, ':', oi.price)
+                SEPARATOR ';'
+            ) AS products
+        FROM orders o
+        LEFT JOIN users u ON o.user_id = u.id
+        LEFT JOIN order_items oi ON o.id = oi.order_id
+        GROUP BY o.id
+        ORDER BY o.created_at DESC
+    `);
+
+    return rows.map(row => {
+        const products = row.products ? row.products.split(';').map(p => {
+            const [name, quantity, price] = p.split(':');
+            return {
+                name,
+                quantity: Number(quantity),
+                price: Number(price)
+            };
+        }) : [];
+
+        return {
+            ...row,
+            products
+        };
+    });
 };
