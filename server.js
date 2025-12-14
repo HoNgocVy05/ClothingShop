@@ -87,7 +87,7 @@ const userRoute = require('./src/routes/userRoute');
 const adminRoute = require('./src/routes/adminRoute');
 const actionRoute = require('./src/routes/actionRoute');
 app.use('/', userRoute);
-app.use('/', adminRoute);
+app.use('/admin', adminRoute);
 app.use('/', actionRoute);
 
 // chạy server 

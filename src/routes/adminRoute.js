@@ -9,13 +9,13 @@ const login = require('../controllers/login');
 
 //các trang admin 
 // router.get('/admin', checkAdmin, adminPage.getAdminPage);
-router.get('/admin/dashboard', checkAdmin, adminPage.getDashboard);
-router.get('/admin/product-management',checkAdmin, adminPage.getProductManagement);
-router.get('/admin/catalog-management', checkAdmin, adminPage.getCatalogManagement);
-router.get('/admin/order-management', checkAdmin, adminPage.getOrderManagement);
-router.get('/admin/account-management', checkAdmin, adminPage.getAccountManagement);
-router.get('/admin/login', login.getLogin);
-router.post('/admin/login', login.postLogin);
+router.get('/dashboard', checkAdmin, adminPage.getDashboard);
+router.get('/product-management',checkAdmin, adminPage.getProductManagement);
+router.get('/catalog-management', checkAdmin, adminPage.getCatalogManagement);
+router.get('/order-management', checkAdmin, adminPage.getOrderManagement);
+router.get('/account-management', checkAdmin, adminPage.getAccountManagement);
+router.get('/login', login.getLogin);
+router.post('/login', login.postLogin);
 
 router.post('/admin/account-management/delete', checkAdmin, async (req, res) => {
     const { id } = req.body;
