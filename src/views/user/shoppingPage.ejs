@@ -114,7 +114,7 @@
                 <span>Tổng</span>
                 <strong><%= total.toLocaleString() %>đ</strong>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
 
@@ -145,6 +145,22 @@ document.querySelector('.btn-checkout').addEventListener('click', async () => {
     if (res.ok && result.success) {
         alert('Đặt hàng thành công');
         window.location.href = '/my-order';
+        req.session.checkoutItems.forEach(item => {
+            // Xóa khỏi session cart
+            req.session.cart = (req.session.cart || []).filter(
+                i => !(i.productId == item.product_id && i.size == item.size)
+            );
+            
+            // Xóa khỏi DB nếu user đăng nhập
+            if (req.session.user) {
+                db.query(
+                    "DELETE FROM cart_items WHERE user_id=? AND product_id=? AND size=?",
+                    [req.session.user.id, item.product_id, item.size]
+                ).catch(err => console.error("Lỗi xóa giỏ hàng sau khi mua:", err));
+            }
+        });
+        // Xóa checkoutItems
+        req.session.checkoutItems = null;
     } else {
         alert(result.message || 'Có lỗi xảy ra');
     }

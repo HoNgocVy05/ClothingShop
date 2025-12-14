@@ -1,9 +1,4 @@
 <% 
-    // const formatPrice = (price) => {
-    //     if (!price && price !== 0) return '0';
-    //     return Math.round(price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    // };
-
     const saleIds = saleProducts
         ? saleProducts.filter(p => p.discount_percent > 0).map(p => p.id)
         : [];
@@ -28,10 +23,7 @@
 <div class="sale-container">
     <i class="fa-solid fa-angle-left sale-nav-btn"></i>
     <div class="sale product-container">
-        <% saleProducts && saleProducts
-            .filter(p => p.discount_percent > 0)
-            .slice(0, 10)
-            .forEach((product) => { %>
+        <% saleProducts && saleProducts .filter(p => p.discount_percent > 0) .slice(0, 10) .forEach((product) => { %>
 
             <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
                 <div class="card-img">
@@ -64,11 +56,7 @@
 </div>
 
 <div class="product-container">
-    <% category.products && category.products
-        .filter(p => !saleIds.includes(p.id))
-        .slice(0, 10)
-        .forEach((product) => { %>
-
+    <% category.products && category.products .filter(p => !saleIds.includes(p.id)) .slice(0, 10) .forEach((product) => { %>
         <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product-infomation?id=<%= product.id %>'">
             <div class="card-img">
                 <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/shirt.png' %>" alt="<%= product.name %>">

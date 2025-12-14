@@ -18,15 +18,13 @@
                                     <% order.items.forEach(item => { %>
                                         <div class="order-product">
                                             <img src="<%= item.image ? '/uploads/products/' + item.image : '/images/img-product-default.png' %>" alt="<%= item.product_name %>">
-
-
                                             <div class="order-product-info">
                                                 <p class="order-product-name"><%= item.product_name %></p>
                                                 <p class="order-product-size"><%= item.size %></p>
 
                                                 <div class="price-row">
                                                     <p>x<%= item.quantity %></p>
-                                                    <p><%= item.price %>đ</p>
+                                                    <p><%= Number(item.price).toLocaleString() %>đ</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -34,18 +32,13 @@
                                     <% } %>
                                 </div>
                             </a>
-                            
-
                             <button class="show-all-btn">Xem thêm...</button>
-
                             <div class="order-total-price">
-                                <p>Tổng: <b><%= order.total_price %>đ</b></p>
+                                <p>Tổng: <b><%= Number(order.total_price).toLocaleString() %>đ</b></p>
                             </div>
                         </div>
                 </div>
             <% }) %>
-
         <% } %>
-
     </div>
 </div>

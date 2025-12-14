@@ -3,7 +3,7 @@ module.exports = function breadcrumb(req, res, next) {
 
     // Danh sách route cha–con
     const parentMap = {
-        "my-order-detail": "my-orders",
+        "my-order-detail": "my-order",
         "product-detail": "product-list",
         "cart": "product-infomation",
         "product-infomation": "product-list",

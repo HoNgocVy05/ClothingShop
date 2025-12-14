@@ -113,8 +113,6 @@ exports.getAccountManagement = async (req, res) => {
     });
 };
 
-
-
 exports.deleteUser = async (req, res) => {
     const { id } = req.body;
     if (!id) return res.status(400).json({ success: false, message: 'Thiếu ID' });

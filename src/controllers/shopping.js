@@ -51,7 +51,7 @@ exports.getShoppingPage = (req, res) => {
     res.render('user/shoppingPage', {
         layout: './layouts/userMaster',
         title: 'VPQ Studio - Mua hàng',
-        items,
+        items,  
         subTotal,
         shipping,
         total: subTotal + shipping
@@ -67,8 +67,10 @@ exports.submitOrder = async (req, res) => {
     if (!fullname || !phone || !address || !payment || !items || items.length === 0) {
         return res.status(400).json({ success: false, message: 'Vui lòng điền đầy đủ thông tin' });
     }
+    const orderCode = generateOrderCode();
 
     const orderId = await orderModel.createOrder({
+        oder_code: orderCode,
         user_id: user.id,
         fullname,
         phone,
@@ -82,3 +84,14 @@ exports.submitOrder = async (req, res) => {
     req.session.checkoutItems = null;
     res.json({ success: true, orderId });
 };
+
+function generateOrderCode() {
+    const date = new Date();
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+
+    const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    return `VPQ-${y}${m}${d}-${random}`;
+}

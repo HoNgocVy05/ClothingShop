@@ -99,3 +99,26 @@
 .low-stock-table .table-col th:last-child {
     width: 35%;
 }
+
+/* độ rộng cột dơn hàng  */
+.order-management-table th:nth-child(2), .order-management-table td:nth-child(2) {
+    text-align: center; 
+}
+.order-management-table .table-col th:first-child {
+    width: 2%;
+}   
+.order-management-table .table-col th:nth-child(2) {
+    width: 10%;
+}
+.order-management-table .table-col th:nth-child(3) {
+    width: 15%;
+}
+.order-management-table .table-col th:nth-child(5) {
+    width: 10%;
+}
+.order-management-table .table-col th:nth-child(6) {
+    width: 15%;
+}
+.order-management-table .table-col th:last-child {
+    width: 15%;
+}

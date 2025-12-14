@@ -26,7 +26,7 @@ exports.getMyOrder = async (req, res) => {
     if (!currentUser) return res.redirect('/login');
 
     try {
-        const [orders] = await db.query(`SELECT * FROM orders WHERE user_id=?`, [currentUser.id]);
+        const [orders] = await db.query(`SELECT * FROM orders WHERE user_id=? ORDER BY id DESC`, [currentUser.id]);
         for (let order of orders) {
             const [items] = await db.query(`SELECT * FROM order_items WHERE order_id=?`, [order.id]);
             order.items = items;
