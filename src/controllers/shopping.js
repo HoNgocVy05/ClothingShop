@@ -82,7 +82,7 @@ exports.submitOrder = async (req, res) => {
     }, items);
 
     req.session.cart = [];
-    await db.query(
+    await db.query( 
         "DELETE FROM cart_items WHERE user_id = ?",
         [user.id]
     );
