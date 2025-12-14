@@ -65,7 +65,13 @@ const User = {
             "UPDATE users SET remember_token = NULL WHERE id = ?",
             [id]
         );
-    }
+    },
+    create: async (fullname, email, password) => {
+        await pool.query(
+            'INSERT INTO users (fullname, email, password) VALUES (?, ?, ?)',
+            [fullname, email, password]
+        );
+    },
 };
 
 module.exports = User;

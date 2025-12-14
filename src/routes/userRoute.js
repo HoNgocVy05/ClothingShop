@@ -31,8 +31,8 @@ router.get('/my-order-detail',checkLogin,userPage.getMyOrderDetail)
 router.get('/contact',support.getContactPage)
 router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
-router.post('/login',redirectIfLoggedIn, login.postLogin);
-router.post('/signin',redirectIfLoggedIn, signin.postSignin);
+router.post('/login', login.postLogin);
+router.post('/signin', signin.postSignin);
 router.get('/logout', login.logout);
 router.post('/update-user', checkLogin, userPage.updateUserInfo);
 router.post('/cart/add',checkLogin, cartController.addToCart);
