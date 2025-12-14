@@ -11,7 +11,7 @@
     <div class="statistical-overview">
         <div class="overview-box">
             <div class="overview-info">
-                <p>Chờ xác nhận</p>
+                <p >Chờ xác nhận</p>
                 <p><%= orders.filter(o => o.status === 'Chờ xác nhận').length %></p>
             </div>
         </div>
@@ -65,7 +65,15 @@
                             </td>
                             <td><%= order.total_price.toLocaleString() %>đ</td>
                             <td><%= order.payment_method %></td>
-                            <td><%= order.status %></td>
+                            <td>
+                                <span class="order-status 
+                                    <%= order.status === 'Chờ xác nhận' ? 'status-pending' :
+                                        order.status === 'Đã Hủy' ? 'status-cancelled' :
+                                        order.status === 'Đã nhận hàng' ? 'status-received' :
+                                        'status-success' %>">
+                                    <%= order.status %>
+                                </span>
+                            </td>   
                         </tr>
                     <% }) %>
                 </tbody>

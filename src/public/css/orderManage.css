@@ -1,0 +1,23 @@
+/* Chờ xác nhận - vàng */
+.status-pending {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #b8860b;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+/* Đã hủy - đỏ */
+.status-cancelled {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #b02a37;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+/* Các trạng thái còn lại - xanh lá */
+.status-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #1e7e34;
+    padding: 2px;
+    border-radius: 5px;
+}

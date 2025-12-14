@@ -1,49 +1,58 @@
 <div class="admin-container dashboard">
   <h1>Quản lý tài khoản</h1>
-  
-  <table class="user-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Họ và tên</th>
-        <th>Email</th>
-        <th>Vai trò</th>
-        <th>Trạng thái</th>
-        <% if (adminEmail === mainAdminEmail) { %>
-          <th>Hành động</th>
-        <% } %>
-      </tr>
-    </thead>
-    <tbody>
-      <% users.forEach(user => { %>
-        <tr>
-          <td><%= user.id %></td>
-          <td><%= user.fullname %></td>
-          <td><%= user.email %></td>
-          <td><%= user.role %></td>
-          <td><%= user.isActive ? 'Hoạt động' : 'Đã khóa' %></td>
-          
-          <% if (adminEmail === mainAdminEmail) { %>
-            <td>
-              <% if (user.role === 'user') { %>
-                <button class="toggle-btn" 
-                data-id="<%= user.id %>" 
-                data-status="<%= user.isActive ? 0 : 1 %>" 
-                onclick="handleToggle(this)">
-              <%= user.isActive ? 'Khóa' : 'Mở khóa' %>
-                </button>
-              <% } else if (user.role === 'admin' && user.email !== mainAdminEmail) { %>
-                <button class="delete-btn" 
-                data-id="<%= user.id %>" 
-                onclick="handleDelete(this)">Xóa
-                </button>
+  <div class="statistical-best-seller statistical-time">
+    <div class="admin-table order-management-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Họ và tên</th>
+            <th>Email</th>
+            <th>Vai trò</th>
+            <th>Trạng thái</th>
+            <% if (adminEmail===mainAdminEmail) { %>
+              <th>Hành động</th>
               <% } %>
-            </td>
-          <% } %>
-        </tr>
-      <% }); %>
-    </tbody>
-  </table>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user=> { %>
+            <tr>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= user.fullname %>
+              </td>
+              <td>
+                <%= user.email %>
+              </td>
+              <td>
+                <%= user.role %>
+              </td>
+              <td>
+                <%= user.isActive ? 'Hoạt động' : 'Đã khóa' %>
+              </td>
+
+              <% if (adminEmail===mainAdminEmail) { %>
+                <td>
+                  <% if (user.role==='user' ) { %>
+                    <button class="toggle-btn" data-id="<%= user.id %>" data-status="<%= user.isActive ? 0 : 1 %>"
+                      onclick="handleToggle(this)">
+                      <%= user.isActive ? 'Khóa' : 'Mở khóa' %>
+                    </button>
+                    <% } else if (user.role==='admin' && user.email !==mainAdminEmail) { %>
+                      <button class="delete-btn" data-id="<%= user.id %>" onclick="handleDelete(this)">Xóa
+                      </button>
+                      <% } %>
+                </td>
+                <% } %>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <script>
