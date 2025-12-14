@@ -4,6 +4,8 @@ const adminPage = require('../controllers/adminPage');
 const { checkAdmin } = require('../middleware/auth');
 const AdminUser = require('../models/adminUserModel');
 const Category = require('../models/categoryModel');
+const login = require('../controllers/login');
+
 
 //các trang admin 
 // router.get('/admin', checkAdmin, adminPage.getAdminPage);
@@ -12,11 +14,8 @@ router.get('/admin/product-management',checkAdmin, adminPage.getProductManagemen
 router.get('/admin/catalog-management', checkAdmin, adminPage.getCatalogManagement);
 router.get('/admin/order-management', checkAdmin, adminPage.getOrderManagement);
 router.get('/admin/account-management', checkAdmin, adminPage.getAccountManagement);
-router.get('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/');
-    });
-});
+router.get('/admin/login', login.getLogin);
+router.post('/admin/login', login.postLogin);
 
 router.post('/admin/account-management/delete', checkAdmin, async (req, res) => {
     const { id } = req.body;

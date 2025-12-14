@@ -7,6 +7,7 @@ const Category = require('./src/models/categoryModel');
 const cartMiddleware = require('./src/middleware/cartMiddleware');
 const cookieParser = require('cookie-parser');
 const breadcrumb = require('./src/middleware/breadcrumb');
+const User = require('./src/models/userModel');
 
 
 const app = express();
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 // middleware parse JSON
 app.use(express.json()); 
@@ -29,11 +31,23 @@ app.use(session({
 app.use(cartMiddleware);
 app.use(breadcrumb);
 
-//session
-app.use(session({secret: 'secret-key', resave: false, saveUninitialized: true}));
-
+app.use(async (req, res, next) => {
+    if (!req.session.user && req.cookies.remember_token) {
+        const user = await User.findByRememberToken(req.cookies.remember_token);
+        if (user) {
+            req.session.user = {
+                id: user.id,
+                fullname: user.fullname,
+                email: user.email,
+                role: user.role
+            };
+        }
+    }
+    next();
+});
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
+    res.locals.admin = req.session.admin || null;
     next();
 });
 

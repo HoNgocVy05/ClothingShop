@@ -2,46 +2,41 @@ const pool = require('./database');
 
 const User = {
     findByEmail: async (email) => {
-        const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
-        return rows[0]; 
-    },
-
-    create: async (fullname, email, password) => {
-        const [result] = await pool.query(
-            "INSERT INTO users (fullname, email, password, role) VALUES (?, ?, ?, 'user')",
-            [fullname, email, password]
+        const [rows] = await pool.query(
+            "SELECT * FROM users WHERE email = ?",
+            [email]
         );
-        return result.insertId; 
-    },
-
-    findById: async (id) => {
-        const [rows] = await pool.query("SELECT * FROM users WHERE id = ?", [id]);
         return rows[0];
     },
 
-    update: async (id, data) => {
-        const query = `
-            UPDATE users SET 
-                fullname = ?, 
-                address = ?, 
-                dayOfBirth = ?, 
-                gender = ?, 
-                email = ?, 
-                phoneNumber = ?,
-                bio = ?
-            WHERE id = ?
-        `;
-        const values = [
-            data.fullname, data.address, data.dayOfBirth,
-            data.gender, data.email, data.phoneNumber, data.bio, id
-        ];
-
-        const [result] = await pool.query(query, values);
-        return result;
+    findById: async (id) => {
+        const [rows] = await pool.query(
+            "SELECT * FROM users WHERE id = ?",
+            [id]
+        );
+        return rows[0];
     },
 
-    updatePassword: async (id, hashedPassword) => {
-    return pool.query("UPDATE users SET password=? WHERE id=?", [hashedPassword, id]);
+    saveRememberToken: async (id, token) => {
+        await pool.query(
+            "UPDATE users SET remember_token = ? WHERE id = ?",
+            [token, id]
+        );
+    },
+
+    findByRememberToken: async (token) => {
+        const [rows] = await pool.query(
+            "SELECT * FROM users WHERE remember_token = ?",
+            [token]
+        );
+        return rows[0];
+    },
+
+    clearRememberToken: async (id) => {
+        await pool.query(
+            "UPDATE users SET remember_token = NULL WHERE id = ?",
+            [id]
+        );
     }
 };
 

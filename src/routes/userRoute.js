@@ -33,12 +33,7 @@ router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)
 router.post('/login',redirectIfLoggedIn, login.postLogin);
 router.post('/signin',redirectIfLoggedIn, signin.postSignin);
-router.get('/logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/');
-    });
-});
-
+router.get('/logout', login.logout);
 router.post('/update-user', checkLogin, userPage.updateUserInfo);
 router.post('/cart/add',checkLogin, cartController.addToCart);
 router.post('/cart/remove',checkLogin, cartController.removeItem);
