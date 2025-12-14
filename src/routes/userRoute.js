@@ -27,7 +27,7 @@ router.get('/signin',redirectIfLoggedIn,signin.getSignin)
 router.get('/user-infomation',checkLogin,userPage.getUserInfo)
 router.get('/my-order',checkLogin,userPage.getMyOrder)
 router.get('/change-password',checkLogin,userPage.getChangePassword)
-router.get('/my-order-detail',checkLogin,userPage.getMyOrderDetail)
+router.get('/my-order-detail/:orderId', checkLogin, userPage.getMyOrderDetail);
 router.get('/contact',support.getContactPage)
 router.get('/size',support.getSizePage)
 router.get('/return-policy',support.getReturnPolicyPage)

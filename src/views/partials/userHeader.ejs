@@ -1,9 +1,9 @@
 <div class="header">
     <img src="\images\VPQlogo.png" alt="VPQlogo" class="logo">
-    <div class="search-container">
-        <input type="search" name="search-product" class="search-box" placeholder="Tìm kiếm...">
-        <button class="search-btn"><i class="fa fa-search"></i></button>
-    </div>
+    <form action="/search" method="GET" class="search-container">
+        <input type="search" name="q" class="search-box" placeholder="Tìm kiếm...">
+        <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+    </form>
     <a href="/cart" class="cart-btn">
         <i class="fa fa-shopping-cart"></i>
         <% if (user) { %>

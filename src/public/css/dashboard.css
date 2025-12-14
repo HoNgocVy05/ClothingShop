@@ -122,3 +122,4 @@
 .order-management-table .table-col th:last-child {
     width: 15%;
 }
+.low-stock { color: red; }

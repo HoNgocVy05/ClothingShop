@@ -1,61 +1,65 @@
 <div class="user-page">
-    <%- include("../partials/userSidebar", { activePage: locals.activePage }) %>
-    <div class="sidebar-content">
-        <div id="my-order-detail">
-            <div class="order-status detail">
-                <p>Đang giao hàng</p>
-                <p>Dự kiến giao hàng vào <span style="color: green">12/02 - 20/2</span></p> 
-            </div>
-            <div class="order-address">
-                <i class="fa-solid fa-location-dot"></i>
-                <p>User Name</p>
-                <p>0123 456 789</p>
-                <p>số 70, Đường Tô Ký, Quận 12, TP.HCM</p>
-            </div>
-            <div class="my-order">
-                <div class="order-item">
-                    <div class="order-products-detail">
+<%- include("../partials/userSidebar", { activePage: activePage }) %>
+
+<div class="sidebar-content">
+    <div id="my-order-detail">
+        <!-- Trạng thái đơn hàng -->
+        <div class="order-status detail">
+            <p><%= order.status %></p>
+            <p>Dự kiến giao hàng vào <span style="color: green"><%= order.delivery_from %> - <%= order.delivery_to %></span></p>
+        </div>
+
+        <!-- Thông tin địa chỉ -->
+        <div class="order-address">
+            <i class="fa-solid fa-location-dot"></i>
+            <p><%= order.user_name %></p>
+            <p><%= order.phone %></p>
+            <p><%= order.address %></p>
+        </div>
+
+        <!-- Danh sách sản phẩm trong đơn -->
+        <div class="my-order">
+            <div class="order-item">
+                <div class="order-products-detail">
+                    <% order.items.forEach(item => { %>
                         <div class="order-product">
-                            <img src="images/shirt1.png" alt="Ảnh sản phẩm">
+                            <img src="<%= item.image ? '/uploads/products/' + item.image : '/images/img-product-default.png' %>" alt="<%= item.name %>">
                             <div class="order-product-info">
-                                <p class="order-product-name">OWL - ÁO thun navy</p>
-                                <p class="order-product-size">XL</p>
+                                <p class="order-product-name"><%= item.name %></p>
+                                <p class="order-product-size"><%= item.size %></p>
                                 <div class="price-row">
-                                    <p>x2</p>
-                                    <p>45.000đ</p>
+                                    <p>x<%= item.quantity %></p>
+                                    <p><%= (item.price * item.quantity).toLocaleString() %>đ</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="order-product">
-                            <img src="images/shirt1.png" alt="Ảnh sản phẩm">
-                            <div class="order-product-info">
-                                <p class="order-product-name">OWL - ÁO thun navy</p>
-                                <p class="order-product-size">XL</p>
-                                <div class="price-row">
-                                    <p>x2</p>
-                                    <p>45.000đ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
             </div>
-            <div class="detail checkout-summary">
-                <p>Tổng quan đơn hàng</p>
-                <div class="sum-row"><span>Tổng phụ </span>180.000đ</div>
-                <div class="sum-row"><span>Vận chuyển</span><span>20.000đ</span></div>
-                <div class="sum-total"><span>Tổng</span><strong>200.000đ</strong></div>
+        </div>
+
+        <!-- Tổng quan đơn hàng -->
+        <div class="detail checkout-summary">
+            <p>Tổng quan đơn hàng</p>
+            <div class="sum-row"><span>Tổng phụ</span> <%= order.subtotal.toLocaleString() %>đ</div>
+            <div class="sum-row"><span>Vận chuyển</span> <span><%= order.shipping_fee.toLocaleString() %>đ</span></div>
+            <div class="sum-total"><span>Tổng</span> <strong><%= order.total.toLocaleString() %>đ</strong></div>
+        </div>
+
+        <!-- Chi tiết đơn hàng -->
+        <div class="order-info">
+            <p>Chi tiết đơn hàng</p>
+            <div class="sum-row">
+                <span>Mã đơn hàng</span>
+                <span class="order-code"><%= order.order_code %> <i class="fa-regular fa-copy"></i></span>
+                <p id="copy-notice">Đã sao chép</p>
             </div>
-            <div class="order-info">
-                <p>Chi tiết đơn hàng</p>
-                <div class="sum-row">
-                    <span>Mã đơn hàng</span>
-                    <span class="order-code">012ANND94294 <i class="fa-regular fa-copy"></i></span>
-                    <p id="copy-notice">Đã sao chéo</p>
-                </div>
-                <div class="sum-row"><span>Ngày đặt hàng</span>3/8/2025, 2:30 CH</div>
-                <div class="sum-row"><span>Phương thức thanh toán</span>Thanh toán khi nhận hàng</div>
+            <div class="sum-row">
+                <span>Ngày đặt hàng</span> 
+                <%= new Date(order.created_at).toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' }) %> 
+                <%= new Date(order.created_at).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) %>
             </div>
+            <div class="sum-row"><span>Phương thức thanh toán</span> <%= order.payment_method %></div>
         </div>
     </div>
 </div>

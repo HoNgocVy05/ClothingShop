@@ -32,10 +32,10 @@ exports.checkoutFromCart = async (req, res) => {
             c.product_id, c.size, c.quantity,
             p.name, p.final_price AS price,
             JSON_UNQUOTE(JSON_EXTRACT(p.images,'$[0]')) AS image
-        FROM cart_items c
-        JOIN products p ON c.product_id=p.id
-        WHERE c.user_id=? 
-        AND CONCAT(c.product_id,'-',c.size) IN (${ids.join(',')})
+            FROM cart_items c
+            JOIN products p ON c.product_id=p.id
+            WHERE c.user_id=? 
+            AND CONCAT(c.product_id,'-',c.size) IN (${ids.join(',')})
     `, [userId]);
 
     req.session.checkoutItems = rows;
@@ -51,7 +51,7 @@ exports.getShoppingPage = (req, res) => {
     res.render('user/shoppingPage', {
         layout: './layouts/userMaster',
         title: 'VPQ Studio - Mua hàng',
-        items,  
+        items,
         subTotal,
         shipping,
         total: subTotal + shipping
@@ -70,7 +70,7 @@ exports.submitOrder = async (req, res) => {
     const orderCode = generateOrderCode();
 
     const orderId = await orderModel.createOrder({
-        oder_code: orderCode,
+        order_code: orderCode,
         user_id: user.id,
         fullname,
         phone,
@@ -81,6 +81,11 @@ exports.submitOrder = async (req, res) => {
         total_price: req.body.total
     }, items);
 
+    req.session.cart = [];
+    await db.query(
+        "DELETE FROM cart_items WHERE user_id = ?",
+        [user.id]
+    );
     req.session.checkoutItems = null;
     res.json({ success: true, orderId });
 };

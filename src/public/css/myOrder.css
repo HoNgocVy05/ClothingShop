@@ -33,7 +33,7 @@
 .order-product img {
     border-radius: 5px;
     width: 100px;
-    height: auto;
+    height: 100px;
 }
 .order-product-name {
     font-weight: bold;

@@ -125,9 +125,6 @@ exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
     }));
 };
 
-
-
-
 exports.add = async (data) => {
     const sql = `
         INSERT INTO products 
@@ -183,4 +180,62 @@ exports.delete = async (id) => {
         DELETE FROM products WHERE id=?
     `, [id]);
     return true;
+};
+
+exports.searchByName = async (keyword) => {
+    const sql = `
+        SELECT p.*, c.name AS category_name
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        WHERE p.name LIKE ?
+        ORDER BY p.id DESC
+    `;
+    const [rows] = await db.query(sql, [`%${keyword}%`]);
+
+    return rows.map(r => ({
+        ...r,
+        images: r.images ? JSON.parse(r.images) : [],
+        stock_s: Number(r.stock_s || 0),
+        stock_m: Number(r.stock_m || 0),
+        stock_l: Number(r.stock_l || 0),
+        stock_xl: Number(r.stock_xl || 0)
+    }));
+};
+// Lấy top N sản phẩm bán chạy
+exports.getBestSellers = async (limit = 5) => {
+    const [rows] = await db.query(`
+        SELECT p.id, p.name, SUM(oi.quantity) as sold, SUM(oi.price * oi.quantity) as revenue
+        FROM order_items oi
+        JOIN products p ON oi.product_id = p.id
+        GROUP BY p.id, p.name
+        ORDER BY sold DESC
+        LIMIT ?
+    `, [limit]);
+    return rows;
+};
+
+exports.getLowStockProducts = async (threshold = 10) => {
+    const sql = `
+        SELECT 
+            id, name,
+            stock_s, stock_m, stock_l, stock_xl,
+            (stock_s + stock_m + stock_l + stock_xl) AS total_stock
+        FROM products
+        WHERE (stock_s + stock_m + stock_l + stock_xl) < ?
+        ORDER BY total_stock ASC
+    `;
+    const [rows] = await db.query(sql, [threshold]);
+    return rows;
+};
+exports.getLowStockBySize = async (threshold = 10) => {
+    const sql = `
+        SELECT 
+            id, name,
+            stock_s, stock_m, stock_l, stock_xl
+        FROM products
+        WHERE stock_s < ? OR stock_m < ? OR stock_l < ? OR stock_xl < ?
+        ORDER BY id ASC
+    `;
+    const [rows] = await db.query(sql, [threshold, threshold, threshold, threshold]);
+    return rows;
 };

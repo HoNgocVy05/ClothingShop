@@ -1,13 +1,34 @@
 const Product = require('../models/productModel');
 const Category = require('../models/categoryModel');
 const AdminUser = require('../models/adminUserModel');
+const orderModel = require('../models/orderModel');
+const productModel = require('../models/productModel');
 
 
-exports.getDashboard = (req, res) => {
-    res.render('admin/dashboard', {
-        layout: './layouts/adminMaster',
-        title: 'VPQ Studio - Dashboard'
-    });
+exports.getDashboard = async (req, res) => {
+    try {
+        const totalSold = await orderModel.getTotalSoldProducts();
+        const totalOrders = await orderModel.getTotalOrders();
+        const totalRevenue = await orderModel.getTotalRevenue();
+        const totalUsers = await orderModel.getNewUsersCount();
+
+        const bestSellers = await productModel.getBestSellers(5);
+        const lowStockProducts = await productModel.getLowStockBySize(10);
+
+        res.render('admin/dashboard', {
+            layout: './layouts/adminMaster',
+            title: 'VPQ Studio - Dashboard',
+            totalSold,
+            totalOrders,
+            totalRevenue,
+            totalUsers,
+            bestSellers,
+            lowStocks: lowStockProducts,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi server');
+    }
 };
 
 // Quản lý sản phẩm

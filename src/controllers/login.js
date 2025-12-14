@@ -50,9 +50,9 @@ exports.postLogin = async (req, res) => {
             });
         }
 
-        // // ❗ Xóa role còn lại
-        // if (loginType === 'admin') req.session.user = null;
-        // else req.session.admin = null;
+        // ❗ Xóa role còn lại
+        if (loginType === 'admin') req.session.user = null;
+        else req.session.admin = null;
 
         // Lưu session
         const sessionData = {

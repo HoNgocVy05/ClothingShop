@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const db = require('../models/database');
 const bcrypt = require('bcryptjs');
+const orderModel = require('../models/orderModel');
 
 exports.getUserInfo = async (req, res) => {
     const currentUser = req.session.user;
@@ -110,12 +111,36 @@ exports.postChangePassword = async (req, res) => {
     }
 };
 
-exports.getMyOrderDetail = (req, res) => {
-    res.render('user/myOrderDetail', {
-        layout: './layouts/userMaster',
-        title: 'VPQ Studio - Chi tiết đơn hàng'
-    });
+exports.getMyOrderDetail = async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+
+        const order = await orderModel.getOrderById(orderId);
+        if (!order) {
+            return res.status(404).send('Không tìm thấy đơn hàng');
+        }
+
+        const items = await orderModel.getOrderItems(orderId);
+        order.items = items;
+
+        order.subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        order.shipping_fee = order.shipping_fee || 20000; 
+        order.total = order.subtotal + order.shipping_fee;
+
+        res.render('user/myOrderDetail', {
+            layout: './layouts/userMaster',
+            title: 'VPQ Studio - Chi tiết đơn hàng',
+            activePage: 'my-orders',
+            order
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi server');
+    }
 };
+
 
 exports.updateUserInfo = async (req, res) => {
     const currentUser = req.session.user;
