@@ -99,3 +99,4 @@
 .low-stock-table .table-col th:last-child {
     width: 35%;
 }
+.low-stock { color: red; }

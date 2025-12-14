@@ -1,9 +1,12 @@
 <div class="dashboard">
+
+    <!-- Chọn khoảng thời gian thống kê -->
     <div class="statistical-time">
-        <p>Thống kê sơ lược</p> <!-- ngày  -->
+        <p>Thống kê sơ lược</p>
         <div class="form-row">
             <div class="gender-box">
                 <select name="gender" id="gender" class="gender-select">
+                    <!-- Các option để chọn khoảng thời gian: hôm nay, hôm qua, 7 ngày, 30 ngày -->
                     <option value="today">Hôm nay</option>
                     <option value="yesterday">1 ngày trước</option>
                     <option value="last7days">7 ngày trước</option>
@@ -12,36 +15,44 @@
             </div>
         </div>
     </div>
+
+    <!-- Thống kê nhanh: tổng số sản phẩm bán, đơn hàng, doanh thu, người dùng mới -->
     <div class="statistical-overview">
         <div class="overview-box">
             <i class="fa-solid fa-basket-shopping"></i>
             <div class="overview-info">
                 <p>Sản phẩm đã bán</p>
-                <p>100</p>
+                <!-- totalSold là biến được truyền từ controller -->
+                <p><%= totalSold %></p>
             </div>
         </div>
         <div class="overview-box">
             <i class="fa-solid fa-box-archive"></i>
             <div class="overview-info">
                 <p>Đơn hàng</p>
-                <p>50</p>
+                <!-- totalOrders là biến từ controller -->
+                <p><%= totalOrders %></p>
             </div>
         </div>
         <div class="overview-box">
             <i class="fa-solid fa-hand-holding-dollar"></i>
             <div class="overview-info">
                 <p>Doanh thu</p>
-                <p>100.000.000đ</p>
+                <!-- totalRevenue dùng Number().toLocaleString() để format số, ví dụ 50.000.000 -->
+                <p><%= Number(totalRevenue).toLocaleString() %>đ</p>
             </div>
         </div>
         <div class="overview-box">
             <i class="fa-solid fa-user"></i>
             <div class="overview-info">
                 <p>Người dùng mới</p>
-                <p>100</p>
+                <!-- totalUsers là biến từ controller -->
+                <p><%= totalUsers %></p>
             </div>
         </div>
     </div>
+
+    <!-- Bảng sản phẩm bán chạy -->
     <div class="statistical-best-seller statistical-time">
         <p>Sản phẩm bán chạy</p>
         <div class="admin-table best-seller-table">
@@ -55,52 +66,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Sản phẩm A </td>
-                        <td>50</td>
-                        <td>50.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Sản phẩm B</td>
-                        <td>30</td>
-                        <td>30.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>20.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>20.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>20.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>20.000.000đ</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>20.000.000đ</td>
-                    </tr>
+                    <!-- bestSellers là mảng từ controller -->
+                    <% bestSellers.forEach((item, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.sold %></td>
+                            <!-- Sử dụng toLocaleString() để format số tiền -->
+                            <td><%= Number(item.revenue).toLocaleString() %>đ</td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <!-- Bảng sản phẩm sắp hết hàng -->
     <div class="statistical-best-seller statistical-time">
         <p>Sản phẩm sắp hết hàng</p>
         <div class="admin-table low-stock-table">
@@ -120,63 +101,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>Sản phẩm B</td>
-                        <td>30</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Sản phẩm B</td>
-                        <td>30</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Sản phẩm C</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                        <td>10</td>
-                    </tr>
+                    <!-- lowStocks là mảng từ controller -->
+                    <% lowStocks.forEach((item, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.stock_s + item.stock_m + item.stock_l + item.stock_xl %></td>
+                            <td class="<%= item.stock_s < 10 ? 'low-stock' : '' %>"><%= item.stock_s %></td>
+                            <td class="<%= item.stock_m < 10 ? 'low-stock' : '' %>"><%= item.stock_m %></td>
+                            <td class="<%= item.stock_l < 10 ? 'low-stock' : '' %>"><%= item.stock_l %></td>
+                            <td class="<%= item.stock_xl < 10 ? 'low-stock' : '' %>"><%= item.stock_xl %></td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
         </div>
-
     </div>
+
 </div>

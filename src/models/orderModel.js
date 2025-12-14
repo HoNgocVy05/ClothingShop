@@ -92,3 +92,22 @@ exports.getOrderItems = async (orderId) => {
         quantity: r.quantity
     }));
 };
+exports.getTotalSoldProducts = async () => {
+    const [rows] = await db.query(`SELECT SUM(quantity) as total FROM order_items`);
+    return rows[0].total || 0;
+};
+
+exports.getTotalOrders = async () => {
+    const [rows] = await db.query(`SELECT COUNT(*) as total FROM orders`);
+    return rows[0].total || 0;
+};
+
+exports.getTotalRevenue = async () => {
+    const [rows] = await db.query(`SELECT SUM(total_price) as total FROM orders`);
+    return rows[0].total || 0;
+};
+
+exports.getNewUsersCount = async () => {
+    const [rows] = await db.query(`SELECT COUNT(*) as total FROM users WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)`);
+    return rows[0].total || 0;
+};
