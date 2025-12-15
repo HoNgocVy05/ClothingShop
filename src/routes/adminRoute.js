@@ -12,6 +12,7 @@ const login = require('../controllers/login');
 router.get('/dashboard', checkAdmin, adminPage.getDashboard);
 router.get('/product-management',checkAdmin, adminPage.getProductManagement);
 router.get('/catalog-management', checkAdmin, adminPage.getCatalogManagement);
+router.post('/catalog-management/update/:id', adminPage.updateCategory);
 router.get('/order-management', checkAdmin, adminPage.getOrderManagement);
 router.get('/account-management', checkAdmin, adminPage.getAccountManagement);
 router.get('/login', login.getLogin);
@@ -39,14 +40,14 @@ router.post('/admin/account-management/toggle-status', checkAdmin, async (req, r
     }
 });
 
-router.post('/admin/catalog-management/add', checkAdmin, async (req, res) => {
-    const { name, gender, parent_id } = req.body;
+router.post('/catalog-management/add', checkAdmin, async (req, res) => {
+    const { name, parent_id } = req.body;
     try {
-        await Category.add(name, gender, parent_id || null);
-        res.json({ success: true, message: 'Thêm danh mục thành công' });
-    } catch(err) {
+        await Category.add(name, parent_id);
+        res.redirect('/admin/catalog-management');
+    } catch (err) {
         console.error(err);
-        res.json({ success: false, message: 'Thêm thất bại' });
+        res.redirect('/admin/catalog-management');
     }
 });
 

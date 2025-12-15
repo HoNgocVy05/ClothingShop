@@ -2,10 +2,12 @@ const db = require('../models/database');
 
 exports.getAll = async () => {
     const [rows] = await db.query(`
-        SELECT * FROM categories ORDER BY gender DESC, parent_id ASC, id DESC
+        SELECT * FROM categories
+        ORDER BY parent_id ASC, id DESC
     `);
     return rows;
 };
+
 
 exports.getById = async (id) => {
     const [rows] = await db.query(`SELECT * FROM categories WHERE id = ?`, [id]);
@@ -13,21 +15,25 @@ exports.getById = async (id) => {
 };
 
 
-exports.add = async (name, gender, parent_id = null) => {
-    const [result] = await db.query(`
-        INSERT INTO categories (name, gender, parent_id) VALUES (?, ?, ?)
-    `, [name, gender, parent_id]);
-    return result.insertId;
+exports.add = async (name, parent_id) => {
+    await db.query(
+        `INSERT INTO categories (name, parent_id) VALUES (?, ?)`,
+        [name, parent_id]
+    );
 };
 
-exports.update = async (id, name, gender, parent_id = null) => {
-    await db.query(`
-        UPDATE categories SET name=?, gender=?, parent_id=? WHERE id=?
-    `, [name, gender, parent_id, id]);
-    return true;
+exports.update = async (id, name) => {
+    await db.query(
+        'UPDATE categories SET name = ? WHERE id = ?',
+        [name, id]
+    );
 };
 
 exports.delete = async (id) => {
-    await db.query(`DELETE FROM categories WHERE id=?`, [id]);
+    await db.query(
+        `DELETE FROM categories WHERE id=?`,
+        [id]
+    );
     return true;
 };
+

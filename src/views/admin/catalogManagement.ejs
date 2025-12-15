@@ -1,0 +1,171 @@
+<div class="product-management dashboard">
+    <div class="statistical-time">
+
+        <!-- Thanh tìm kiếm -->
+        <div class="admin search-container">
+            <input type="search" class="search-box" placeholder="Tìm kiếm danh mục...">
+            <button class="search-btn">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Nút thêm danh mục -->
+        <div class="add-product">
+            <button class="add-product-btn open-add-form">
+                Thêm danh mục
+            </button>
+        </div>
+
+        <!-- Form thêm danh mục -->
+        <div class="add-product-container hidden">
+            <form class="add-product-form" method="POST" action="/admin/catalog-management/add">
+                <h2>Thêm danh mục</h2>
+
+                <div class="form-row">
+                    <label>Tên danh mục:</label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-row">
+                    <label>Thuộc:</label>
+                    <select name="parent_id" required>
+                        <option value="">-- Danh mục --</option>
+                        <option value="1">Nam</option>
+                        <option value="2">Nữ</option>
+                    </select>
+                </div>
+
+                <div class="form-row-btn">
+                    <button type="submit" class="submit-product-btn">Lưu</button>
+                    <button type="button" class="cancel-product-btn">Hủy</button>
+                </div>
+
+                <button type="button" class="exit-btn cancel-product-btn">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- BẢNG DANH MỤC -->
+    <div class="statistical-best-seller statistical-time">
+        <div class="admin-table product-management-table">
+            <table>
+                <thead>
+                    <tr class="table-col">
+                        <th>
+                            <input type="checkbox" id="check-all">
+                        </th>
+                        <th>Danh mục</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- ===== NHÓM NAM ===== -->
+                    <tr class="category-group">
+                        <td>
+                            <input type="checkbox" class="check-group" data-group="male">
+                        </td>
+                        <td><strong>Nam</strong></td>
+                        <td></td>
+                    </tr>
+
+                    <% categories.male.forEach(parent => { %>
+                        <% parent.children.forEach(child => { %>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="check-item male">
+                                </td>
+                                <td style="padding-left: 40px;">
+                                    — <%= child.name %>
+                                </td>
+                                <td>
+                                    <div class="action-btn">
+                                        <button class="btn-icon edit-btn"type="button"data-id="<%= child.id %>"data-name="<%= child.name %>">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+                                        <form method="POST"
+                                              action="/admin/catalog-management/delete/<%= child.id %>"
+                                              onsubmit="return confirm('Xóa danh mục này?');">
+                                            <button class="btn-icon delete-btn" type="submit">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% }) %>
+
+                    <!-- ===== NHÓM NỮ ===== -->
+                    <tr class="category-group">
+                        <td>
+                            <input type="checkbox" class="check-group" data-group="female">
+                        </td>
+                        <td><strong>Nữ</strong></td>
+                        <td></td>
+                    </tr>
+
+                    <% categories.female.forEach(parent => { %>
+                        <% parent.children.forEach(child => { %>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="check-item female">
+                                </td>
+                                <td style="padding-left: 40px;">
+                                    — <%= child.name %>
+                                </td>
+                                <td>
+                                    <div class="action-btn">
+                                        <button class="btn-icon edit-btn"type="button"data-id="<%= child.id %>"data-name="<%= child.name %>">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+
+                                        <form method="POST"
+                                              action="/admin/catalog-management/delete/<%= child.id %>"
+                                              onsubmit="return confirm('Xóa danh mục này?');">
+                                            <button class="btn-icon delete-btn" type="submit">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% }) %>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- MODAL EDIT CATEGORY -->
+                <div id="editCategoryModal" class="add-product-container hidden">
+                    <form
+                        id="editCategoryForm"
+                        class="add-product-form"
+                        method="POST">
+
+                        <h2>Chỉnh sửa danh mục</h2>
+
+                        <div class="form-row">
+                            <label>Tên danh mục:</label>
+                            <input type="text"id="editName"name="name"required>
+                        </div>
+
+                        <div class="form-row-btn">
+                            <button type="submit" class="submit-product-btn">Lưu</button>
+                            <button type="button" class="cancel-product-btn" id="closeEditModal">
+                            Hủy
+                            </button>
+                        </div>
+
+                        <button type="button"class="exit-btn cancel-product-btn"id="closeEditModalX">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                    </form>
+                </div>

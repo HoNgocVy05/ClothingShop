@@ -81,38 +81,34 @@ exports.getCatalogManagement = async (req, res) => {
     try {
         const allCategories = await Category.getAll();
 
-        // Lọc danh mục Nam/Nữ và nhóm con
-        const maleCategories = allCategories
-            .filter(c => c.gender === 'male' && !c.parent_id)
+        const male = allCategories
+            .filter(c => c.id === 1)
             .map(parent => ({
                 ...parent,
-                children: allCategories.filter(c => c.parent_id === parent.id)
+                children: allCategories.filter(c => c.parent_id === 1)
             }));
 
-        const femaleCategories = allCategories
-            .filter(c => c.gender === 'female' && !c.parent_id)
+        const female = allCategories
+            .filter(c => c.id === 2)
             .map(parent => ({
                 ...parent,
-                children: allCategories.filter(c => c.parent_id === parent.id)
+                children: allCategories.filter(c => c.parent_id === 2)
             }));
 
         res.render('admin/catalogManagement', {
             layout: './layouts/adminMaster',
             title: 'VPQ Studio - Quản lý danh mục',
-            categories: {
-                male: maleCategories,
-                female: femaleCategories
-            }
+            categories: { male, female }
         });
     } catch (err) {
         console.error(err);
         res.render('admin/catalogManagement', {
             layout: './layouts/adminMaster',
-            title: 'VPQ Studio - Quản lý danh mục',
             categories: { male: [], female: [] }
         });
     }
 };
+
 
 exports.getOrderManagement = async (req, res) => {
     try {
@@ -188,4 +184,24 @@ exports.toggleUserStatus = async (req, res) => {
         res.status(500).json({ success: false, message: 'Lỗi cập nhật trạng thái' });
     }
 };
+exports.updateName = async (id, name) => {
+    await db.query(
+        'UPDATE categories SET name=? WHERE id=?',
+        [name, id]
+    );
+};
+exports.updateCategory = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+
+        await Category.update(id, name);
+
+        return res.redirect('/admin/catalog-management');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi cập nhật danh mục');
+    }
+};
+
 
