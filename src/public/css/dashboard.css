@@ -114,12 +114,12 @@
     width: 15%;
 }
 .order-management-table .table-col th:nth-child(5) {
+    width: 20%;
+}
+/* .order-management-table .table-col th:nth-child(6) {
     width: 10%;
 }
-.order-management-table .table-col th:nth-child(6) {
-    width: 15%;
-}
 .order-management-table .table-col th:last-child {
-    width: 15%;
-}
+    width: 10%;
+} */
 .low-stock { color: red; }
