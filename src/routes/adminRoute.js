@@ -50,5 +50,10 @@ router.post('/catalog-management/add', checkAdmin, async (req, res) => {
         res.redirect('/admin/catalog-management');
     }
 });
+// Xem chi tiết đơn hàng
+router.get('/order/:id', checkAdmin, adminPage.getOrderDetail);
+
+// Cập nhật trạng thái đơn hàng
+router.post('/order/:id/update-status', checkAdmin, adminPage.updateOrderStatus);
 
 module.exports = router;

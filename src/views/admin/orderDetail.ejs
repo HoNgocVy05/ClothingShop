@@ -1,0 +1,92 @@
+<%
+    const createdAt = new Date(order.created_at);
+    const fromDate = new Date(createdAt);
+    fromDate.setDate(fromDate.getDate() + 10);
+    const toDate = new Date(createdAt);
+    toDate.setDate(toDate.getDate() + 15);
+
+    const formatDate = d =>
+        d.toLocaleDateString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+%>
+
+<div id="admin-order-detail">
+    <h2>Chi tiết đơn hàng</h2>
+
+    <!-- Trạng thái -->
+    <div class="order-status detail">
+        <div class="status-left">
+            <p><strong>Trạng thái:</strong> <%= order.status %></p>
+        </div>
+
+        <div class="status-right">
+            <p>
+            Dự kiến giao:
+            <span style="color: green">
+                <%= formatDate(fromDate) %> - <%= formatDate(toDate) %>
+            </span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Thông tin khách -->
+    <div class="order-address">
+        <p><strong>Khách hàng:</strong> <%= order.fullname %></p>
+        <p><strong>SĐT:</strong> <%= order.phone %></p>
+        <p><strong>Địa chỉ:</strong> <%= order.address %></p>
+    </div>
+
+    <!-- Sản phẩm -->
+    <div class="order-products-detail">
+        <% order.items.forEach(item => { %>
+            <div class="order-product">
+                <img src="<%= item.image ? '/uploads/products/' + item.image : '/images/img-product-default.png' %>">
+                <div class="order-product-info">
+                    <p><%= item.product_name || item.name %></p>
+                    <p>Size: <%= item.size %></p>
+                    <p>x<%= item.quantity %></p>
+                    <p><%= (item.price * item.quantity).toLocaleString() %>đ</p>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <!-- Tổng tiền -->
+    <div class="detail checkout-summary">
+        <p>Tổng phụ: <%= order.subtotal.toLocaleString() %>đ</p>
+        <p>Phí ship: <%= order.shipping_fee.toLocaleString() %>đ</p>
+        <h3>Tổng: <%= order.total_price.toLocaleString() %>đ</h3>
+    </div>
+
+    <!-- Thông tin đơn -->
+    <div class="order-info">
+        <p>Mã đơn: <strong><%= order.order_code %></strong></p>
+        <p>
+            Ngày đặt:
+            <%= new Date(order.created_at).toLocaleString('vi-VN') %>
+        </p>
+        <p>Thanh toán: <%= order.payment_method %></p>
+    </div>
+
+    <!-- NÚT ADMIN -->
+     <%const status = order.status?.trim().toLowerCase();%>
+     <% if (['Chờ xác nhận', 'Chờ xử lý'].includes(order.status?.trim())) { %>
+    <div class="admin-actions">
+        <form method="POST" action="/admin/order/<%= order.id %>/update-status">
+            <input type="hidden" name="status" value="Chờ lấy hàng">
+            <button type="submit" class="btn-success">Xác nhận đơn</button>
+        </form>
+
+        <form method="POST"
+              action="/admin/order/<%= order.id %>/update-status"
+              onsubmit="return confirm('Bạn có chắc muốn hủy đơn?')">
+            <input type="hidden" name="status" value="Đã hủy">
+            <button type="submit" class="btn-danger">Hủy đơn</button>
+        </form>
+    </div>
+<% } %>
+
+</div>

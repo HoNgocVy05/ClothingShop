@@ -117,6 +117,7 @@ exports.getNewUsersCount = async () => {
 exports.getAllOrders = async () => {
     const [rows] = await db.query(`
         SELECT 
+            o.id,
             o.order_code,
             o.created_at,
             o.fullname AS user_name,
@@ -128,25 +129,33 @@ exports.getAllOrders = async () => {
                 SEPARATOR ';'
             ) AS products
         FROM orders o
-        LEFT JOIN users u ON o.user_id = u.id
         LEFT JOIN order_items oi ON o.id = oi.order_id
         GROUP BY o.id
         ORDER BY o.created_at DESC
     `);
 
     return rows.map(row => {
-        const products = row.products ? row.products.split(';').map(p => {
-            const [name, quantity, price] = p.split(':');
-            return {
-                name,
-                quantity: Number(quantity),
-                price: Number(price)
-            };
-        }) : [];
+        const products = row.products
+            ? row.products.split(';').map(p => {
+                const [name, quantity, price] = p.split(':');
+                return {
+                    name,
+                    quantity: Number(quantity),
+                    price: Number(price)
+                };
+            })
+            : [];
 
         return {
             ...row,
             products
         };
     });
+};
+
+exports.updateStatus = async (orderId, status) => {
+    await db.query(
+        `UPDATE orders SET status = ? WHERE id = ?`,
+        [status, orderId]
+    );
 };

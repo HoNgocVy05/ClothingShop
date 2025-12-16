@@ -204,4 +204,42 @@ exports.updateCategory = async (req, res) => {
     }
 };
 
+exports.getOrderDetail = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const order = await orderModel.getOrderById(orderId);
+
+        if (!order) {
+            return res.status(404).send('Không tìm thấy đơn hàng');
+        }
+
+        // Tính subtotal
+        order.subtotal = order.items.reduce(
+            (sum, i) => sum + i.price * i.quantity,
+            0
+        );
+
+        res.render('admin/orderDetail', {
+            layout: './layouts/adminMaster',
+            title: 'VPQ - Chi tiết đơn hàng',
+            order,
+            activePage: 'orders'
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi server');
+    }
+};
+exports.updateOrderStatus = async (req, res) => {
+    const { status } = req.body;
+    const orderId = req.params.id;
+
+    try {
+        await orderModel.updateStatus(orderId, status);
+        res.redirect(`/admin/order/${orderId}`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Lỗi cập nhật trạng thái');
+    }
+};
 

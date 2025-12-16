@@ -1,0 +1,118 @@
+#admin-order-detail {
+    padding: 5px;
+}
+#admin-order-detail .order-address p{
+    color: black;
+}
+
+#admin-order-detail .order-products-detail {
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+#admin-order-detail .order-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#admin-order-detail .order-product:last-child {
+    border-bottom: none;
+}
+
+#admin-order-detail .order-product img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+/* INFO */
+#admin-order-detail .order-product-info p {
+    margin: 4px 0;
+    font-size: 1rem;
+}
+
+#admin-order-detail .order-product-info p:first-child {
+    font-weight: 600;
+}
+
+/* ===== ADMIN BUTTONS ===== */
+#admin-order-detail .admin-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+#admin-order-detail .btn-success {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#admin-order-detail .btn-danger {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#admin-order-detail button:hover {
+    opacity: 0.9;
+}
+#admin-order-detail .order-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    font-size: 1.2rem;
+}
+
+#admin-order-detail .status-right p {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 1.2rem;
+}
+#admin-order-detail .status-left p{
+    font-size: 1.2rem;
+}
+/* ===== GIẢM CỠ CHỮ TỔNG TIỀN ===== */
+#admin-order-detail .checkout-summary p {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 6px 0;
+}
+
+#admin-order-detail .checkout-summary h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+/* ===== GIẢM CỠ CHỮ THÔNG TIN ĐƠN ===== */
+#admin-order-detail .order-info p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 6px 0;
+}
+/* ===== COMMON BOX STYLE (ADMIN) ===== */
+#admin-order-detail .order-status,
+#admin-order-detail .order-address,
+#admin-order-detail .order-products-detail,
+#admin-order-detail .checkout-summary,
+#admin-order-detail .order-info {
+    background-color: #dedede;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 8px; /* khoảng cách giữa các khung */
+}

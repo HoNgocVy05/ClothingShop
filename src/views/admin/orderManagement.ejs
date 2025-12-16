@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                     <% orders.forEach(order => { %>
-                        <tr>
+                        <tr class="order-row"onclick="window.location='/admin/order/<%= order.id %>'"style="cursor:pointer">
                             <td><input type="checkbox"></td>
                             <td><%= new Date(order.created_at).toLocaleDateString('vi-VN') %></td>
                             <td><%= order.order_code %></td>
