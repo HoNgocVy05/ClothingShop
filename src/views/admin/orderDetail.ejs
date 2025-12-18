@@ -12,9 +12,45 @@
             year: 'numeric'
         });
 %>
+<div class="dashboard">
+    <div id="admin-order-detail">
+    <div class="order-action-box">
+        <h2>Chi tiết đơn hàng</h2>
+        <!-- nút trạng thái  -->
+        <div class="action-btn">
+            <%const status = order.status?.trim();%>
+            <% if (['Chờ xác nhận', 'Chờ xử lý'].includes(status)) { %>
+                <div class="admin-actions">
+                    <form method="POST" action="/admin/order/<%= order.id %>/update-status">
+                        <input type="hidden" name="status" value="Chờ lấy hàng">
+                        <button type="submit" class="btn-success">Xác nhận đơn</button>
+                    </form>
 
-<div id="admin-order-detail">
-    <h2>Chi tiết đơn hàng</h2>
+                    <form method="POST"
+                        action="/admin/order/<%= order.id %>/update-status"
+                        onsubmit="return confirm('Bạn có chắc muốn hủy đơn?')">
+                        <input type="hidden" name="status" value="Đã hủy">
+                        <button type="submit" class="btn-danger">Hủy đơn</button>
+                    </form>
+                </div>
+            <% } else if (status === 'Chờ lấy hàng') { %>
+                <div class="admin-actions">
+                    <form method="POST" action="/admin/order/<%= order.id %>/update-status">
+                        <input type="hidden" name="status" value="Đang giao">
+                        <button type="submit" class="btn-success">Đã lấy hàng</button>
+                    </form>
+                </div>
+            <% } else if (status === 'Đang giao') { %>
+                <div class="admin-actions">
+                    <form method="POST" action="/admin/order/<%= order.id %>/update-status">
+                        <input type="hidden" name="status" value="Đã giao">
+                        <button type="submit" class="btn-success">Đã giao</button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
 
     <!-- Trạng thái -->
     <div class="order-status detail">
@@ -71,22 +107,7 @@
         <p>Thanh toán: <%= order.payment_method %></p>
     </div>
 
-    <!-- NÚT ADMIN -->
-     <%const status = order.status?.trim().toLowerCase();%>
-     <% if (['Chờ xác nhận', 'Chờ xử lý'].includes(order.status?.trim())) { %>
-    <div class="admin-actions">
-        <form method="POST" action="/admin/order/<%= order.id %>/update-status">
-            <input type="hidden" name="status" value="Chờ lấy hàng">
-            <button type="submit" class="btn-success">Xác nhận đơn</button>
-        </form>
-
-        <form method="POST"
-              action="/admin/order/<%= order.id %>/update-status"
-              onsubmit="return confirm('Bạn có chắc muốn hủy đơn?')">
-            <input type="hidden" name="status" value="Đã hủy">
-            <button type="submit" class="btn-danger">Hủy đơn</button>
-        </form>
-    </div>
-<% } %>
-
+    
 </div>
+</div>
+

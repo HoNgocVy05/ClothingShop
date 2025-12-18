@@ -119,7 +119,6 @@ exports.getMyOrderDetail = async (req, res) => {
         if (!order) {
             return res.status(404).send('Không tìm thấy đơn hàng');
         }
-
         const items = await orderModel.getOrderItems(orderId);
         order.items = items;
 

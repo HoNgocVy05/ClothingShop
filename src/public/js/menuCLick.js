@@ -5,4 +5,10 @@ document.querySelectorAll(".sidebarItem").forEach(item => {
     if (href && currentPath.startsWith(href)) {
         item.classList.add("active");
     }
+    if (
+        currentPath === href ||
+        (href === '/admin/order-management' && currentPath.startsWith('/admin/order'))
+    ) {
+        item.classList.add("active");
+    }
 });

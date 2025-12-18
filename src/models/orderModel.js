@@ -131,11 +131,27 @@ exports.getAllOrders = async () => {
         FROM orders o
         LEFT JOIN order_items oi ON o.id = oi.order_id
         GROUP BY o.id
-        ORDER BY o.created_at DESC
+        ORDER BY
+            FIELD(
+                o.status,
+                'Chờ xác nhận',
+                'Đang xử lý',
+                'Đang giao',
+                'Đã giao',
+                'Đã hủy'
+            ),
+            o.created_at DESC
     `);
 
-    return rows.map(row => {
-        const products = row.products
+    return rows.map(row => ({
+        id: row.id,
+        order_code: row.order_code,
+        created_at: row.created_at,
+        user_name: row.user_name,
+        total_price: row.total_price,
+        payment_method: row.payment_method,
+        status: row.status,
+        products: row.products
             ? row.products.split(';').map(p => {
                 const [name, quantity, price] = p.split(':');
                 return {
@@ -144,14 +160,10 @@ exports.getAllOrders = async () => {
                     price: Number(price)
                 };
             })
-            : [];
-
-        return {
-            ...row,
-            products
-        };
-    });
+            : []
+    }));
 };
+
 
 exports.updateStatus = async (orderId, status) => {
     await db.query(

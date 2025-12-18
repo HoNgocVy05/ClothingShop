@@ -9,39 +9,42 @@ const formatPrice = (price) => {
 
 exports.getIndex = async (req, res) => {
     try {
-        // Lấy sản phẩm có discount > 0, tối đa 20
+        // 1. Lấy toàn bộ sản phẩm
         const allProducts = await Product.getAll();
-        const saleProducts = allProducts
-            .filter(p => p.discount_percent && p.discount_percent > 0)
-            .slice(0, 20);
 
-        // Lấy tất cả categories
+        // 2. Lấy toàn bộ sản phẩm SALE
+        const allSaleProducts = allProducts.filter(
+            p => p.discount_percent && p.discount_percent > 0
+        );
+
+        // 3. Lấy TOP 10 SALE
+        const saleTop10 = allSaleProducts.slice(0, 10);
+        const saleTop10Ids = saleTop10.map(p => p.id);
+
+        // 4. Lấy category
         const allCategories = await Category.getAll();
-
-        // Tìm categories cha 
         const parentCategories = allCategories.filter(c => !c.parent_id);
 
-        // Với mỗi category cha, lấy children và sản phẩm
+        // 5. Gắn sản phẩm cho từng category (KHÔNG TRÙNG SALE)
         const categoriesWithProducts = parentCategories.map(parent => {
-            const childCategories = allCategories.filter(c => c.parent_id === parent.id);
-            const childIds = [parent.id, ...childCategories.map(c => c.id)];
-            
-            // Lấy tối đa 10 sản phẩm từ category cha + các con
+            const children = allCategories.filter(c => c.parent_id === parent.id);
+            const categoryIds = [parent.id, ...children.map(c => c.id)];
+
             const products = allProducts
-                .filter(p => childIds.includes(p.category_id))
+                .filter(p => categoryIds.includes(p.category_id))
+                .filter(p => !saleTop10Ids.includes(p.id)) // 🔥 loại sale top 10
                 .slice(0, 10);
 
             return {
                 ...parent,
-                children: childCategories,
-                products: products
+                children,
+                products
             };
         });
-        // Thêm giỏ hàng
-        const cart = req.session.cart || [];
+
+        // 6. Giỏ hàng
         const userId = req.session.user?.id;
         let totalQuantity = 0;
-
         if (userId) {
             totalQuantity = await Cart.countCartRowsByUser(userId);
         }
@@ -49,14 +52,16 @@ exports.getIndex = async (req, res) => {
         res.render('user/index', {
             layout: './layouts/userMaster',
             title: 'VPQ Studio - Trang chủ',
-            saleProducts: saleProducts || [],
-            categoriesWithProducts: categoriesWithProducts || [],
-            formatPrice: formatPrice,
-            cart,
+
+            saleTop10,                // 👈 CHỈ GỬI 10 SALE
+            categoriesWithProducts,   // 👈 ĐÃ LỌC
+
+            formatPrice,
             totalQuantity
         });
+
     } catch (err) {
-        console.error('Index page error:', err);
+        console.error(err);
         res.status(500).send('Lỗi load trang chủ');
     }
 };

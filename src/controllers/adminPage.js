@@ -140,7 +140,7 @@ exports.getOrderManagement = async (req, res) => {
             stats,
             q
         });
-    } catch (err) {
+    } catch (err) { 
         console.error(err);
         res.status(500).send('Lỗi server');
     }

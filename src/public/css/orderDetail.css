@@ -110,9 +110,15 @@
 #admin-order-detail .order-products-detail,
 #admin-order-detail .checkout-summary,
 #admin-order-detail .order-info {
-    background-color: #dedede;
+    background-color: #f8f8f8;
     border: 1px solid white;
     border-radius: 5px;
     padding: 16px;
     margin-bottom: 8px; /* khoảng cách giữa các khung */
+}
+
+.order-action-box {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
 }
