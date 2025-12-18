@@ -1,14 +1,15 @@
-const currentPath = window.location.pathname;
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPath = window.location.pathname;
 
-document.querySelectorAll(".sidebarItem").forEach(item => {
-    const href = item.getAttribute("href");
-    if (href && currentPath.startsWith(href)) {
-        item.classList.add("active");
-    }
-    if (
-        currentPath === href ||
-        (href === '/admin/order-management' && currentPath.startsWith('/admin/order'))
-    ) {
-        item.classList.add("active");
-    }
+    document.querySelectorAll('.sidebarItem').forEach(item => {
+        const href = item.getAttribute('href');
+        if (!href) return;
+
+        if (
+            currentPath === href ||
+            currentPath.startsWith(href + '/')
+        ) {
+            item.classList.add('active');
+        }
+    });
 });
