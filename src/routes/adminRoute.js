@@ -18,7 +18,7 @@ router.get('/account-management', checkAdmin, adminPage.getAccountManagement);
 router.get('/login', login.getLogin);
 router.post('/login', login.postLogin);
 
-router.post('/admin/account-management/delete', checkAdmin, async (req, res) => {
+router.post('/account-management/delete', checkAdmin, async (req, res) => {
     const { id } = req.body;
     try {
         await AdminUser.delete(id);
@@ -29,16 +29,20 @@ router.post('/admin/account-management/delete', checkAdmin, async (req, res) => 
     }
 });
 
-router.post('/admin/account-management/toggle-status', checkAdmin, async (req, res) => {
+router.post('/account-management/toggle-status', checkAdmin, async (req, res) => {
     const { id, status } = req.body;
     try {
         await AdminUser.updateStatus(id, status);
-        res.json({ success: true, message: status ? 'Mở khóa thành công!' : 'Khóa thành công!' });
+        res.json({
+            success: true,
+            message: status ? 'Mở khóa thành công!' : 'Khóa thành công!'
+        });
     } catch (err) {
         console.error(err);
         res.json({ success: false, message: 'Cập nhật thất bại!' });
     }
 });
+
 
 router.post('/catalog-management/add', checkAdmin, async (req, res) => {
     const { name, parent_id } = req.body;

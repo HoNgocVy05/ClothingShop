@@ -56,7 +56,9 @@
 </div>
 
 <script>
-  async function deleteUser(id) {
+  async function handleDelete(btn) {
+    const id = btn.dataset.id;
+
     if (!confirm('Bạn có chắc muốn xóa tài khoản này không?')) return;
 
     const res = await fetch('/admin/account-management/delete', {
@@ -64,17 +66,22 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id })
     });
+
     const data = await res.json();
     alert(data.message);
     if (data.success) location.reload();
   }
 
-  async function toggleStatus(id, status) {
+  async function handleToggle(btn) {
+    const id = btn.dataset.id;
+    const status = btn.dataset.status;
+
     const res = await fetch('/admin/account-management/toggle-status', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, status })
     });
+
     const data = await res.json();
     alert(data.message);
     if (data.success) location.reload();
