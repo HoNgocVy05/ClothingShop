@@ -39,16 +39,17 @@ exports.getByCategory = async (categoryId) => {
             c.name AS category_name
         FROM products p
         LEFT JOIN categories c ON p.category_id = c.id
-        WHERE p.category_id = ?
+        WHERE p.category_id IN (
+            SELECT id FROM categories WHERE id = ? OR parent_id = ?
+        )
         ORDER BY p.id DESC
     `;
 
-    const [rows] = await db.query(sql, [categoryId]);
+    // Truyền categoryId vào 2 lần cho 2 dấu hỏi chấm
+    const [rows] = await db.query(sql, [categoryId, categoryId]);
 
     return rows.map(r => {
         let images = [];
-
-        // Parse ảnh an toàn
         try {
             images = r.images ? JSON.parse(r.images) : [];
         } catch (e) {
@@ -70,31 +71,23 @@ exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
     let conditions = [];
     let params = [];
 
-    // DANH MỤC
+    // DANH MỤC (Xử lý cả cha và con)
     if (categoryId) {
-        conditions.push("p.category_id = ?");
-        params.push(categoryId);
+        conditions.push(`p.category_id IN (SELECT id FROM categories WHERE id = ? OR parent_id = ?)`);
+        params.push(categoryId, categoryId); // Thêm 2 lần cho subquery
     }
 
     // SALE
-    if (isSale === "1") { // nhớ chuỗi
+    if (isSale === "1") {
         conditions.push("p.discount_percent > 0");
     }
 
     // GIÁ
     switch (priceRange) {
-        case "0-200":
-            conditions.push("p.final_price BETWEEN 0 AND 200000");
-            break;
-        case "200-500":
-            conditions.push("p.final_price BETWEEN 200000 AND 500000");
-            break;
-        case "500-1000":
-            conditions.push("p.final_price BETWEEN 500000 AND 1000000");
-            break;
-        case "1000+":
-            conditions.push("p.final_price > 1000000");
-            break;
+        case "0-200": conditions.push("p.final_price BETWEEN 0 AND 200000"); break;
+        case "200-500": conditions.push("p.final_price BETWEEN 200000 AND 500000"); break;
+        case "500-1000": conditions.push("p.final_price BETWEEN 500000 AND 1000000"); break;
+        case "1000+": conditions.push("p.final_price > 1000000"); break;
     }
 
     // SIZE
