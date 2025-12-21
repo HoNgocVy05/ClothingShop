@@ -1,0 +1,11 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
+
+options = Options()
+options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+driver = webdriver.Chrome(options=options)
+driver.get("https://www.google.com")
+time.sleep(10)
+driver.quit()

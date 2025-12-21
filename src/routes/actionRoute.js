@@ -14,7 +14,8 @@ router.post('/checkout/from-product', checkLogin, shopping.checkoutFromProduct);
 router.post('/checkout/from-cart', checkLogin, shopping.checkoutFromCart);
 router.post('/checkout/submit', checkLogin, shopping.submitOrder);
 
-
-
+router.get('/payment/momo-return', (req, res) => {
+    res.redirect('/my-order');
+});
 
 module.exports = router;

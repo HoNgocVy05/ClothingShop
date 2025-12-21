@@ -142,11 +142,19 @@ document.querySelector('.btn-checkout').addEventListener('click', async () => {
 
     const result = await res.json();
 
-    if (res.ok && result.success) {
-        alert('Đặt hàng thành công');
-        window.location.href = '/my-order';
-    } else {
+    if (!res.ok || !result.success) {
         alert(result.message || 'Có lỗi xảy ra');
+        return;
     }
+
+    // Nếu MoMo → redirect sang MoMo
+    if (data.payment === 'momo') {
+        window.location.href = result.payUrl;
+        return;
+    }
+
+    // COD
+    alert('Đặt hàng thành công');
+    window.location.href = '/my-order'; 
 });
 </script>

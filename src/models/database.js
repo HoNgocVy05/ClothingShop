@@ -17,18 +17,15 @@
 
 // (async () => {
 //     try {
-//         const [rows] = await pool.query("SELECT 1");
+//         await pool.query('SELECT 1');
 //         console.log("Kết nối db thành công!");
 //     } catch (err) {
 //         console.log("Kết nối db thất bại:", err);
 //     }
 // })();
 
-// module.exports = pool;
-
-
 const mysql = require('mysql2/promise');
-
 const pool = mysql.createPool(process.env.MYSQL_URL);
 
 module.exports = pool;
+

@@ -1,5 +1,6 @@
 const db = require('../models/database');
 const orderModel = require('../models/orderModel');
+const { createPayment } = require('./payment');
 
 exports.checkoutFromProduct = async (req, res) => {
     const { productId, size, quantity } = req.body;
@@ -88,6 +89,20 @@ exports.submitOrder = async (req, res) => {
             [user.id, item.product_id, item.size]
         );
     }
+
+    // Nếu thanh toán MoMo
+    if (payment === 'momo') {
+        const momoRes = await createPayment({
+            amount: req.body.total,
+            orderId: orderCode
+        });
+
+        return res.json({
+            success: true,
+            payUrl: momoRes.payUrl
+        });
+    }
+
     req.session.cart = (req.session.cart || []).filter(c =>
         !items.some(i => i.product_id == c.productId && i.size == c.size)
     );
