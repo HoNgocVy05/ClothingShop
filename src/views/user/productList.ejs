@@ -6,6 +6,9 @@
         <div id="filter-tag">
             <h2>Bộ lọc</h2>
             <i class="fa-solid fa-filter"></i>
+            <a href="/product-list" class="reset-filter-btn">
+                Xóa bộ lọc
+            </a>
         </div>
         <div class="filter-row">
             <p class="filter-title">Danh mục sản phẩm</p>
@@ -20,7 +23,7 @@
                 <% parents.forEach(parent => { %>
                     <!-- Danh mục cha -->
                     <li class="filter-catalog filter-row">
-                        <a href="/product-list?category=<%= parent.id %>">
+                        <a href="/product-list?category=<%= parent.id %>" >
                             <%= parent.name %>
                         </a>
                         <i class="fa fa-chevron-down catalog-list-btn"></i>
@@ -143,7 +146,16 @@
     // Hàm update filter không làm mất filter khác
     function updateFilter(param, value) {
         const url = new URL(window.location.href);
-        url.searchParams.set(param, value);
+        const checkbox = document.querySelector(`input[value="${value}"]`);
+
+        if (checkbox && !checkbox.checked) {
+            // Nếu bỏ tích, xóa parameter đó đi
+            url.searchParams.delete(param);
+        } else {
+            // Nếu tích, set giá trị mới
+            url.searchParams.set(param, value);
+        }
         window.location.href = url.toString();
     }
+
 </script>

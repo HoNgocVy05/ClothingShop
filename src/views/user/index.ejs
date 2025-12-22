@@ -12,7 +12,7 @@
 
 <!-- ===== SALE TAG ===== -->
 <div class="tag">
-    <a href="#" class="sale-tag">SALE UP TO 50%</a>
+    <a href="/product-list?sale=1" class="sale-tag">SALE UP TO 50%</a>
 </div>
 
 <!-- ===== SALE PRODUCTS ===== -->
@@ -24,13 +24,9 @@
             <% saleTop10.forEach(product => { %>
                 <div class="product-card"
                      onclick="location.href='/product-infomation?id=<%= product.id %>'">
-
                     <div class="card-img">
-                        <img src="<%= product.images?.[0] 
-                            ? '/uploads/products/' + product.images[0]
-                            : '/images/img-product-default.png' %>">
+                        <img src="<%= product.images?.[0]  ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>">
                     </div>
-
                     <div class="product-info">
                         <a class="product-name"><%= product.name %></a>
                         <div class="product-price">
@@ -72,15 +68,10 @@
     <div class="product-container">
         <% if (category.products.length > 0) { %>
             <% category.products.forEach(product => { %>
-                <div class="product-card<%= product.discount_percent ? '' : ' nodiscount' %>"
-                     onclick="location.href='/product-infomation?id=<%= product.id %>'">
-
+                <div class="product-card<%= product.discount_percent ? '' : ' nodiscount' %>" onclick="location.href='/product-infomation?id=<%= product.id %>'">
                     <div class="card-img">
-                        <img src="<%= product.images?.[0]
-                            ? '/uploads/products/' + product.images[0]
-                            : '/images/shirt.png' %>">
+                        <img src="<%= product.images?.[0] ? '/uploads/products/' + product.images[0]: '/images/shirt.png' %>">
                     </div>
-
                     <div class="product-info">
                         <a class="product-name"><%= product.name %></a>
                         <div class="product-price">
