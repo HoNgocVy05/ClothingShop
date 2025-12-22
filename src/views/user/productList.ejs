@@ -85,7 +85,7 @@
         <% } %>
 
         <% products.forEach(p => { %>
-            <div class="product-card" onclick="window.location.href='/product-infomation?id=<%= p.id %>'">
+            <div class="product-card<%= product.discount_percent ? '' : ' nodiscount' %>" onclick="location.href='/product-infomation?id=<%= product.id %>'">
                 <div class="card-img">
                     <img src="<%= p.images[0] ? '/uploads/products/' + p.images[0] : '/public/images/img-product-default.png' %>" alt="product">
                 </div>
