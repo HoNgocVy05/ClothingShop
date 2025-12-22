@@ -50,26 +50,10 @@ router.post('/catalog-management/add', checkAdmin, async (req, res) => {
         await Category.add(name, parent_id);
         res.redirect('/admin/catalog-management');
     } catch (err) {
-        console.error(err); 
+        console.error(err);
         res.redirect('/admin/catalog-management');
     }
 });
-
-router.post('/catalog-management/delete/:id', checkAdmin, async (req, res) => {
-        try {
-            const { id } = req.params;
-
-            await Category.delete(id);
-
-            res.redirect('/admin/catalog-management');
-        } catch (err) {
-            console.error(err);
-            res.redirect('/admin/catalog-management');
-        }
-    }
-);
-
-
 // Xem chi tiết đơn hàng
 router.get('/order/:id', checkAdmin, adminPage.getOrderDetail);
 
