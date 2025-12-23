@@ -1,5 +1,6 @@
 <div class="product-list-tag">
     <%= selectedCategoryName || "DANH MỤC SẢN PHẨM" %>
+    <i class="fa-solid fa-filter filter-btn"></i>
 </div>
 <div class="product-page">
     <div class="filter">
@@ -123,6 +124,16 @@
                 content.classList.toggle("open");
                 arrow.classList.toggle("open");
             });
+        });
+         
+        // nút bộ lọc 
+        document.querySelectorAll(".filter-btn").forEach(f => {
+            const filterBox = document.querySelector(".filter");
+            const productPage = document.querySelector(".product-page");
+            f.addEventListener("click", () => {
+                filterBox.classList.toggle("close")
+                // productPage.classList.toggle("no-filter-box")
+            })
         });
 
         // Giữ checkboxes sau reload

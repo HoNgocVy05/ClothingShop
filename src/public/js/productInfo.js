@@ -71,23 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (!data || data.success !== true) {
-                    alert(data?.message || "Thêm vào giỏ hàng thất bại");
+                if (!data || data.cartCount === undefined) {
+                    alert("Thêm vào giỏ hàng thất bại");
                     return;
                 }
 
-                // update cart count nếu có
                 const cartCount = document.querySelector(".cart-count");
-                if (cartCount && data.cartCount !== undefined) {
-                    cartCount.innerText = data.cartCount;
-                }
+                if (cartCount) cartCount.innerText = data.cartCount;
 
                 alert(`Đã thêm ${quantity} sản phẩm vào giỏ!`);
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Lỗi kết nối server");
             });
+
         }
 
     updateCartSummary();

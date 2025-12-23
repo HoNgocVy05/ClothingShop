@@ -25,3 +25,10 @@ main {
 img {
     object-fit: cover;
 }       
+
+tr:hover {
+    background-color: white;
+}
+thead tr:hover {
+    background-color: #f8f8f8;
+}

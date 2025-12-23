@@ -191,3 +191,10 @@
     background-color: #000;
     color: #fff;
 }
+
+.product-list-tag i {
+    margin-left: auto;
+    font-size: 1rem;
+    display: none;
+    margin-right: 50px;
+}

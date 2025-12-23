@@ -11,6 +11,11 @@
     height: fit-content;
     align-self: start;
 }
+.user-menu .fa-list {
+    display: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
 
 .sidebar-content {
     height: 100%;

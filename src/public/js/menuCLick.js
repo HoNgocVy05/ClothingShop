@@ -12,5 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.add('active');
         }
     });
+
+    // nút bộ lọc 
+    document.querySelectorAll(".fa-list").forEach(icon => {
+        const userCard = document.querySelector(".user-card");
+        const hiddenTexts = document.querySelectorAll(".hidden-text");
+        const userPage = document.querySelector(".user-page");
+
+        icon.addEventListener("click", () => {
+            userCard.classList.toggle("close");
+            userPage.classList.toggle("close");
+
+            hiddenTexts.forEach(text => {
+                text.classList.toggle("close");
+            });
+        });
+    });
 });
     

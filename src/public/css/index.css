@@ -9,6 +9,7 @@
 .tag-group {
     display: flex;
     align-items: last baseline;
+    overflow: hidden;
 }
 .tag-child {
     display: flex;

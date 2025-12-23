@@ -9,7 +9,7 @@
                     <th></th>
                     <th>Giá</th>
                     <th>Số lượng</th>
-                    <th>Thành tiền</th>
+                    <th class = "hidden-total">Thành tiền</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
                                 <button class="cart-quantity-btn" data-change="1">+</button>
                             </div>
                         </td>
-                        <td class="subtotal-cell">
+                        <td class="subtotal-cell hidden-total">
                             <% 
                                 const finalPrice = item.price;
                                 const subTotal = finalPrice * item.quantity;
