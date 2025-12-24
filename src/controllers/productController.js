@@ -114,3 +114,58 @@ exports.deleteProduct = async (req, res) => {
         return res.redirect('/admin/product-management');
     }
 };
+exports.deleteMultiple = async (req, res) => {
+    const { ids } = req.body;
+
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Chưa chọn sản phẩm nào để xóa!'
+        });
+    }
+
+    try {
+        // Kiểm tra những sản phẩm nào đã có trong order_items
+        const [linkedRows] = await pool.query(
+            'SELECT DISTINCT product_id FROM order_items WHERE product_id IN (?)',
+            [ids]
+        );
+
+        const linkedIds = linkedRows.map(row => row.product_id);
+        const safeToDeleteIds = ids.filter(id => !linkedIds.includes(parseInt(id)));
+
+        let message = '';
+        let deletedCount = 0;
+
+        if (safeToDeleteIds.length > 0) {
+            const placeholders = safeToDeleteIds.map(() => '?').join(',');
+            await pool.query(`DELETE FROM products WHERE id IN (${placeholders})`, safeToDeleteIds);
+            deletedCount = safeToDeleteIds.length;
+        }
+
+        if (linkedIds.length > 0) {
+            message = `Đã xóa thành công ${deletedCount} sản phẩm. `;
+            message += `Không thể xóa ${linkedIds.length} sản phẩm (ID: ${linkedIds.sort((a,b)=>a-b).join(', ')}) vì đã có đơn hàng liên kết.`;
+            return res.json({
+                success: true, // vẫn tính là thành công một phần
+                partial: true,
+                message,
+                deletedCount,
+                blockedIds: linkedIds
+            });
+        }
+
+        res.json({
+            success: true,
+            message: `Xóa thành công ${deletedCount} sản phẩm!`,
+            deletedCount
+        });
+
+    } catch (err) {
+        console.error('DELETE MULTIPLE ERROR:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Lỗi server khi xóa sản phẩm!'
+        });
+    }
+};

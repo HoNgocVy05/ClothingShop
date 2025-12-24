@@ -11,6 +11,7 @@
 
         <div class="add-product">
             <button class="add-product-btn open-add-form">Thêm sản phẩm</button>
+            <button id="delete-selected-btn" class="delete-selected-btn" style="display:none">Xóa đã chọn</button>
         </div>
 
         <!-- Form thêm/sửa -->
@@ -97,7 +98,7 @@
             <table>
                 <thead>
                     <tr class="table-col">
-                        <th><input type="checkbox"></th>
+                       <th><input type="checkbox" id="check-all"></th>
                         <th>Hình ảnh</th>
                         <th>Tên sản phẩm</th>
                         <th>Danh mục</th>
@@ -123,7 +124,7 @@
                             data-description="<%= (p.description || '').replace(/\"/g, '&quot;') %>" 
                             data-images='<%= JSON.stringify(p.images) %>'>
 
-                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox" class="check-item" value="<%= p.id %>"></td>
 
                             <td>
                                 <% if (p.images && p.images.length > 0) { %>

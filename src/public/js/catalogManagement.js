@@ -6,55 +6,64 @@ document.addEventListener('DOMContentLoaded', () => {
         searchBox.addEventListener('input', () => {
             const keyword = searchBox.value.toLowerCase();
             document.querySelectorAll('tbody tr').forEach(row => {
-                row.style.display =
-                    row.innerText.toLowerCase().includes(keyword) ? '' : 'none';
+                row.style.display = row.innerText.toLowerCase().includes(keyword)
+                    ? ''
+                    : 'none';
             });
         });
     }
 
     /* ================= ADD FORM ================= */
     const openBtn = document.querySelector('.open-add-form');
-    const formContainer = document.querySelector('.add-product-container');
+    const addFormContainer = document.querySelector('.add-category-container');
     const cancelBtns = document.querySelectorAll('.cancel-product-btn');
 
-    if (openBtn && formContainer) {
+    if (openBtn && addFormContainer) {
         openBtn.addEventListener('click', () => {
-            formContainer.classList.add('active');
+            addFormContainer.classList.add('active');
         });
 
         cancelBtns.forEach(btn => {
             btn.addEventListener('click', e => {
                 e.preventDefault();
-                formContainer.classList.remove('active');
+                addFormContainer.classList.remove('active');
             });
         });
     }
 
     /* ================= CHECKBOX ================= */
     const checkAll = document.getElementById('check-all');
+    const deleteSelectedBtn = document.getElementById('delete-selected-btn');
 
+    // Check all
     if (checkAll) {
         checkAll.addEventListener('change', function () {
             document
                 .querySelectorAll('.check-item, .check-group')
                 .forEach(cb => cb.checked = this.checked);
+            toggleDeleteBtn();
         });
     }
 
+    // Check group
     document.querySelectorAll('.check-group').forEach(groupCb => {
         groupCb.addEventListener('change', function () {
             const group = this.dataset.group;
             document
                 .querySelectorAll('.check-item.' + group)
                 .forEach(cb => cb.checked = this.checked);
+
             syncCheckAll();
+            toggleDeleteBtn();
         });
     });
 
+    // Check item
     document.querySelectorAll('.check-item').forEach(itemCb => {
         itemCb.addEventListener('change', function () {
             syncGroup(this);
             syncCheckAll();
+            toggleDeleteBtn();
         });
     });
 
@@ -72,7 +81,49 @@ document.addEventListener('DOMContentLoaded', () => {
     function syncCheckAll() {
         const all = document.querySelectorAll('.check-item').length;
         const checked = document.querySelectorAll('.check-item:checked').length;
-        if (checkAll) checkAll.checked = all === checked;
+        if (checkAll) checkAll.checked = all > 0 && all === checked;
+    }
+
+    /* ================= DELETE SELECTED ================= */
+    function toggleDeleteBtn() {
+        if (!deleteSelectedBtn) return;
+        const checked = document.querySelectorAll('.check-item:checked').length;
+        deleteSelectedBtn.style.display = checked > 0 ? 'inline-block' : 'none';
+    }
+
+    toggleDeleteBtn();
+
+    if (deleteSelectedBtn) {
+        deleteSelectedBtn.addEventListener('click', async () => {
+            const checkedItems = document.querySelectorAll('.check-item:checked');
+
+            if (checkedItems.length === 0) {
+                alert('Vui lòng chọn ít nhất một danh mục để xóa');
+                return;
+            }
+
+            if (!confirm(`Bạn có chắc muốn xóa ${checkedItems.length} danh mục?`)) return;
+
+            const ids = Array.from(checkedItems).map(cb => cb.value);
+
+            try {
+                const res = await fetch('/admin/catalog-management/delete-multiple', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Xóa thất bại');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Có lỗi xảy ra');
+            }
+        });
     }
 
     /* ================= EDIT MODAL ================= */

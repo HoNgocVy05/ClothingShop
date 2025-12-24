@@ -15,9 +15,12 @@
                 Thêm danh mục
             </button>
         </div>
-
+        <!-- Xóa -->
+        <button id="delete-selected-btn" class="delete-selected-btn">
+                Xóa đã chọn
+        </button>
         <!-- Form thêm danh mục -->
-        <div class="add-product-container hidden">
+        <div class="add-product-container add-category-container hidden">
             <form class="add-product-form" method="POST" action="/admin/catalog-management/add">
                 <h2>Thêm danh mục</h2>
 
@@ -76,7 +79,7 @@
                         <% parent.children.forEach(child => { %>
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="check-item male">
+                                    <input type="checkbox" class="check-item male"value="<%= child.id %>">
                                 </td>
                                 <td style="padding-left: 40px;">
                                     — <%= child.name %>
@@ -113,7 +116,7 @@
                         <% parent.children.forEach(child => { %>
                             <tr>
                                 <td>
-                                    <input type="checkbox" class="check-item female">
+                                    <input type="checkbox" class="check-item female"value="<%= child.id %>">
                                 </td>
                                 <td style="padding-left: 40px;">
                                     — <%= child.name %>
