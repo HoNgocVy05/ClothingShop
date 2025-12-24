@@ -11,12 +11,15 @@
             </p>
         </div>
         <div class="sort-form">
-            <select class="sort-select">
-                <option value="" disabled selected hidden> Sắp xếp theo </option>
-                <option value="newest">Mới nhất</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
-            </select>
+            <form method="GET" action="/search">
+                <input type="hidden" name="q" value="<%= searchQuery %>">
+                    <select name="sort" onchange="this.form.submit()">
+                        <option value="" disabled hidden> Sắp xếp theo </option>
+                        <option value="newest" <%= sort==='newest' ? 'selected' : '' %>>Mới nhất</option>
+                        <option value="price-asc" <%= sort==='price-asc' ? 'selected' : '' %>>Giá tăng dần</option>
+                        <option value="price-desc" <%= sort==='price-desc' ? 'selected' : '' %>>Giá giảm dần</option>
+                    </select>
+            </form>
         </div>
     </div>
 

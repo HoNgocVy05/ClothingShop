@@ -103,7 +103,11 @@ exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
         FROM products p
         LEFT JOIN categories c ON p.category_id = c.id
         ${conditions.length ? "WHERE " + conditions.join(" AND ") : ""}
-        ORDER BY p.id DESC
+        ORDER BY ${
+            sort === 'price-asc' ? 'p.final_price ASC' :
+            sort === 'price-desc' ? 'p.final_price DESC' :
+            'p.id DESC'
+        }
     `;
 
     const [rows] = await db.query(sql, params);
@@ -175,16 +179,28 @@ exports.delete = async (id) => {
     return true;
 };
 
-exports.searchByName = async (keyword) => {
+exports.searchByName = async (keyword, sort) => {
+    let orderBy = 'p.id DESC'; // default
+    switch (sort) {
+        case 'newest':
+            orderBy = 'p.createdAt DESC';
+            break;
+        case 'price-asc':
+            orderBy = 'p.final_price ASC';
+            break;
+        case 'price-desc':
+            orderBy = 'p.final_price DESC';
+            break;
+    }
+
     const sql = `
         SELECT p.*, c.name AS category_name
         FROM products p
         LEFT JOIN categories c ON p.category_id = c.id
         WHERE p.name LIKE ?
-        ORDER BY p.id DESC
+        ORDER BY ${orderBy}
     `;
     const [rows] = await db.query(sql, [`%${keyword}%`]);
-
     return rows.map(r => ({
         ...r,
         images: r.images ? JSON.parse(r.images) : [],
