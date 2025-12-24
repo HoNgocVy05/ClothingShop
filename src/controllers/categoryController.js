@@ -10,7 +10,7 @@ exports.getCategories = async (req, res) => {
         res.status(500).json({ success: false, message: "Lỗi load danh mục" });
     }
 };
-
+    
 // ADD
 exports.addCategory = async (req, res) => {
     try {

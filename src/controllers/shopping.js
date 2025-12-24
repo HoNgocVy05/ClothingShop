@@ -65,6 +65,7 @@ exports.submitOrder = async (req, res) => {
 
     // Kiểm tra
     const { fullname, phone, address, payment } = req.body;
+    console.log(fullname, phone, address, payment, items);
     if (!fullname || !phone || !address || !payment || !items || items.length === 0) {
         return res.status(400).json({ success: false, message: 'Vui lòng điền đầy đủ thông tin' });
     }

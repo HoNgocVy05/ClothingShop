@@ -67,7 +67,7 @@ exports.getByCategory = async (categoryId) => {
     });
 };
 
-exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
+exports.filterProducts = async ({ categoryId, isSale, priceRange, size,sort }) => {
     let conditions = [];
     let params = [];
 
