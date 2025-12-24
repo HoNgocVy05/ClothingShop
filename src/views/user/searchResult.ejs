@@ -1,45 +1,60 @@
-<div class="search-header-bar">
-    <div class="search-result-header">
-        <h1 class="search-result-title">
-            Kết quả tìm kiếm cho "<span class="search-keyword"><%= searchQuery %></span>"
-        </h1>
-        <p class="search-result-count"><%= products.length %> sản phẩm</p>
+<div class="search-page">
+    <div class="search-header-bar">
+        <div class="search-result-header">
+            <h1 class="search-result-title">
+                Kết quả tìm kiếm cho "<span class="search-keyword">
+                    <%= searchQuery %>
+                </span>"
+            </h1>
+            <p class="search-result-count">
+                <%= products.length %> sản phẩm
+            </p>
+        </div>
+        <div class="sort-form">
+            <select class="sort-select">
+                <option value="" disabled selected hidden> Sắp xếp theo </option>
+                <option value="newest">Mới nhất</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+            </select>
+        </div>
     </div>
-    <div class="sort-form">
-        <select class="sort-select">
-            <option value="" disabled selected hidden> Sắp xếp theo </option>
-            <option value="newest">Mới nhất</option>
-            <option value="price-asc">Giá tăng dần</option>
-            <option value="price-desc">Giá giảm dần</option>
-        </select>
-    </div>
-</div>
 
-<div class="search-product-list">
-    <% if (products.length === 0) { %>
-        <p>Không tìm thấy sản phẩm nào.</p>
-    <% } else { %>
-        <% products.forEach(product => { %>
-            <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>" onclick="window.location.href='/product?id=<%= product.id %>'">
-                <div class="card-img">
-                    <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>" alt="<%= product.name %>">
-                </div>
-                <div class="product-info">
-                    <a href="/product?id=<%= product.id %>" class="product-name"><%= product.name %></a>
-                    <div class="product-price">
-                        <p class="discount-price"><%= product.final_price.toLocaleString() %>đ</p>
-                        <% if (product.discount_percent > 0) { %>
-                            <p class="origin-price"><%= product.price.toLocaleString() %>đ</p>
-                        <% } %>
+    <div class="search-product-list">
+        <% if (products.length===0) { %>
+            <p>Không tìm thấy sản phẩm nào.</p>
+            <% } else { %>
+                <% products.forEach(product=> { %>
+                    <div class="product-card<%= product.discount_percent == 0 ? ' nodiscount' : '' %>"
+                        onclick="window.location.href='/product?id=<%= product.id %>'">
+                        <div class="card-img">
+                            <img src="<%= product.images && product.images[0] ? '/uploads/products/' + product.images[0] : '/images/img-product-default.png' %>"
+                                alt="<%= product.name %>">
+                        </div>
+                        <div class="product-info">
+                            <a href="/product?id=<%= product.id %>" class="product-name">
+                                <%= product.name %>
+                            </a>
+                            <div class="product-price">
+                                <p class="discount-price">
+                                    <%= product.final_price.toLocaleString() %>đ
+                                </p>
+                                <% if (product.discount_percent> 0) { %>
+                                    <p class="origin-price">
+                                        <%= product.price.toLocaleString() %>đ
+                                    </p>
+                                    <% } %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        <% }) %>
-    <% } %>
+                    <% }) %>
+                        <% } %>
+    </div>
 </div>
 
-<% if (products.length > 0) { %>
-<div class="load-more-container">
-    <button class="load-more-btn">Xem thêm</button>
-</div>
-<% } %>
+
+<% if (products.length> 0) { %>
+    <div class="load-more-container">
+        <button class="load-more-btn">Xem thêm</button>
+    </div>
+    <% } %>

@@ -1,8 +1,37 @@
-@media screen and (max-width: 800px){
-    body {
-        max-width: 850px;
-        min-width: 750px;
+@media screen and (max-width: 750px){
+    .product-list-tag {
+        font-size: 1rem;
     }
+    .logo {
+        width: 30px;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+        font-size: 1rem;
+    }
+    .user-btn .fa-user, .cart-btn .fa-shopping-cart {
+        font-size: 1rem;
+    }
+    .search-container {
+        margin-left: 30px;
+        flex: 1;
+    }
+    body {
+        max-width: 850px;   
+        min-width: 400px;
+    }
+    .footer-logo {
+        display: none;
+    }
+    .footer-info h2 {
+        font-size: 1rem;
+    }
+    .footer-info p {
+        font-size: 0.9rem;
+    }
+    .breadcrumb {
+        display: none;
+    }
+
     /* login  */
     .logsign-box {
         margin: 0 auto;
@@ -26,10 +55,34 @@
 
     /* index  */
     .product-name {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
     .product-price {
-        font-size: 1rem;
+        font-size: 0.7rem;
+    }
+    .tag {
+        font-size: 1.5rem;  
+    }
+    .tag-child {
+        display: none;
+    }
+    .sale.product-container .product-card {
+        flex: 0 0 120px;
+    } 
+    .card-img {
+        width: 120px;
+        height: 120px;
+    }
+    .card-img img {
+        width: 120px;
+        height: 120px;
+    }
+    .product-card {
+        width: 120px;
+    }
+    .product-container:not(:first-child) {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 20px;
     }
 
     /* product infomation */
@@ -152,5 +205,134 @@
     }
     .order-left h2 {
         display: none;
+    }
+    .search-page {
+        width: 100%;
+        overflow: hidden;
+    }
+    .search-product-list {
+        padding: 0;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr)
+    }
+    .sort-form {
+        margin-bottom: 20px;
+    }
+    .search-result-title {
+        font-size: 1.5rem;
+    }
+}
+/* ////////////////////////////////// */
+@media (max-width: 450px) {
+    .logo {
+        display: none;
+    }
+    .navbar a {
+        font-size: 0.7rem;
+    }
+    .search-box {
+        width: 200px;
+    }
+    .user-page {
+        display: block;
+        position: relative;
+    }   
+    .user-menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 56px; 
+        background: #ffffff;
+        z-index: 1000;
+        overflow: hidden;
+    }
+    .user-page.close .user-menu {
+        width: 240px; 
+        border-right: 2px solid #0000000b;
+    }
+    .sidebar-content {
+        margin-left: 50px;
+        width: 90%  ;
+    }
+    .sidebar-content {
+        margin-left: 50px;
+    }
+    .sidebarItem span {
+        display: none;
+    }
+    .hidden-text.close {
+        display: inline;
+    }
+
+    .sidebarItem span {
+        opacity: 0;
+        white-space: nowrap;
+    }
+    .user-page.close .sidebarItem span {
+        opacity: 1;
+    }
+
+    /* cart  */
+    .cart-product-box .cart-product-img {
+        width: 50px;
+        height: 50px;
+    }
+    .cart-product-box .cart-product-img img {
+        width: 50px;
+        height: 50px;
+    }
+    .cart-product-box .cart-product-info .product-name {
+        font-size: 0.8rem;
+    }
+    .cart-product-box .cart-product-info .size {
+        font: 0.6rem;
+    }
+   .cart-table .price-cell .discount-price,.cart-table .price-cell .origin-price{
+        font-size: 0.6rem;
+    }
+    .shopping-cart .quantity-input {
+        width: 20px;
+        height: 15px;
+        font-size: 0.5rem;
+    }
+    .cart-quantity-btn {
+        width: 10px;
+        height: 10px;
+    }
+    .shopping-cart .cart-summary {
+        font-size: 1rem ;
+    }
+
+    /* product list  */
+    .product-list-tag {
+        font-size: 1rem;
+    }
+    .product-page {
+        position: relative;
+    }
+    .filter {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 260px;
+        z-index: 1200;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        box-shadow: 3px 0 8px rgba(0,0,0,0.15);
+    }
+    .filter.close {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-img {
+        height: 450px;
     }
 }

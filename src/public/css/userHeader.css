@@ -122,10 +122,10 @@
 .navbar {
     width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 200px;
+    justify-content: space-evenly;
     background-color: #fff;
     transition: top 0.3s;
+    align-items: center;
 }
 .navbar.fixed {
     position: fixed;
