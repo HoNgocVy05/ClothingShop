@@ -1,4 +1,6 @@
 const Product = require('../models/productModel');
+const pool = require('../models/database');
+
 
 // ADD
 exports.addProduct = async (req, res) => {

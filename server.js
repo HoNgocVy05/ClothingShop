@@ -87,9 +87,10 @@ app.set('layout', './layouts/adminMaster');
 const userRoute = require('./src/routes/userRoute');
 const adminRoute = require('./src/routes/adminRoute');
 const actionRoute = require('./src/routes/actionRoute');
+app.use('/', actionRoute);
 app.use('/', userRoute);
 app.use('/admin', adminRoute);
-app.use('/', actionRoute);
+
 
 // chạy server 
 const PORT = process.env.PORT || 3000;

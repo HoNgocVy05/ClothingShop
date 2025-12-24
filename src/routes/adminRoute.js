@@ -71,7 +71,5 @@ router.post('/catalog-management/delete/:id', checkAdmin, async (req, res) => {
 );
 router.get('/order/:id', checkAdmin, adminPage.getOrderDetail);
 router.post('/order/:id/update-status', checkAdmin, adminPage.updateOrderStatus);
-router.post('/catalog-management/delete-multiple', checkAdmin, categoryController.deleteMultiple);
-router.post('/api/products/delete-multiple',checkAdmin, productController.deleteMultiple);
 
 module.exports = router;

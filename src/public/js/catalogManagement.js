@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ================= CHECKBOX ================= */
     const checkAll = document.getElementById('check-all');
-    const deleteSelectedBtn = document.getElementById('delete-selected-btn');
+    const deleteSelectedBtn = document.getElementById('delete-catagory-selected-btn');
 
     // Check all
     if (checkAll) {
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const ids = Array.from(checkedItems).map(cb => cb.value);
 
             try {
-                const res = await fetch('/admin/catalog-management/delete-multiple', {
+                const res = await fetch('/catalog-management/delete-multiple', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ids })

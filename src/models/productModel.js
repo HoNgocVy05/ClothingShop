@@ -232,6 +232,7 @@ exports.getLowStockBySize = async (threshold = 10) => {
     const [rows] = await db.query(sql, [threshold, threshold, threshold, threshold]);
     return rows;
 };
+
 exports.deleteMultiple = async (ids) => {
     if (!ids.length) return;
     const placeholders = ids.map(() => '?').join(',');
