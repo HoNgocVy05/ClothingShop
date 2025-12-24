@@ -74,11 +74,11 @@ exports.filterProducts = async ({ categoryId, isSale, priceRange, size }) => {
     // DANH MỤC (Xử lý cả cha và con)
     if (categoryId) {
         conditions.push(`p.category_id IN (SELECT id FROM categories WHERE id = ? OR parent_id = ?)`);
-        params.push(categoryId, categoryId); // Thêm 2 lần cho subquery
+        params.push(categoryId, categoryId);
     }
 
     // SALE
-    if (isSale === "1") {
+    if (isSale) {
         conditions.push("p.discount_percent > 0");
     }
 

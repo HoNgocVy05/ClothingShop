@@ -1,12 +1,13 @@
 <div class="product-list-tag">
     <%= selectedCategoryName || "DANH MỤC SẢN PHẨM" %>
+    <i class="fa-solid fa-filter filter-btn"></i>
 </div>
 <div class="product-page">
     <div class="filter">
         <div id="filter-tag">
             <h2>Bộ lọc</h2>
             <i class="fa-solid fa-filter"></i>
-            <a href="/product-list" class="reset-filter-btn" style="font-size: 0.8rem; color: #000; text-decoration: none; border: 1px solid #000000; padding: 2px 8px; border-radius: 4px;">
+            <a href="/product-list" class="reset-filter-btn">
                 Xóa bộ lọc
             </a>
         </div>
@@ -88,7 +89,7 @@
         <% } %>
 
         <% products.forEach(p => { %>
-            <div class="product-card" onclick="window.location.href='/product-infomation?id=<%= p.id %>'">
+            <div class="product-card<%= p.discount_percent ? '' : ' nodiscount' %>" onclick="location.href='/product-infomation?id=<%= p.id %>'">
                 <div class="card-img">
                     <img src="<%= p.images[0] ? '/uploads/products/' + p.images[0] : '/public/images/img-product-default.png' %>" alt="product">
                 </div>
@@ -123,6 +124,16 @@
                 content.classList.toggle("open");
                 arrow.classList.toggle("open");
             });
+        });
+         
+        // nút bộ lọc 
+        document.querySelectorAll(".filter-btn").forEach(f => {
+            const filterBox = document.querySelector(".filter");
+            const productPage = document.querySelector(".product-page");
+            f.addEventListener("click", () => {
+                filterBox.classList.toggle("close")
+                // productPage.classList.toggle("no-filter-box")
+            })
         });
 
         // Giữ checkboxes sau reload

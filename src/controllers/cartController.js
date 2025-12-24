@@ -41,7 +41,8 @@ exports.getShoppingCart = async (req, res) => {
 
             req.session.cart = cart; // lưu vào session
         } catch (err) {
-            console.error("Lỗi lấy giỏ hàng:", err);
+            console.error("Lỗi cập nhật DB giỏ hàng:", err);
+            return res.status(500).json({ message: 'Không thể thêm vào giỏ hàng' });
         }
     } else {
         // Nếu chưa login, chỉ lấy từ session

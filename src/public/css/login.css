@@ -73,6 +73,10 @@
     margin-left: 0;             
 }
 
+.input-group select, ::marker {
+    appearance: base-select;
+}
+
 .input-group select:hover {
     background: #e9e9e9;
 }
