@@ -54,3 +54,27 @@ exports.deleteCategory = async (req, res) => {
         res.status(500).json({ success: false });
     }
 };
+// DELETE MULTIPLE
+exports.deleteMultiple = async (req, res) => {
+    try {
+        const { ids } = req.body;
+
+        if (!ids || ids.length === 0) {
+            return res.json({ success: false });
+        }
+
+        await Category.deleteMultiple(ids);
+        res.json({ success: true });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false });
+    }
+};
+// delete multiple
+deleteMultiple: async (ids) => {
+    const placeholders = ids.map(() => '?').join(',');
+    const sql = `DELETE FROM categories WHERE id IN (${placeholders})`;
+    await db.query(sql, ids);
+}
+

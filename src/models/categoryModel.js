@@ -37,3 +37,12 @@ exports.delete = async (id) => {
     return true;
 };
 
+exports.deleteMultiple = async (ids) => {
+    if (!ids || ids.length === 0) return false;
+
+    await db.query(
+        `DELETE FROM categories WHERE id IN (?)`,
+        [ids]
+    );
+    return true;
+};

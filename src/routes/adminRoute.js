@@ -5,7 +5,8 @@ const { checkAdmin } = require('../middleware/auth');
 const AdminUser = require('../models/adminUserModel');
 const Category = require('../models/categoryModel');
 const login = require('../controllers/login');
-
+const categoryController = require('../controllers/categoryController');
+const productController = require('../controllers/productController');
 
 //các trang admin 
 // router.get('/admin', checkAdmin, adminPage.getAdminPage);
@@ -68,12 +69,9 @@ router.post('/catalog-management/delete/:id', checkAdmin, async (req, res) => {
         }
     }
 );
-
-
-// Xem chi tiết đơn hàng
 router.get('/order/:id', checkAdmin, adminPage.getOrderDetail);
-
-// Cập nhật trạng thái đơn hàng
 router.post('/order/:id/update-status', checkAdmin, adminPage.updateOrderStatus);
+router.post('/catalog-management/delete-multiple', checkAdmin, categoryController.deleteMultiple);
+router.post('/api/products/delete-multiple',checkAdmin, productController.deleteMultiple);
 
 module.exports = router;
