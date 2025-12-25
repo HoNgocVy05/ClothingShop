@@ -4,34 +4,43 @@ const crypto = require('crypto');
 
 // Trang login
 exports.getLogin = (req, res) => {
+    let message = null;
+    let messageType = null; 
+
+    // nhận thông báo từ reset mật khẩu
+    if (req.query.reset === 'success') {
+        message = 'Đổi mật khẩu thành công, hãy đăng nhập';
+        messageType = 'success';
+    }
+
     res.render('user/login', {
         layout: false,
         title: 'VPQ Studio - Đăng nhập',
-        message: null
+        message,
+        messageType
     });
 };
 
 // Xử lý đăng nhập
 exports.postLogin = async (req, res) => {
     const { email, password, loginType, remember } = req.body;
-    console.log("EMAIL:", email);
-    console.log("PASSWORD:", password);
-    console.log("LOGIN TYPE:", loginType);
-    console.log("REMEMBER:", remember);
+
     try {
         const user = await User.findByEmail(email);
 
         if (!user) {
             return res.render('user/login', {
                 layout: false,
-                message: "Email không tồn tại!"
+                message: 'Email không tồn tại!',
+                messageType: 'error'
             });
         }
 
         if (user.isActive === 0) {
             return res.render('user/login', {
                 layout: false,
-                message: "Tài khoản của bạn đã bị khóa!"
+                message: 'Tài khoản của bạn đã bị khóa!',
+                messageType: 'error'
             });
         }
 
@@ -39,22 +48,24 @@ exports.postLogin = async (req, res) => {
         if (!isMatch) {
             return res.render('user/login', {
                 layout: false,
-                message: "Sai mật khẩu!"
+                message: 'Sai mật khẩu!',
+                messageType: 'error'
             });
         }
 
         if (user.role !== loginType) {
             return res.render('user/login', {
                 layout: false,
-                message: `Tài khoản này không phải ${loginType}!`
+                message: `Tài khoản này không phải ${loginType}!`,
+                messageType: 'error'
             });
         }
 
-        // ❗ Xóa role còn lại
+        // Xóa session cũ
         if (loginType === 'admin') req.session.user = null;
         else req.session.admin = null;
 
-        // Lưu session
+        // Tạo session mới
         const sessionData = {
             id: user.id,
             fullname: user.fullname,
@@ -68,7 +79,7 @@ exports.postLogin = async (req, res) => {
             req.session.user = sessionData;
         }
 
-        // ===== REMEMBER LOGIN (TOKEN) =====
+        // Remember login
         if (remember) {
             const token = crypto.randomBytes(32).toString('hex');
             await User.saveRememberToken(user.id, token);
@@ -87,7 +98,8 @@ exports.postLogin = async (req, res) => {
         console.error("Lỗi đăng nhập:", err);
         return res.render('user/login', {
             layout: false,
-            message: "Lỗi hệ thống!"
+            message: 'Lỗi hệ thống!',
+            messageType: 'error'
         });
     }
 };
