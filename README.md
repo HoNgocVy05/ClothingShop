@@ -52,6 +52,7 @@ cd ClothingShop
 ### 4.3. Cài đặt thư viện
 ```bash
 npm install
+npm install nodemailer
 ```
 
 ---
@@ -78,6 +79,10 @@ MOMO_IPN_URL=http://localhost:3000/payment/momo-ipn
 
 # Database Railway
 MYSQL_URL=mysql://user:password@host:3306/dbname
+
+#mail 
+MAIL_USER=nhuphucnguyen5@gmail.com
+MAIL_PASS=tdkn ceqb jczq bmba
 ```
 
 ---
