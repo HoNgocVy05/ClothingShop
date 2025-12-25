@@ -43,6 +43,13 @@ const User = {
             [password, id]
         );
     },
+    
+     updatePasswordByEmail: async (email, password) => {
+        await pool.query(
+            "UPDATE users SET password = ? WHERE email = ?",
+            [password, email]
+        );
+    },
 
     //remember
     saveRememberToken: async (id, token) => {

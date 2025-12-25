@@ -41,13 +41,17 @@
                         <span class="checkmark"></span>
                         Ghi nhớ tôi
                     </label>
-                    <a href="#" class="forgot">Quên mật khẩu ?</a>
+                    <a href="/forgot-password" class="forgot">Quên mật khẩu ?</a>
                 </div>
 
                 <button type="submit" class="login-btn">Đăng nhập</button>
+                
+                <% if (typeof message !== 'undefined' && message) { %>
+                    <p class="message <%= messageType === 'success' ? 'success' : 'error' %>">
+                        <%= message %>
+                    </p>
+                <% } %>
 
-                <p style="color:red; margin-top:10px;"><%= message %></p> 
-    
                 <div class="or-register">
                     hoặc <a href="/signin">Đăng ký</a>
                 </div>

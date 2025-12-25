@@ -11,6 +11,7 @@ const signin = require('../controllers/signin');
 const userPage = require('../controllers/userPage');
 const support = require('../controllers/support');
 const { checkLogin, redirectIfLoggedIn } = require('../middleware/auth');
+const forgotController = require('../controllers/forgotPasswordController');
 
 // các trang user
 router.get('/', index.getIndex);
@@ -39,5 +40,11 @@ router.post('/cart/add',checkLogin, cartController.addToCart);
 router.post('/cart/remove',checkLogin, cartController.removeItem);
 router.post('/cart/update', checkLogin, cartController.updateCart);
 router.post('/change-password', checkLogin, userPage.postChangePassword);
+router.get('/forgot-password', forgotController.getStep1);
+router.post('/forgot-password/send-code', forgotController.sendCode);
+router.get('/forgot-password/verify', forgotController.getStep2);
+router.post('/forgot-password/verify-code', forgotController.verifyCode);
+router.get('/forgot-password/reset', forgotController.getStep3);
+router.post('/forgot-password/reset', forgotController.resetPassword);
 
 module.exports = router;
