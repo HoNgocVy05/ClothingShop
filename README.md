@@ -67,22 +67,17 @@ PORT=3000
 mySqlPort=3306
 mySqlHost=localhost
 mySqlUser=root
-mySqlPassword=
+mySqlPassword=your_password_here
 mySqlDb=clothingShop
 
 # MoMo Sandbox
-MOMO_ACCESS_KEY=F8BBA842ECF85
-MOMO_SECRET_KEY=K951B6PE1waDMi640xX08PD3vg6EkVlz
+MOMO_ACCESS_KEY=your_access_key
+MOMO_SECRET_KEY=your_secret_key
 MOMO_PARTNER_CODE=MOMO
-MOMO_REDIRECT_URL=http://localhost:3000/payment/momo-return
-MOMO_IPN_URL=http://localhost:3000/payment/momo-ipn
 
-# Database Railway
-MYSQL_URL=mysql://user:password@host:3306/dbname
-
-#mail 
-MAIL_USER=nhuphucnguyen5@gmail.com
-MAIL_PASS=tdkn ceqb jczq bmba
+# Mail
+MAIL_USER=your_email@gmail.com
+MAIL_PASS=your_app_password
 ```
 
 ---
